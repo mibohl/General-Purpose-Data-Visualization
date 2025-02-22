@@ -2,7 +2,7 @@
 Do you have data in tabular form, maybe from experiments or lab work and want to visualize it quickly without having to write code?
 This web-app will do the job for you! Just upload or paste the data, select the type of plot, axis labels, and colors and you are good to go!
 
-The app is hosted at [[quick-plots.streamlit.app](https://quick-plots.streamlit.app/)] and supports the following types of plots:
+The app is hosted at [quick-plots.streamlit.app](https://quick-plots.streamlit.app/) and supports the following types of plots:
 - scatter plot
 - line plot
 - bar plot
