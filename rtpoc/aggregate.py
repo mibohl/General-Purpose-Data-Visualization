@@ -73,8 +73,7 @@ def curves(c2, group, path):
             ax.axhline(0.9, color="#c3c2b7", lw=1, ls=":")
             ax.text(ns[-1], 0.9, " -10%", va="center", fontsize=8, color="#52514e")
     axes[0].legend(frameon=False, fontsize=8.5)
-    names = EASY if group == "easy" else HARD
-    fig.suptitle(f"{group.capitalize()} datasets (k={len(names)}): RT error vs. context size, "
+    fig.suptitle(f"{group.capitalize()} datasets (k={d.dataset.nunique()}): RT error vs. context size, "
                  f"2,000 queries, 5 seeds", fontsize=11, x=0.01, ha="left")
     fig.tight_layout()
     fig.savefig(path, dpi=150)
@@ -84,7 +83,7 @@ def curves(c2, group, path):
 
 def per_dataset_grid(c2, path):
     d = c2[c2.subset == "all"].groupby(["dataset", "method", "n"]).rel_mae.mean().reset_index()
-    names = EASY + HARD
+    names = [x for x in EASY + HARD if x in set(d.dataset)]
     fig, axes = plt.subplots(4, 4, figsize=(14, 12), sharex=True)
     for ax, name in zip(axes.flat, names):
         x = d[d.dataset == name]
@@ -140,6 +139,8 @@ def main():
 
     if c2 is not None:
         for g in ("easy", "hard"):
+            if not (c2.group == g).any():
+                continue
             agg = curves(c2, g, os.path.join(RES, f"curves_{g}.png"))
             out.append(f"\n## C2 {g}: mean relative MAE over datasets\n")
             out.append(fmt(agg.rel_mae.unstack("n").reindex(METHODS)))
