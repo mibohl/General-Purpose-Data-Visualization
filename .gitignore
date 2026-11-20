@@ -5,3 +5,4 @@ data/models/
 data/processed/
 results/logs/
 __pycache__/
+results/parts/
