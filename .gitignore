@@ -1,0 +1,7 @@
+# RT PoC caches (re-creatable; see rtpoc/README.md)
+data/raw/
+data/zenodo/
+data/models/
+data/processed/
+results/logs/
+__pycache__/
