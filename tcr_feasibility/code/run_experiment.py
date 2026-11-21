@@ -51,6 +51,8 @@ QUERY_POS_FRAC = 0.35
 QUERY_POS_MIN, QUERY_POS_MAX = 15, 80
 KNN_K = 5
 FEATURE_MODE = "beta"   # "beta" (primary) or "paired" (beta+alpha, secondary)
+ALL_METHODS = ["tabpfn", "kumo", "tcrdist", "logreg", "lightgbm", "zeroshot"]
+ACTIVE_METHODS = set(ALL_METHODS)   # overridden by --methods
 
 _FIELDS = ["scheme", "epitope", "seed", "k", "method", "auroc", "auprc",
            "n_support", "n_support_pos", "n_query", "n_query_pos",
@@ -154,6 +156,33 @@ def reserve_neg_by_cluster(df, n_target, rng, col="gcluster"):
 # --------------------------------------------------------------------------- #
 # TCRdist
 # --------------------------------------------------------------------------- #
+_KUMO = {"clf": None}
+
+
+def kumo_get():
+    """Lazily build and cache the Kumo Tabular (small) in-context classifier."""
+    if _KUMO["clf"] is None:
+        import torch  # noqa
+        from sdm.models import KumoTabular
+        _KUMO["clf"] = KumoTabular(task="classification", size="small",
+                                   device="cpu", pretrained=True)
+    return _KUMO["clf"]
+
+
+def kumo_proba(Xs, ys, Xq):
+    """P(class==1) for query rows via Kumo Tabular small, in-context on (Xs,ys)."""
+    import torch
+    from sdm import CategoricalTensor, StringTensor
+    clf = kumo_get()
+    ycat = CategoricalTensor(code=torch.tensor(ys).view(-1, 1).long(),
+                             categories=(StringTensor.from_list(["0", "1"]),))
+    clf.fit(torch.from_numpy(np.ascontiguousarray(Xs)), ycat)
+    pred = clf.predict(torch.from_numpy(np.ascontiguousarray(Xq)))
+    cols = list(pred.numerical_columns)
+    idx = cols.index("1")                       # extract by NAME (order not fixed)
+    return pred.numerical[:, idx].detach().float().numpy()
+
+
 def tcrdist_scores(query_df, support_binder_df):
     """
     Return (nn_score, knn_score) arrays for query rows: higher = more likely a
@@ -242,8 +271,10 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
     n_public_removed = neg_pool.attrs.get("n_public_removed", 0)
 
     # zero-shot models depend on scheme + held_ep only (seed-robust): train once
-    zs_rng = np.random.RandomState(12345)
-    zs = train_zeroshot(scheme, held_ep, pos_all, controls, zs_rng)
+    zs = None
+    if "zeroshot" in ACTIVE_METHODS:
+        zs_rng = np.random.RandomState(12345)
+        zs = train_zeroshot(scheme, held_ep, pos_all, controls, zs_rng)
 
     npos = len(pos_ep)
     qp = int(np.clip(round(QUERY_POS_FRAC * npos), QUERY_POS_MIN, QUERY_POS_MAX))
@@ -266,14 +297,15 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
             continue
 
         # zero-shot: evaluate once per (epitope,scheme,seed) on this query
-        for mname, probs in zip(("zeroshot_lr", "zeroshot_lgbm"),
-                                zeroshot_predict(zs, query, held_ep)):
-            key = (scheme, held_ep, seed, 0, mname)
-            if key in done_keys:
-                continue
-            _emit(writer, logf, scheme, held_ep, seed, 0, mname,
-                  yq, probs, 0, 0, len(yq), int(yq.sum()), 0.0,
-                  f"public_rm={n_public_removed}")
+        if "zeroshot" in ACTIVE_METHODS:
+            for mname, probs in zip(("zeroshot_lr", "zeroshot_lgbm"),
+                                    zeroshot_predict(zs, query, held_ep)):
+                key = (scheme, held_ep, seed, 0, mname)
+                if key in done_keys:
+                    continue
+                _emit(writer, logf, scheme, held_ep, seed, 0, mname,
+                      yq, probs, 0, 0, len(yq), int(yq.sum()), 0.0,
+                      f"public_rm={n_public_removed}")
 
         pool_pos = pool_pos.reset_index(drop=True)
         pool_neg = pool_neg.reset_index(drop=True)
@@ -294,12 +326,14 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
             ys = np.r_[np.ones(half), np.zeros(half)]
 
             # features (target encoders fit on support only)
-            Xs, te_v, te_j = tcr_features(support, fit_labels=ys)
-            Xq, _, _ = tcr_features(query, te_v=te_v, te_j=te_j)
+            feat_needed = ACTIVE_METHODS & {"tabpfn", "kumo", "logreg", "lightgbm"}
+            if feat_needed:
+                Xs, te_v, te_j = tcr_features(support, fit_labels=ys)
+                Xq, _, _ = tcr_features(query, te_v=te_v, te_j=te_j)
 
             # ---- TabPFN ----
             key = (scheme, held_ep, seed, k, "tabpfn")
-            if key not in done_keys:
+            if "tabpfn" in ACTIVE_METHODS and key not in done_keys:
                 t = time.time()
                 try:
                     tabpfn_clf.fit(Xs, ys)
@@ -312,9 +346,23 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
                           None, None, k, half, len(yq), int(yq.sum()),
                           time.time() - t, f"ERR:{type(e).__name__}:{e}")
 
+            # ---- Kumo Tabular (small) ----
+            key = (scheme, held_ep, seed, k, "kumo")
+            if "kumo" in ACTIVE_METHODS and key not in done_keys:
+                t = time.time()
+                try:
+                    p = kumo_proba(Xs, ys, Xq)
+                    _emit(writer, logf, scheme, held_ep, seed, k, "kumo",
+                          yq, p, k, half, len(yq), int(yq.sum()),
+                          time.time() - t, "")
+                except Exception as e:
+                    _emit(writer, logf, scheme, held_ep, seed, k, "kumo",
+                          None, None, k, half, len(yq), int(yq.sum()),
+                          time.time() - t, f"ERR:{type(e).__name__}:{e}")
+
             # ---- Logistic regression ----
             key = (scheme, held_ep, seed, k, "logreg")
-            if key not in done_keys:
+            if "logreg" in ACTIVE_METHODS and key not in done_keys:
                 t = time.time()
                 lr = make_pipeline(StandardScaler(),
                                    LogisticRegression(max_iter=2000, C=1.0))
@@ -325,7 +373,7 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
 
             # ---- LightGBM ----
             key = (scheme, held_ep, seed, k, "lightgbm")
-            if key not in done_keys:
+            if "lightgbm" in ACTIVE_METHODS and key not in done_keys:
                 t = time.time()
                 gb = lgb.LGBMClassifier(n_estimators=200, num_leaves=15,
                                         max_depth=-1, learning_rate=0.05,
@@ -339,7 +387,7 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
             # ---- TCRdist NN / kNN (scored vs support binders) ----
             need_nn = (scheme, held_ep, seed, k, "tcrdist_nn") not in done_keys
             need_knn = (scheme, held_ep, seed, k, "tcrdist_knn") not in done_keys
-            if need_nn or need_knn:
+            if "tcrdist" in ACTIVE_METHODS and (need_nn or need_knn):
                 t = time.time()
                 try:
                     nn, knn = tcrdist_scores(query, s_pos)
@@ -399,14 +447,18 @@ def main():
     ap.add_argument("--feature-mode", choices=["beta", "paired"], default="beta")
     ap.add_argument("--out", default=None, help="results csv path override")
     ap.add_argument("--seeds", type=int, default=None, help="limit to first N seeds")
+    ap.add_argument("--methods", nargs="+", default=None,
+                    help=f"subset of {ALL_METHODS}; default all")
     args = ap.parse_args()
 
-    global FEATURE_MODE, RESULTS_CSV, SEEDS
+    global FEATURE_MODE, RESULTS_CSV, SEEDS, ACTIVE_METHODS
     FEATURE_MODE = args.feature_mode
     if args.out:
         RESULTS_CSV = args.out
     if args.seeds:
         SEEDS = SEEDS[:args.seeds]
+    if args.methods:
+        ACTIVE_METHODS = set(args.methods)
 
     import csv
     pos_all = pd.read_parquet(os.path.join(CACHE, "positives.parquet"))
@@ -425,8 +477,12 @@ def main():
     newfile = args.fresh or not os.path.exists(RESULTS_CSV)
     mode = "w" if newfile else "a"
 
-    from tabpfn import TabPFNClassifier
-    tabpfn_clf = TabPFNClassifier(device="cpu")
+    tabpfn_clf = None
+    if "tabpfn" in ACTIVE_METHODS:
+        from tabpfn import TabPFNClassifier
+        tabpfn_clf = TabPFNClassifier(device="cpu")
+    if "kumo" in ACTIVE_METHODS:
+        kumo_get()  # warm the model once up front
 
     f = open(RESULTS_CSV, mode, newline="")
     writer = csv.writer(f)

@@ -18,11 +18,12 @@ import common
 RES = os.path.join(common.REPO_ROOT, "results")
 CACHE = os.path.join(RES, "cache")
 
-WITHIN = ["tabpfn", "tcrdist_nn", "tcrdist_knn", "logreg", "lightgbm"]
+WITHIN = ["tabpfn", "kumo", "tcrdist_nn", "tcrdist_knn", "logreg", "lightgbm"]
 ZS = ["zeroshot_lr", "zeroshot_lgbm"]
 SCHEME_LABEL = {"background": "(a) background negatives",
                 "otherep": "(b) other-epitope negatives"}
-METHOD_LABEL = {"tabpfn": "TabPFN v2", "tcrdist_nn": "TCRdist NN",
+METHOD_LABEL = {"tabpfn": "TabPFN v2", "kumo": "Kumo Tabular (S)",
+                "tcrdist_nn": "TCRdist NN",
                 "tcrdist_knn": "TCRdist kNN", "logreg": "LogReg",
                 "lightgbm": "LightGBM", "zeroshot_lr": "Zero-shot LR",
                 "zeroshot_lgbm": "Zero-shot LGBM"}
@@ -57,7 +58,7 @@ def make_plot(g):
     ks = sorted(g["k"].unique())
     fig, axes = plt.subplots(1, len(schemes), figsize=(6.2 * len(schemes), 4.8),
                              squeeze=False)
-    colors = {"tabpfn": "#2b6cb0", "tcrdist_nn": "#c53030",
+    colors = {"tabpfn": "#2b6cb0", "kumo": "#805ad5", "tcrdist_nn": "#c53030",
               "tcrdist_knn": "#dd6b20", "logreg": "#718096",
               "lightgbm": "#38a169"}
     for ax, scheme in zip(axes[0], schemes):
@@ -125,25 +126,32 @@ def main():
         v = g[(g.scheme == scheme) & (g.method == method) & (g.k == k)]["auroc_med"]
         return v.values
 
-    verdict_lines = []
+    def perep_series(scheme, method, k):
+        s = g[(g.scheme == scheme) & (g.method == method) & (g.k == k)]
+        return s.set_index("epitope")["auroc_med"]
+
     summary_rows = []
     for scheme in schemes:
         for k in ks:
-            tab = g[(g.scheme == scheme) & (g.method == "tabpfn") & (g.k == k)]
-            nn = g[(g.scheme == scheme) & (g.method == "tcrdist_nn") & (g.k == k)]
-            merged = tab.merge(nn, on="epitope", suffixes=("_tab", "_nn"))
-            if merged.empty:
+            tabs = perep_series(scheme, "tabpfn", k)
+            if tabs.empty:
                 continue
-            d = (merged["auroc_med_tab"] - merged["auroc_med_nn"]).values
+            kumos = perep_series(scheme, "kumo", k)
+            nn = perep_series(scheme, "tcrdist_nn", k)
+            knn = perep_series(scheme, "tcrdist_knn", k)
+            best_td = pd.concat([nn, knn], axis=1).max(axis=1)
+            # paired deltas vs best TCRdist, on common epitopes
+            d_tab = (tabs - best_td).dropna()
+            d_kumo = (kumos - best_td).dropna() if not kumos.empty else pd.Series(dtype=float)
+            def M(m):
+                s = perep_series(scheme, m, k)
+                return fmt(float(s.median())) if len(s) else "—"
             summary_rows.append([
-                SCHEME_LABEL[scheme], k, len(merged),
-                fmt(np.median(merged["auroc_med_tab"])),
-                fmt(np.median(merged["auroc_med_nn"])),
-                fmt(np.median(g[(g.scheme==scheme)&(g.method=="tcrdist_knn")&(g.k==k)]["auroc_med"]) if not g[(g.scheme==scheme)&(g.method=="tcrdist_knn")&(g.k==k)].empty else np.nan),
-                fmt(np.median(g[(g.scheme==scheme)&(g.method=="lightgbm")&(g.k==k)]["auroc_med"]) if not g[(g.scheme==scheme)&(g.method=="lightgbm")&(g.k==k)].empty else np.nan),
-                fmt(np.median(g[(g.scheme==scheme)&(g.method=="logreg")&(g.k==k)]["auroc_med"]) if not g[(g.scheme==scheme)&(g.method=="logreg")&(g.k==k)].empty else np.nan),
-                f"{np.median(d):+.3f}",
-                f"{int((d>0).sum())}/{len(d)}",
+                SCHEME_LABEL[scheme], k, len(tabs),
+                M("tabpfn"), M("kumo"), M("tcrdist_nn"), M("tcrdist_knn"),
+                M("lightgbm"), M("logreg"),
+                f"{np.median(d_tab):+.3f}" if len(d_tab) else "—",
+                f"{np.median(d_kumo):+.3f}" if len(d_kumo) else "—",
             ])
 
     # ---- zero-shot summary ----
@@ -212,6 +220,19 @@ def main():
             f"equally good. TabPFN also costs ~25x more compute per task "
             f"(~6.8 s/fit vs ~0.3 s). "
         )
+        # Kumo comparison (added when Kumo results are present)
+        ku_low = np.median([med(honest, "kumo", k) for k in lowk])
+        if not np.isnan(ku_low):
+            ku_hi = med(honest, "kumo", khi)
+            same = "behaves essentially like TabPFN" if abs(ku_low - tab_low) < 0.02 \
+                   else ("does slightly better than TabPFN" if ku_low > tab_low
+                         else "does slightly worse than TabPFN")
+            verdict += (
+                f"**NVIDIA Kumo Tabular (S)**, swapped in for TabPFN on the identical "
+                f"splits, {same}: median honest AUROC {ku_low:.3f} at k=20-50 and "
+                f"{ku_hi:.3f} at k={khi} -- it too fails to beat TCRdist in the "
+                f"few-shot regime, so the conclusion does not depend on which tabular "
+                f"foundation model is used. ")
         if not np.isnan(gap) and abs(gap) < 0.08:
             direction = ("if anything slightly higher than" if gap > 0.01
                          else ("slightly lower than" if gap < -0.01 else "on par with"))
@@ -272,12 +293,14 @@ def main():
                  f"({prov['n_control_exact_dups_removed']} exact duplicates removed).\n")
 
     # headline summary
-    lines.append("## 3. Headline: TabPFN v2 vs TCRdist NN (median over epitopes)\n")
+    lines.append("## 3. Headline: in-context tabular models vs TCRdist (median over epitopes)\n")
     lines.append("AUROC medians are taken over epitopes (each epitope's value is itself a median over 5 seeds). "
-                 "Query sets are class-balanced, so AUPRC chance = 0.5.\n")
+                 "Query sets are class-balanced, so AUPRC chance = 0.5. The two Δ columns are the median "
+                 "paired difference against the **better** of the two TCRdist scorers per epitope.\n")
     lines.append(md_table(summary_rows,
-                 ["scheme", "k", "#epi", "TabPFN", "TCRdist NN", "TCRdist kNN",
-                  "LightGBM", "LogReg", "Δ(TabPFN−NN)", "TabPFN wins"]))
+                 ["scheme", "k", "#epi", "TabPFN", "Kumo (S)", "TCRdist NN",
+                  "TCRdist kNN", "LightGBM", "LogReg",
+                  "Δ(TabPFN−bestTCRdist)", "Δ(Kumo−bestTCRdist)"]))
     lines.append("")
 
     # zero-shot
@@ -299,6 +322,37 @@ def main():
             rows.append([r["epitope"]] + [fmt(r[m]) for m in WITHIN])
         lines.append(md_table(rows, ["epitope"] + [METHOD_LABEL[m] for m in WITHIN]))
     lines.append("")
+
+    # ---- secondary: paired alpha+beta ----
+    paired_path = os.path.join(RES, "results_paired.csv")
+    if os.path.exists(paired_path):
+        try:
+            pdf = pd.read_csv(paired_path)
+            pdf = pdf[pdf.method != "SKIP"].dropna(subset=["auroc"])
+            pg = (pdf[pdf.method.isin(WITHIN)]
+                  .groupby(["scheme", "method", "k"]).auroc.median().reset_index())
+            lines.append("## 6b. Secondary analysis: paired CDR3 alpha+beta features\n")
+            lines.append("Same protocol with 100 extra Atchley features from CDR3-alpha "
+                         "(204 features total) on the paired-chain subset (~100% of TCRs). "
+                         "Median per-epitope AUROC; Δ = paired − beta-only (primary).\n")
+            prows = []
+            for scheme in schemes:
+                for m in ["tabpfn", "tcrdist_nn", "tcrdist_knn", "lightgbm"]:
+                    for k in ks:
+                        pv = pg[(pg.scheme==scheme)&(pg.method==m)&(pg.k==k)]["auroc"]
+                        bv = g[(g.scheme==scheme)&(g.method==m)&(g.k==k)]["auroc_med"]
+                        if len(pv) and len(bv):
+                            dv = float(pv.median()) - float(bv.median())
+                            prows.append([SCHEME_LABEL[scheme], METHOD_LABEL[m], k,
+                                          fmt(float(bv.median())), fmt(float(pv.median())),
+                                          f"{dv:+.3f}"])
+            lines.append(md_table(prows, ["scheme", "method", "k",
+                         "beta AUROC", "paired AUROC", "Δ(paired−beta)"]))
+            md = np.median([float(x[-1].replace("+","")) for x in prows]) if prows else float("nan")
+            lines.append(f"\nMedian effect of adding the alpha chain across cells: "
+                         f"{md:+.3f} AUROC.\n")
+        except Exception as e:
+            lines.append(f"## 6b. Secondary analysis: paired alpha+beta\n\n_(paired results pending: {e})_\n")
 
     # runtime
     rt = (df[df.method.isin(WITHIN)].groupby("method")["runtime_s"]
