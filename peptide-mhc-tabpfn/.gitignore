@@ -7,3 +7,4 @@ __pycache__/
 *.pyc
 # in-progress run output (force-added in final commit)
 results/results.csv
+results/results_kumo.csv

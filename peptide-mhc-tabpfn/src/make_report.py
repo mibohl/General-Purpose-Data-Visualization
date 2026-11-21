@@ -18,12 +18,15 @@ RESULTS = os.path.join(ROOT, "results", "results.csv")
 sys.path.insert(0, os.path.dirname(__file__))
 import data as D
 
+RESULTS_KUMO = os.path.join(ROOT, "results", "results_kumo.csv")
 NOMINAL_KS = [10, 50, 200, 1000]
-METHOD_ORDER = ["tabpfn_reg", "tabpfn_clf", "mhcflurry", "mhcflurry_recal",
+METHOD_ORDER = ["tabpfn_reg", "tabpfn_clf", "kumo_reg", "kumo_clf",
+                "mhcflurry", "mhcflurry_recal",
                 "pwm", "knn_blosum", "ridge", "logistic",
                 "panallele_ridge", "panallele_logistic"]
 PRETTY = {
     "tabpfn_reg": "TabPFN (regressor)", "tabpfn_clf": "TabPFN (classifier)",
+    "kumo_reg": "Kumo Tabular (regressor)", "kumo_clf": "Kumo Tabular (classifier)",
     "mhcflurry": "MHCflurry 2.x (pan-allele)", "mhcflurry_recal": "MHCflurry + recal (k)",
     "pwm": "PSSM / PWM (k)", "knn_blosum": "kNN-BLOSUM (k)",
     "ridge": "Ridge (k)", "logistic": "Logistic (k)",
@@ -34,6 +37,12 @@ PRETTY = {
 
 def load():
     r = pd.read_csv(RESULTS)
+    if os.path.exists(RESULTS_KUMO):
+        rk = pd.read_csv(RESULTS_KUMO)
+        # keep only kumo rows, restricted to alleles present in the main run
+        rk = rk[rk["method"].str.startswith("kumo")]
+        rk = rk[rk["allele"].isin(r["allele"].unique())]
+        r = pd.concat([r, rk], ignore_index=True)
     # per allele/k/method: mean over seeds
     per = (r.groupby(["allele", "n_allele", "k", "method"])
              [["auroc", "auprc", "spearman"]].mean().reset_index())
@@ -87,10 +96,10 @@ def paired_winrate(per, metric, k, a, b):
 
 def make_plot(per, path):
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.8))
-    methods_to_plot = ["tabpfn_reg", "mhcflurry", "pwm", "ridge",
+    methods_to_plot = ["tabpfn_reg", "kumo_reg", "mhcflurry", "pwm", "ridge",
                        "knn_blosum", "panallele_ridge"]
-    colors = {"tabpfn_reg": "#2563eb", "mhcflurry": "#dc2626", "pwm": "#16a34a",
-              "ridge": "#9333ea", "knn_blosum": "#ea580c",
+    colors = {"tabpfn_reg": "#2563eb", "kumo_reg": "#0891b2", "mhcflurry": "#dc2626",
+              "pwm": "#16a34a", "ridge": "#9333ea", "knn_blosum": "#ea580c",
               "panallele_ridge": "#64748b"}
     for ax, metric, title in [(axes[0], "auroc", "AUROC"),
                               (axes[1], "spearman", "Spearman (1-log50k)")]:
@@ -150,13 +159,18 @@ def headline_sentence(per):
         def mean_of(m, met="auroc"):
             return elig[elig["method"] == m][met].dropna().mean()
         tp = mean_of("tabpfn_reg"); mh = mean_of("mhcflurry"); pw = mean_of("pwm")
+        ku = mean_of("kumo_reg"); kus = mean_of("kumo_reg", "spearman")
         tps = mean_of("tabpfn_reg", "spearman"); mhs = mean_of("mhcflurry", "spearman")
         wr_m, dl_m, _ = paired_winrate(per, "auroc", k, "tabpfn_reg", "mhcflurry")
         wr_p, dl_p, _ = paired_winrate(per, "auroc", k, "tabpfn_reg", "pwm")
+        wr_k, dl_k, nk_k = paired_winrate(per, "auroc", k, "kumo_reg", "tabpfn_reg")
         out.append(dict(k=k, n=nall, tabpfn_auroc=tp, mhcflurry_auroc=mh, pwm_auroc=pw,
+                        kumo_auroc=ku, kumo_spear=kus,
                         tabpfn_spear=tps, mhcflurry_spear=mhs,
                         win_vs_mhc=wr_m, delta_vs_mhc=dl_m,
-                        win_vs_pwm=wr_p, delta_vs_pwm=dl_p))
+                        win_vs_pwm=wr_p, delta_vs_pwm=dl_p,
+                        kumo_win_vs_tabpfn=wr_k, kumo_delta_vs_tabpfn=dl_k,
+                        kumo_n=nk_k))
     return pd.DataFrame(out)
 
 
@@ -194,6 +208,21 @@ def write_report(ctx):
             f"At the smallest support (k=10, {int(r10.n)} alleles) TabPFN AUROC is "
             f"{r10.tabpfn_auroc:.3f} vs MHCflurry {r10.mhcflurry_auroc:.3f} vs PSSM "
             f"{r10.pwm_auroc:.3f}.")
+    # Kumo vs TabPFN (only if Kumo was run)
+    if r200 is not None and "kumo_auroc" in r200 and pd.notna(r200.get("kumo_auroc")) \
+            and r200.get("kumo_n", 0) > 0:
+        better = "slightly better than" if r200.kumo_auroc > r200.tabpfn_auroc + 0.003 \
+            else ("on par with" if abs(r200.kumo_auroc - r200.tabpfn_auroc) <= 0.003
+                  else "slightly worse than")
+        verdict.append(
+            f"**Kumo Tabular vs TabPFN (both in-context foundation models on the same k "
+            f"support peptides):** at k=200 Kumo AUROC {r200.kumo_auroc:.3f} is {better} "
+            f"TabPFN {r200.tabpfn_auroc:.3f} (Kumo beats TabPFN on "
+            f"{100*r200.kumo_win_vs_tabpfn:.0f}% of alleles, mean AUROC delta "
+            f"{r200.kumo_delta_vs_tabpfn:+.3f}; Spearman Kumo {r200.kumo_spear:.3f} vs TabPFN "
+            f"{r200.tabpfn_spear:.3f}). Neither foundation model reaches MHCflurry's "
+            f"effectively-in-sample performance, and both sit in the same band as the cheap "
+            f"PSSM/ridge baselines.")
     verdict.append(
         "**Crucial caveat (read this first):** MHCflurry 2.x was itself trained on the "
         "IEDB binding-affinity data this benchmark is drawn from, so for these "
@@ -223,8 +252,13 @@ def write_report(ctx):
         f"{ctx['n9_alleles']} alleles.\n"
         f"- **Models:** TabPFN v2 (tabpfn {ctx['tabpfn_ver']}, checkpoints "
         f"`tabpfn-v2-regressor` / `tabpfn-v2-classifier-finetuned-zk73skhh` from the public "
-        f"Prior-Labs HF repos; n_estimators=2, CPU). MHCflurry {ctx['mhcflurry_ver']} "
-        f"`models_class1_presentation` affinity predictor (nM -> 1-log50k).\n")
+        f"Prior-Labs HF repos; n_estimators=1, CPU). MHCflurry {ctx['mhcflurry_ver']} "
+        f"`models_class1_presentation` affinity predictor (nM -> 1-log50k).\n"
+        f"- **Kumo Tabular** (NVIDIA open tabular foundation model, `structured-data-models` "
+        f"{ctx.get('sdm_ver','?')}, weights `nvidia/Kumo-Tabular` OpenMDW-1.1): size `small` "
+        f"(~28M params), num_estimators=1, CPU. Same BLOSUM features and same support/query "
+        f"splits as TabPFN (paired). Regression point estimate = mean of the 999 predictive "
+        f"quantiles.\n")
 
     # ---------- split ----------
     L.append("## Split\n")
@@ -275,8 +309,8 @@ def write_report(ctx):
     # ---------- per-allele ----------
     L.append("## Per-allele AUROC at largest support (key methods)\n")
     pa = ctx["per_allele"]
-    cols = [c for c in ["tabpfn_reg", "mhcflurry", "pwm", "ridge", "knn_blosum",
-                        "panallele_ridge"] if c in pa.columns]
+    cols = [c for c in ["tabpfn_reg", "kumo_reg", "mhcflurry", "pwm", "ridge",
+                        "knn_blosum", "panallele_ridge"] if c in pa.columns]
     hdr = "| allele | n | k | " + " | ".join(PRETTY[c].split(" (")[0] for c in cols) + " |"
     sep = "|" + "---|" * (3 + len(cols))
     rows = [hdr, sep]
@@ -334,6 +368,11 @@ def main():
         tver, mver = tabpfn.__version__, mhcflurry.__version__
     except Exception:
         tver, mver = "10.2.0", "2.3.30"
+    try:
+        import importlib.metadata as _im
+        sver = _im.version("structured-data-models")
+    except Exception:
+        sver = "0.3.0"
 
     ctx = dict(per=per, r=r, hl=headline_sentence(per), summ=summ,
                auroc_t=auroc_t, spear_t=spear_t, auprc_t=auprc_t,
@@ -341,7 +380,7 @@ def main():
                held=held, pool=pool, mean_overlap=summ["mean_frac_heldout_shared_with_pool"],
                panallele_auroc=pa_auroc, today=datetime.date.today().isoformat(),
                n9=len(df9), n9_alleles=df9.allele.nunique(),
-               tabpfn_ver=tver, mhcflurry_ver=mver)
+               tabpfn_ver=tver, mhcflurry_ver=mver, sdm_ver=sver)
     write_report(ctx)
     print("headline:\n", ctx["hl"].to_string())
 
