@@ -1,0 +1,182 @@
+{
+  "dataset": "IMMREP22 (Working Group 6) TCR specificity benchmark",
+  "source_url": "https://github.com/viragbioinfo/IMMREP_2022_TCRSpecificity",
+  "positive_source": "VDJdb-derived, tetramer/dextramer-sorted, paired alpha-beta",
+  "background_negative_source": "unpublished healthy-donor CD8+CD96+ TCRs (A. Eugster, 11 donors)",
+  "ident_threshold": 0.9,
+  "min_positives_kept": 100,
+  "feature_note": "CDR3-beta only for primary; epitope is constant within a task so no epitope features used within-task.",
+  "epitopes": {
+    "ATDALMTGF": {
+      "n_raw_positive": 130,
+      "n_valid": 130,
+      "n_exact_dups_removed": 15,
+      "n_unique_positive": 115,
+      "n_clusters_90pct": 101,
+      "largest_cluster": 5,
+      "kept": true
+    },
+    "CINGVCWTV": {
+      "n_raw_positive": 229,
+      "n_valid": 229,
+      "n_exact_dups_removed": 8,
+      "n_unique_positive": 221,
+      "n_clusters_90pct": 208,
+      "largest_cluster": 3,
+      "kept": true
+    },
+    "GILGFVFTL": {
+      "n_raw_positive": 680,
+      "n_valid": 679,
+      "n_exact_dups_removed": 235,
+      "n_unique_positive": 444,
+      "n_clusters_90pct": 282,
+      "largest_cluster": 21,
+      "kept": true
+    },
+    "GLCTLVAML": {
+      "n_raw_positive": 183,
+      "n_valid": 183,
+      "n_exact_dups_removed": 38,
+      "n_unique_positive": 145,
+      "n_clusters_90pct": 105,
+      "largest_cluster": 7,
+      "kept": true
+    },
+    "GPRLGVRAT": {
+      "n_raw_positive": 51,
+      "n_valid": 51,
+      "n_exact_dups_removed": 9,
+      "n_unique_positive": 42,
+      "n_clusters_90pct": 41,
+      "largest_cluster": 2,
+      "kept": false
+    },
+    "HPVTKYIM": {
+      "n_raw_positive": 60,
+      "n_valid": 60,
+      "n_exact_dups_removed": 4,
+      "n_unique_positive": 56,
+      "n_clusters_90pct": 51,
+      "largest_cluster": 4,
+      "kept": false
+    },
+    "KSKRTPMGF": {
+      "n_raw_positive": 107,
+      "n_valid": 107,
+      "n_exact_dups_removed": 23,
+      "n_unique_positive": 84,
+      "n_clusters_90pct": 62,
+      "largest_cluster": 5,
+      "kept": true
+    },
+    "LLWNGPMAV": {
+      "n_raw_positive": 235,
+      "n_valid": 235,
+      "n_exact_dups_removed": 13,
+      "n_unique_positive": 222,
+      "n_clusters_90pct": 187,
+      "largest_cluster": 6,
+      "kept": true
+    },
+    "LTDEMIAQY": {
+      "n_raw_positive": 125,
+      "n_valid": 125,
+      "n_exact_dups_removed": 6,
+      "n_unique_positive": 119,
+      "n_clusters_90pct": 111,
+      "largest_cluster": 4,
+      "kept": true
+    },
+    "NLVPMVATV": {
+      "n_raw_positive": 343,
+      "n_valid": 341,
+      "n_exact_dups_removed": 24,
+      "n_unique_positive": 317,
+      "n_clusters_90pct": 290,
+      "largest_cluster": 6,
+      "kept": true
+    },
+    "NQKLIANQF": {
+      "n_raw_positive": 71,
+      "n_valid": 71,
+      "n_exact_dups_removed": 3,
+      "n_unique_positive": 68,
+      "n_clusters_90pct": 67,
+      "largest_cluster": 2,
+      "kept": false
+    },
+    "NYNYLYRLF": {
+      "n_raw_positive": 56,
+      "n_valid": 56,
+      "n_exact_dups_removed": 4,
+      "n_unique_positive": 52,
+      "n_clusters_90pct": 30,
+      "largest_cluster": 8,
+      "kept": false
+    },
+    "RAQAPPPSW": {
+      "n_raw_positive": 45,
+      "n_valid": 45,
+      "n_exact_dups_removed": 36,
+      "n_unique_positive": 9,
+      "n_clusters_90pct": 7,
+      "largest_cluster": 3,
+      "kept": false
+    },
+    "SPRWYFYYL": {
+      "n_raw_positive": 116,
+      "n_valid": 116,
+      "n_exact_dups_removed": 0,
+      "n_unique_positive": 116,
+      "n_clusters_90pct": 114,
+      "largest_cluster": 2,
+      "kept": true
+    },
+    "TPRVTGGGAM": {
+      "n_raw_positive": 57,
+      "n_valid": 57,
+      "n_exact_dups_removed": 0,
+      "n_unique_positive": 57,
+      "n_clusters_90pct": 55,
+      "largest_cluster": 2,
+      "kept": false
+    },
+    "TTDPSFLGRY": {
+      "n_raw_positive": 242,
+      "n_valid": 242,
+      "n_exact_dups_removed": 10,
+      "n_unique_positive": 232,
+      "n_clusters_90pct": 223,
+      "largest_cluster": 3,
+      "kept": true
+    },
+    "YLQPRTFLL": {
+      "n_raw_positive": 334,
+      "n_valid": 334,
+      "n_exact_dups_removed": 26,
+      "n_unique_positive": 308,
+      "n_clusters_90pct": 241,
+      "largest_cluster": 10,
+      "kept": true
+    }
+  },
+  "n_raw_positive_rows": 3064,
+  "n_control_rows_raw": 15957,
+  "n_control_valid_unique": 14648,
+  "n_control_exact_dups_removed": 1295,
+  "kept_epitopes": [
+    "ATDALMTGF",
+    "CINGVCWTV",
+    "GILGFVFTL",
+    "GLCTLVAML",
+    "KSKRTPMGF",
+    "LLWNGPMAV",
+    "LTDEMIAQY",
+    "NLVPMVATV",
+    "SPRWYFYYL",
+    "TTDPSFLGRY",
+    "YLQPRTFLL"
+  ],
+  "n_kept_epitopes": 11
+}

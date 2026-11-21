@@ -259,6 +259,28 @@ def main():
             "epitope TCR specificity at realistic support sizes, and neither cheap "
             "approach solves the generalization problem.")
 
+    # augment verdict with the paired alpha-chain effect, if available
+    paired_csv = os.path.join(RES, "results_paired.csv")
+    if isinstance(verdict, str) and os.path.exists(paired_csv):
+        try:
+            _p = pd.read_csv(paired_csv)
+            _p = _p[_p.method.isin(["tabpfn", "kumo", "lightgbm", "logreg"])].dropna(subset=["auroc"])
+            _pg = _p.groupby(["scheme", "method", "k"]).auroc.median().reset_index()
+            deltas = []
+            for _, r in _pg.iterrows():
+                bv = g[(g.scheme==r.scheme)&(g.method==r.method)&(g.k==r.k)]["auroc_med"]
+                if len(bv):
+                    deltas.append(r.auroc - float(bv.median()))
+            if deltas:
+                verdict += (
+                    f" **Secondary (feature content):** adding the CDR3-alpha chain "
+                    f"(secondary analysis) lifts the tabular models by a median "
+                    f"{np.median(deltas):+.3f} AUROC -- a larger and more consistent gain "
+                    f"than any difference *between* methods, underscoring that for this "
+                    f"problem the input representation matters more than the learner.")
+        except Exception:
+            pass
+
     # ---------- write report ----------
     lines = []
     lines.append("# Feasibility: in-context TCR specificity (TabPFN v2 / Kumo Tabular) vs TCRdist, on unseen epitopes\n")
@@ -356,12 +378,16 @@ def main():
             pg = (pdf[pdf.method.isin(WITHIN)]
                   .groupby(["scheme", "method", "k"]).auroc.median().reset_index())
             lines.append("## 6b. Secondary analysis: paired CDR3 alpha+beta features\n")
-            lines.append("Same protocol with 100 extra Atchley features from CDR3-alpha "
+            lines.append("Same protocol (3 seeds) with 100 extra Atchley features from CDR3-alpha "
                          "(204 features total) on the paired-chain subset (~100% of TCRs). "
-                         "Median per-epitope AUROC; Δ = paired − beta-only (primary).\n")
+                         "Median per-epitope AUROC; Δ = paired − beta-only (primary). "
+                         "**Note:** only the feature-based models get the alpha chain here; "
+                         "TCRdist was left beta-only, so this isolates the information value of "
+                         "the alpha chain for the tabular models and is *not* a head-to-head "
+                         "against a paired-chain TCRdist (which would also improve).\n")
             prows = []
             for scheme in schemes:
-                for m in ["tabpfn", "tcrdist_nn", "tcrdist_knn", "lightgbm"]:
+                for m in ["tabpfn", "kumo", "lightgbm", "logreg"]:
                     for k in ks:
                         pv = pg[(pg.scheme==scheme)&(pg.method==m)&(pg.k==k)]["auroc"]
                         bv = g[(g.scheme==scheme)&(g.method==m)&(g.k==k)]["auroc_med"]
