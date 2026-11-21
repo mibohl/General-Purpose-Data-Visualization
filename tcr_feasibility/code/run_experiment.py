@@ -518,7 +518,9 @@ def main():
     tabpfn_clf = None
     if "tabpfn" in ACTIVE_METHODS:
         from tabpfn import TabPFNClassifier
-        tabpfn_clf = TabPFNClassifier(device="cpu")
+        nest = int(os.environ.get("TABPFN_NEST", "4"))
+        tabpfn_clf = TabPFNClassifier(device="cpu", n_estimators=nest)
+        print(f"[tabpfn] n_estimators={nest}")
     if "kumo" in ACTIVE_METHODS:
         kumo_get()  # warm the model once up front
 
