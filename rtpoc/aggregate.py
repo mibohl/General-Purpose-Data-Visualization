@@ -32,7 +32,7 @@ LABELS = {"B1": "B1 linear", "B2": "B2 LOWESS", "B2_deeplc": "B2 DeepLC spline",
 def load():
     parts = {c: pd.concat([pd.read_csv(f) for f in sorted(glob.glob(f"{RES}/parts/{c}_*.csv"))],
                           ignore_index=True)
-             for c in ("C1", "C2", "C3") if glob.glob(f"{RES}/parts/{c}_*.csv")}
+             for c in ("C1", "C2", "C3", "C3T1", "NE8") if glob.glob(f"{RES}/parts/{c}_*.csv")}
     return parts
 
 
@@ -143,6 +143,32 @@ def decision(c2):
             + fmt(t, 3))
 
 
+def ci_table(c2):
+    """Per-dataset rel MAE ratio vs B2 / best B3 with 95% t-interval over the 5 seeds.
+
+    The ratio is computed per seed (same context and queries), averaged on the
+    log scale; the interval reflects context + query sampling across seeds only.
+    """
+    from scipy import stats
+    d = c2[(c2.subset == "all") & c2.n.isin([100, 250])]
+    w = d.pivot_table(index=["group", "dataset", "n", "seed"], columns="method",
+                      values="rel_mae").reset_index()
+    w["bestB3"] = w[["B3_ridge", "B3_xgb"]].min(axis=1)
+    rows = []
+    for (g, ds, n), x in w.groupby(["group", "dataset", "n"]):
+        r = {"group": g, "dataset": ds.replace("_psms_aligned", "").replace("_fixed_mods", ""),
+             "n": n}
+        for num, den in (("T1", "B2"), ("T2", "B2"), ("T1", "bestB3"), ("T2", "bestB3")):
+            lr = np.log(x[num] / x[den]).values
+            h = stats.t.ppf(0.975, len(lr) - 1) * lr.std(ddof=1) / np.sqrt(len(lr))
+            r[f"{num}/{den}"] = f"{np.exp(lr.mean()):.3f} [{np.exp(lr.mean() - h):.3f}, " \
+                                f"{np.exp(lr.mean() + h):.3f}]"
+        rows.append(r)
+    t = pd.DataFrame(rows).set_index(["group", "dataset", "n"])
+    return ("\n## Per-dataset ratios with 95% CI over 5 seeds (t-interval on log ratio; "
+            "bestB3 = per-seed min of ridge and XGBoost)\n\n" + t.to_markdown())
+
+
 def main():
     P = load()
     out = []
@@ -222,13 +248,39 @@ def main():
 
     if c3 is not None:
         d = c3[c3.subset == "all"]
-        clean = c2[(c2.subset == "all") & (c2.n == 250) & c2.method.isin(["B2", "B3_ridge",
-                                                                             "B3_xgb", "T2"])]
+        meths = ["B2", "B3_ridge", "B3_xgb", "T2"]
+        if P.get("C3T1") is not None:
+            d = pd.concat([d, P["C3T1"][P["C3T1"].subset == "all"]])
+            meths.append("T1")
+        clean = c2[(c2.subset == "all") & (c2.n == 250) & c2.method.isin(meths)]
         dd = pd.concat([clean.assign(noise=0.0), d])
         per = dd.groupby(["group", "dataset", "method", "noise"]).rel_mae.mean().reset_index()
         t3 = per.groupby(["group", "method", "noise"]).rel_mae.mean().unstack("noise")
         out.append("\n## C3 label noise at n=250: mean relative MAE over datasets\n")
         out.append(fmt(t3))
+
+    ne = P.get("NE8")
+    if ne is not None and c2 is not None:
+        a = ne[ne.subset == "all"].assign(n_est=8)
+        b = c2[(c2.subset == "all") & c2.method.isin(["T1", "T2"])].merge(
+            a[["dataset", "n", "seed"]].drop_duplicates()).assign(n_est=4)
+        both = pd.concat([a, b])
+        per = both.groupby(["group", "dataset", "method", "n", "n_est"]).agg(
+            rel_mae=("rel_mae", "mean"), runtime_s=("runtime_s", "median")).reset_index()
+        w = per.pivot_table(index=["group", "dataset", "method", "n"], columns="n_est",
+                            values=["rel_mae", "runtime_s"])
+        w["ratio"] = w[("rel_mae", 8)] / w[("rel_mae", 4)]
+        g = w.groupby(level=["group", "method", "n"]).agg(
+            {("rel_mae", 4): "mean", ("rel_mae", 8): "mean",
+             ("ratio", ""): lambda x: np.exp(np.mean(np.log(x))),
+             ("runtime_s", 4): "median", ("runtime_s", 8): "median"})
+        g.columns = ["rel MAE (4)", "rel MAE (8)", "ratio 8/4 (geo mean)", "sec (4)", "sec (8)"]
+        out.append("\n## TabPFN n_estimators 8 vs 4 (seeds 0-2, same splits; seconds: 1 thread, "
+                   "3 jobs sharing 4 cores for 8, 4 jobs for 4)\n")
+        out.append(fmt(g, 4))
+
+    if c2 is not None:
+        out.append(ci_table(c2))
 
     with open(os.path.join(RES, "tables.md"), "w") as f:
         f.write("\n".join(out) + "\n")

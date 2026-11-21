@@ -1,6 +1,6 @@
 """Run checks C1-C5 for one dataset; writes results/parts/<check>_<dataset>.csv.
 
-Usage: python rtpoc/run.py <dataset> [--checks C1 C2 C3] [--seeds 5]
+Usage: python rtpoc/run.py <dataset> [--checks C1 C2 C3 C3T1 NE8] [--seeds 5]
 """
 from __future__ import annotations
 
@@ -65,7 +65,7 @@ def rows_for(base, method, pred, true, rt_range, is_mod_q, runtime, lo=None, hi=
 
 
 def run_context(F, Foh, tr, is_mod, ctx, q, seed, rt_range, base, use_tabpfn=True,
-                methods=("B1", "B2", "B2_deeplc", "B3_ridge", "B3_xgb", "T1", "T2")):
+                methods=("B1", "B2", "B2_deeplc", "B3_ridge", "B3_xgb", "T1", "T2"), n_est=4):
     """Fit all methods on context `ctx` (tr may be corrupted), evaluate on queries `q`."""
     rows = []
     lo_c, hi_c = tr[ctx].min(), tr[ctx].max()
@@ -110,10 +110,10 @@ def run_context(F, Foh, tr, is_mod, ctx, q, seed, rt_range, base, use_tabpfn=Tru
         Xc, Xq = F.values[ctx].astype(float), F.values[q].astype(float)
         cat = [F.columns.get_loc(c) for c in M.CAT_COLS]
         if "T1" in methods:
-            med, q05, q95, _, t = M.tabpfn_fit_predict(Xc, yc, Xq, seed, cat)
+            med, q05, q95, _, t = M.tabpfn_fit_predict(Xc, yc, Xq, seed, cat, n_est)
             add("T1", med, t, q05, q95)
         if "T2" in methods:
-            med, q05, q95, _, t = M.tabpfn_fit_predict(Xc, rc, Xq, seed, cat)
+            med, q05, q95, _, t = M.tabpfn_fit_predict(Xc, rc, Xq, seed, cat, n_est)
             add("T2", b2q + med, t + t_b2 + t_cf, b2q + q05, b2q + q95)
     return rows, b2.frac_
 
@@ -164,6 +164,7 @@ def main():
     ap.add_argument("--seeds", type=int, default=5)
     ap.add_argument("--threads", type=int, default=4)
     ap.add_argument("--ns", type=int, nargs="+", default=NS)
+    ap.add_argument("--ne8_seeds", type=int, default=2)
     a = ap.parse_args()
     import torch
     torch.set_num_threads(a.threads)
@@ -195,7 +196,7 @@ def main():
                 print(f"  C2 seed={seed} n={n} {time.time()-t:.0f}s {summ}", flush=True)
             pd.DataFrame(rows).to_csv(os.path.join(PARTS, f"C2_{name}.csv"), index=False)
 
-    if "C3" in a.checks:
+    for chk in [c for c in ("C3", "C3T1") if c in a.checks]:
         rows = []
         n = 250
         for seed in range(a.seeds):
@@ -208,12 +209,28 @@ def main():
                 bad = rng.choice(ctx, size=k, replace=False)
                 trn[bad] = rng.uniform(tr[ctx].min(), tr[ctx].max(), size=k)
                 base = dict(check="C3", dataset=name, group=GROUP[name], n=n, seed=seed, noise=noise)
+                # C3T1 replays the identical corruptions (same rng sequence) for T1 only
                 r, frac = run_context(F, Foh, trn, is_mod, ctx, q, seed, rt_range, base,
-                                      methods=("B2", "B3_ridge", "B3_xgb", "T2"))
+                                      methods=("B2", "B3_ridge", "B3_xgb", "T2") if chk == "C3"
+                                      else ("T1",))
                 rows.extend(r)
                 summ = {x["method"]: round(x["rel_mae"], 4) for x in r if x["subset"] == "all"}
                 print(f"  C3 seed={seed} noise={noise} {summ}", flush=True)
-        pd.DataFrame(rows).to_csv(os.path.join(PARTS, f"C3_{name}.csv"), index=False)
+        pd.DataFrame(rows).to_csv(os.path.join(PARTS, f"{chk}_{name}.csv"), index=False)
+
+    if "NE8" in a.checks:
+        # TabPFN with n_estimators=8 (default) instead of 4, same splits as C2
+        rows = []
+        for seed in range(a.ne8_seeds):
+            q, pool = split(len(tr), seed)
+            for n in (100, 250):
+                base = dict(check="NE8", dataset=name, group=GROUP[name], n=n, seed=seed, noise=0.0)
+                r, _ = run_context(F, Foh, tr, is_mod, pool[:n], q, seed, rt_range, base,
+                                   methods=("T1", "T2"), n_est=8)
+                rows.extend(r)
+                print(f"  NE8 seed={seed} n={n} " + str({x["method"]: round(x["rel_mae"], 4)
+                                                        for x in r if x["subset"] == "all"}), flush=True)
+        pd.DataFrame(rows).to_csv(os.path.join(PARTS, f"NE8_{name}.csv"), index=False)
 
 
 TRUE = None

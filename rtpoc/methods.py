@@ -28,8 +28,13 @@ LOWESS_FRACS = (0.1, 0.2, 0.3, 0.5, 0.8)
 
 
 # --------------------------------------------------------------------- features
-def peptide_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Per-peptide features (fixed vocabulary, no data-dependent fitting)."""
+def peptide_features(df: pd.DataFrame, extra_mods=()) -> pd.DataFrame:
+    """Per-peptide features (fixed vocabulary, no data-dependent fitting).
+
+    extra_mods: additional modification names (held-out datasets only), appended
+    after MOD_VOCAB so the main-study features are unchanged.
+    """
+    vocab = MOD_VOCAB + [m for m in extra_mods if m not in MOD_VOCAB]
     seq = df["seq"].astype(str)
     F = pd.DataFrame(index=df.index)
     F["g"] = df["pred_generic"].astype(float)
@@ -40,14 +45,14 @@ def peptide_features(df: pd.DataFrame) -> pd.DataFrame:
     F["n_DE"] = F["n_D"] + F["n_E"]
     F["nterm"] = seq.str[0].map({a: i for i, a in enumerate(AA)}).fillna(-1).astype(int)
     F["cterm"] = seq.str[-1].map({a: i for i, a in enumerate(AA)}).fillna(-1).astype(int)
-    counts = {m: np.zeros(len(df), dtype=int) for m in MOD_VOCAB}
+    counts = {m: np.zeros(len(df), dtype=int) for m in vocab}
     for i, s in enumerate(df["modifications"].astype(str)):
         if s:
             for name in s.split("|")[1::2]:
                 name = MOD_ALIASES.get(name, name)
                 if name in counts:
                     counts[name][i] += 1
-    for m in MOD_VOCAB:
+    for m in vocab:
         F[f"mod_{m}"] = counts[m]
     return F
 
@@ -178,9 +183,9 @@ def tabpfn_model(seed, n_estimators=4):
         categorical_features_indices=None)
 
 
-def tabpfn_fit_predict(Xc, yc, Xq, seed, cat_idx):
+def tabpfn_fit_predict(Xc, yc, Xq, seed, cat_idx, n_estimators=4):
     """Returns (median, q05, q95, mean, seconds)."""
-    m = tabpfn_model(seed)
+    m = tabpfn_model(seed, n_estimators=n_estimators)
     m.set_params(categorical_features_indices=cat_idx)
     t0 = time.time()
     m.fit(Xc, yc)
