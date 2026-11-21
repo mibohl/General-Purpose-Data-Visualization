@@ -84,3 +84,31 @@ and the borderline caveat no longer applies.
 Generic predictor vs. observed RT (Pearson): easy sets +0.947 to +0.988;
 prosit_ptm_2020 +0.906; mod_fixed_mods +0.914; the five 2D-LC sets -0.23 to
 -0.40 (inverted / charge-driven selectivity).
+
+## Addendum: held-out datasets for the DeepLC 4.5 comparison (fixed before running)
+
+Added for the follow-up comparison with DeepLC 4.5. Every PRIDE project
+below was made public after DeepLC 4.5.0's release (2026-09-11), and none of
+their PXD accessions appears among the model's 6,543 training-setup names.
+Each dataset is one run, with the median RT per peptidoform. Details,
+selection and rejected candidates: `data/heldout/heldout.md`. Conversion:
+`rtpoc/heldout_prepare.py`.
+
+| Dataset | Label | Peptidoforms | Reason for label |
+|---|---|---|---|
+| PXD076643 | easy | 12,944 | Standard RP C18, 60 min, tryptic, common mods only (4% non-CAM). |
+| PXD079751 | easy | 92,685 | Standard RP C18, 120 min DIA, tryptic, common mods only. |
+| PXD062983 | easy | 26,941 | Standard RP C18, 60 min diaPASEF, tryptic, common mods only (Met-ox 19%). |
+| PXD050641 | hard | 14,275 | Crotonyl-lysine enrichment: 79% of peptidoforms carry crotonylation. |
+| PXD074962 | hard | 4,006 | Phospho-enriched (57%) and TMTpro-labeled; one high-pH fraction. |
+| PXD061731 | hard | 5,021 | HLA class I peptides: non-tryptic, 8-14mers, mostly no C-terminal K/R. |
+| PXD084949 | hard | 3,575 | HLA class I peptides (as above), different lab and gradient. |
+| PXD085246 | hard | 5,800 | Endogenous insect peptidome: non-tryptic, undigested, no Cys alkylation. |
+
+Not covered: no non-reversed-phase setup qualified (1,198 recent projects
+screened). The hard sets here test chemistry and peptide type, not column
+selectivity. Feature vocabulary extended (held-out runs only) with TMTpro and
+Cysteinyl. Residual leakage risk: three projects (PXD050641, PXD061731,
+PXD062983) were submitted in 2024 to 2025 and could in principle have reached
+DeepLC's training through another route before going public; their PXD
+accessions are not in the task names.

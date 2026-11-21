@@ -32,7 +32,7 @@ LABELS = {"B1": "B1 linear", "B2": "B2 LOWESS", "B2_deeplc": "B2 DeepLC spline",
 def load():
     parts = {c: pd.concat([pd.read_csv(f) for f in sorted(glob.glob(f"{RES}/parts/{c}_*.csv"))],
                           ignore_index=True)
-             for c in ("C1", "C2", "C3", "C3T1", "NE8") if glob.glob(f"{RES}/parts/{c}_*.csv")}
+             for c in ("C1", "C2", "C3", "C3T1", "NE8", "H") if glob.glob(f"{RES}/parts/{c}_*.csv")}
     return parts
 
 
@@ -169,6 +169,98 @@ def ci_table(c2):
             "bestB3 = per-seed min of ridge and XGBoost)\n\n" + t.to_markdown())
 
 
+# Held-out figure: existing entity colors kept; B4 takes slot 8 (red); T1_d45 is a T1
+# variant (same green, dashed, own marker). Legend order validated adjacent pairs:
+# B2, T2, B3_xgb, T1, B4 (CVD red/green 7.2 relieved by markers + legend + tables).
+H_METHODS = ["B2", "T2", "B3_xgb", "T1", "B4", "T1_d45"]
+H_COLORS = {**COLORS, "B4": "#e34948", "T1_d45": COLORS["T1"]}
+H_MARKERS = {**MARKERS, "B4": "*", "T1_d45": "o"}
+H_LABELS = {**LABELS, "B4": "B4 DeepLC 4.5 + its calibration",
+            "T1_d45": "T1 + DeepLC 4.5 heads (T1_d45)"}
+
+
+def heldout(h):
+    out = ["\n# Held-out setups vs DeepLC 4.5 (published after its release)\n"]
+    d = h[h.subset == "all"]
+    per = d.groupby(["group", "dataset", "method", "n"]).rel_mae.mean().reset_index()
+    b4 = per[per.method == "B4"].set_index(["dataset", "n"]).rel_mae
+    per["ratio_b4"] = per.rel_mae.values / b4.loc[list(zip(per.dataset, per.n))].values
+    meths = ["B1", "B2", "B2_deeplc", "B3_ridge", "B3_xgb", "T1", "T2", "B4", "T1_d45"]
+    for g in ("easy", "hard"):
+        x = per[per.group == g]
+        if x.empty:
+            continue
+        k = x.dataset.nunique()
+        out.append(f"\n## Held-out {g} (k={k}): mean relative MAE over datasets\n")
+        out.append(fmt(x.groupby(["method", "n"]).rel_mae.mean().unstack("n").reindex(meths)))
+        out.append(f"\n## Held-out {g}: geometric-mean ratio of relative MAE to B4\n")
+        out.append(fmt(x.groupby(["method", "n"]).ratio_b4.agg(
+            lambda v: np.exp(np.mean(np.log(v)))).unstack("n").reindex(meths), 3))
+    # per dataset with CI, T1_d45 / B4 and T1 / B4
+    from scipy import stats
+    w = d.pivot_table(index=["group", "dataset", "n", "seed"], columns="method",
+                      values="rel_mae").reset_index()
+    rows = []
+    for (g, ds, n), x in w.groupby(["group", "dataset", "n"]):
+        r = {"group": g, "dataset": ds, "n": n, "B4": x.B4.mean(), "T1_d45": x.T1_d45.mean(),
+             "T1": x.T1.mean(), "B2": x.B2.mean()}
+        for num in ("T1_d45", "T1"):
+            lr = np.log(x[num] / x["B4"]).values
+            hw = stats.t.ppf(0.975, len(lr) - 1) * lr.std(ddof=1) / np.sqrt(len(lr))
+            r[f"{num}/B4 [95% CI]"] = f"{np.exp(lr.mean()):.3f} [{np.exp(lr.mean() - hw):.3f}, " \
+                                      f"{np.exp(lr.mean() + hw):.3f}]"
+        r["T1_d45 wins"] = float((x.T1_d45 < x.B4).mean())
+        rows.append(r)
+    t = pd.DataFrame(rows).set_index(["group", "dataset", "n"])
+    out.append("\n## Held-out per dataset (mean of 5 seeds; CI = t-interval on per-seed log "
+               "ratio)\n")
+    out.append(fmt(t, 4))
+    sub = h[h.subset != "all"].groupby(["group", "subset", "method", "n"]).rel_mae.mean() \
+        .unstack("n").reindex(meths, level="method")
+    out.append("\n## Held-out relative MAE by modified / unmodified queries\n")
+    out.append(fmt(sub))
+    iv = d[d.method.isin(["B4", "T1", "T1_d45"])].groupby(["group", "method", "n"]).agg(
+        coverage90=("coverage90", "mean"), width90=("width90", "mean")).unstack("n")
+    out.append("\n## Held-out 90% intervals: coverage and mean width / range\n")
+    out.append(fmt(iv, 3))
+    rt = d[d.method.isin(["B4", "T1", "T1_d45"])].groupby(["method", "n"]).runtime_s.median() \
+        .unstack("n")
+    out.append("\n## Held-out median seconds per fit+predict (B4 includes its 5-fold window "
+               "fits only in T1_d45's time; 1 thread, 4 jobs on 4 cores)\n")
+    out.append(fmt(rt, 1))
+    heldout_fig(per, os.path.join(RES, "curves_heldout.png"))
+    return "\n".join(out)
+
+
+def heldout_fig(per, path):
+    fig, axes = plt.subplots(1, 2, figsize=(11, 4.4))
+    for ax, g in zip(axes, ("easy", "hard")):
+        x = per[per.group == g]
+        agg = x.groupby(["method", "n"]).rel_mae.mean()
+        ns = sorted(x.n.unique())
+        for m in H_METHODS:
+            s = agg.loc[m]
+            ax.plot(s.index, s.values, color=H_COLORS[m], marker=H_MARKERS[m],
+                    ms=8 if m == "B4" else 6, lw=2.4 if m in ("B4", "T1_d45") else 1.6,
+                    ls="--" if m == "T1_d45" else "-", label=H_LABELS[m],
+                    markeredgecolor="white", markeredgewidth=0.8)
+        ax.set_xscale("log")
+        ax.set_yscale("log")
+        ax.set_xticks(ns)
+        ax.set_xticklabels([str(n) for n in ns])
+        ax.set_xlabel("context size n (identified peptides)")
+        ax.set_ylabel("relative MAE (mean over datasets, log scale)")
+        ax.set_title(f"{g.capitalize()} held-out setups (k={x.dataset.nunique()})", fontsize=10,
+                     loc="left")
+        ax.grid(True, axis="y", which="both", color="#e4e3df", lw=0.8)
+    axes[1].legend(frameon=False, fontsize=8.5)
+    fig.suptitle("Setups published after DeepLC 4.5: RT error vs. context size, 5 seeds",
+                 fontsize=11, x=0.01, ha="left")
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def main():
     P = load()
     out = []
@@ -281,6 +373,9 @@ def main():
 
     if c2 is not None:
         out.append(ci_table(c2))
+
+    if P.get("H") is not None:
+        out.append(heldout(P["H"]))
 
     with open(os.path.join(RES, "tables.md"), "w") as f:
         f.write("\n".join(out) + "\n")
