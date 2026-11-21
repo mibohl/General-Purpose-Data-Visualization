@@ -1,0 +1,2 @@
+scheme,epitope,k,tabpfn,tcrdist_nn,tcrdist_knn,logreg,lightgbm
+(a) background negatives,ATDALMTGF,50,0.745,0.7321875,0.6971875,0.71625,0.77125

@@ -1,0 +1,6 @@
+# Downloaded benchmark (has its own .git), regenerable caches, logs, venv artifacts
+data/
+results/cache/
+results/logs/
+**/__pycache__/
+*.pyc
