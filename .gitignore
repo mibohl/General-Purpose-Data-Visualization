@@ -9,3 +9,4 @@ results/parts/
 data/heldout/raw/
 data/heldout/*.csv
 results/finetune/preds/
+results/finetune/parts/  # tracked again once the runs finish
