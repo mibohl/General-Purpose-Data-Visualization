@@ -6,3 +6,4 @@ data/processed/
 results/logs/
 __pycache__/
 results/parts/
+data/heldout/raw/
