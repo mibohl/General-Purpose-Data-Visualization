@@ -107,6 +107,42 @@ def per_dataset_grid(c2, path):
     plt.close(fig)
 
 
+TWO_D_LC = ["ATLANTIS_SILICA_fixed_mods", "LUNA_SILICA_fixed_mods", "LUNA_HILIC_fixed_mods",
+            "SCX_fixed_mods", "Xbridge_fixed_mods"]
+
+
+def decision(c2):
+    """Decision-rule numbers at n = 100, 250.
+
+    Ratios are geometric means over datasets of (mean over seeds) relative MAE.
+    'wins' = share of (dataset, seed) pairs where T2 has lower rel MAE than the
+    comparator on the same context and queries.
+    """
+    d = c2[(c2.subset == "all") & c2.n.isin([100, 250])]
+    w = d.pivot_table(index=["group", "dataset", "n", "seed"], columns="method",
+                      values="rel_mae").reset_index()
+    w["bestB3"] = w[["B3_ridge", "B3_xgb"]].min(axis=1)   # oracle pick: favors B3
+    w["subgroup"] = np.where(w.dataset.isin(TWO_D_LC), "hard: 2D-LC (5)",
+                             np.where(w.group == "hard", "hard: RP + PTM-rich (2)", "easy (9)"))
+    rows = []
+    for (label, grp) in (("easy (9)", w[w.group == "easy"]), ("hard (7)", w[w.group == "hard"]),
+                         ("hard: 2D-LC (5)", w[w.subgroup == "hard: 2D-LC (5)"]),
+                         ("hard: RP + PTM-rich (2)", w[w.subgroup == "hard: RP + PTM-rich (2)"])):
+        for n, g in grp.groupby("n"):
+            ds = g.groupby("dataset")[["B2", "bestB3", "B3_ridge", "B3_xgb", "T1", "T2"]].mean()
+            gm = lambda a, b: float(np.exp(np.mean(np.log(ds[a] / ds[b]))))  # noqa: E731
+            rows.append({"datasets": label, "n": n,
+                         "T2/B2": gm("T2", "B2"), "T2/bestB3": gm("T2", "bestB3"),
+                         "T2/B3_xgb": gm("T2", "B3_xgb"), "T1/B2": gm("T1", "B2"),
+                         "worst dataset T2/B2": float((ds.T2 / ds.B2).max()),
+                         "T2 wins vs B2": float((g.T2 < g.B2).mean()),
+                         "T2 wins vs bestB3": float((g.T2 < g.bestB3).mean())})
+    t = pd.DataFrame(rows).set_index(["datasets", "n"])
+    return ("\n## Decision rule inputs (n = 100, 250; ratios = geometric mean over datasets; "
+            "wins = share of dataset x seed pairs; bestB3 = per-seed min of ridge and XGBoost)\n\n"
+            + fmt(t, 3))
+
+
 def main():
     P = load()
     out = []
@@ -161,8 +197,9 @@ def main():
         out.append("\n## C2 per dataset at n=100, 250 (mean of 5 seeds)\n")
         out.append(fmt(pd_[["B2", "B2_deeplc", "B3_ridge", "B3_xgb", "T1", "T2", "T2_vs_B2",
                             "T1_vs_B2", "T2_vs_bestB3"]]))
+        out.append(decision(c2))
         # modified vs unmodified
-        sub = c2[c2.subset != "all"].groupby(["group", "subset", "method", "n"]).rel_mae.mean() \
+        sub =c2[c2.subset != "all"].groupby(["group", "subset", "method", "n"]).rel_mae.mean() \
             .unstack("n").reindex(METHODS, level="method")
         out.append("\n## C2 relative MAE by modified / unmodified queries (mean over datasets)\n")
         out.append(fmt(sub))
