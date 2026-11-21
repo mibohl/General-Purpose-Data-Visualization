@@ -169,3 +169,44 @@ def load_immrep_controls():
                 "source": os.path.splitext(f)[0],
             })
     return pd.DataFrame(rows)
+
+
+# ---------------------------------------------------------------------------
+# Matched-input features (Q1 fair rematch): germline CDR1/CDR2/CDR2.5 + CDR3
+# for BOTH chains, exactly the loops TCRdist3 uses. Loops arrive IMGT-gapped
+# and fixed-width from tcrdist3; CDR3 is both-ends-anchored to length 20.
+# ---------------------------------------------------------------------------
+LOOP_COLS = ["cdr1_a", "cdr2_a", "pmhc_a", "cdr3_a",
+             "cdr1_b", "cdr2_b", "pmhc_b", "cdr3_b"]
+FIXED_LOOPS = {"cdr1_a", "cdr2_a", "pmhc_a", "cdr1_b", "cdr2_b", "pmhc_b"}
+
+
+def atchley_fixed(seq):
+    """Encode an already-fixed-width (gapped) loop: each residue -> 5 Atchley,
+    any gap/non-standard char -> zeros. No padding/alignment (width is fixed)."""
+    seq = str(seq)
+    mat = np.zeros((len(seq), 5), dtype=np.float32)
+    for i, c in enumerate(seq):
+        v = ATCHLEY.get(c)
+        if v is not None:
+            mat[i] = v
+    return mat.reshape(-1)
+
+
+def matched_vector(row):
+    """Concatenate Atchley over the 8 loops (both chains) for one TCR row."""
+    blocks = []
+    for col in LOOP_COLS:
+        s = row[col]
+        if col in FIXED_LOOPS:
+            blocks.append(atchley_fixed(s))
+        else:  # CDR3: both-ends-anchored pad to 20
+            s = str(s)
+            s = s if valid_cdr3(s, lo=1, hi=MAXLEN) else s[:MAXLEN]
+            blocks.append(atchley_vector(s if all(c in AAS for c in s) else
+                                         "".join(c for c in s if c in AAS), MAXLEN))
+    return np.concatenate(blocks).astype(np.float32)
+
+
+def matched_matrix(df):
+    return np.vstack([matched_vector(r) for _, r in df.iterrows()])

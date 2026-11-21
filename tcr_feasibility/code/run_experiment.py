@@ -33,7 +33,7 @@ warnings.filterwarnings("ignore")
 import numpy as np
 import pandas as pd
 from sklearn.metrics import roc_auc_score, average_precision_score
-from sklearn.linear_model import LogisticRegression
+from sklearn.linear_model import LogisticRegression, RidgeClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import make_pipeline
 import lightgbm as lgb
@@ -50,9 +50,11 @@ IDENT = 0.90
 QUERY_POS_FRAC = 0.35
 QUERY_POS_MIN, QUERY_POS_MAX = 15, 80
 KNN_K = 5
-FEATURE_MODE = "beta"   # "beta" (primary) or "paired" (beta+alpha, secondary)
-ALL_METHODS = ["tabpfn", "kumo", "tcrdist", "logreg", "lightgbm", "zeroshot"]
+FEATURE_MODE = "beta"   # "beta" | "paired" | "matched" (germline loops, both chains)
+ALL_METHODS = ["tabpfn", "kumo", "tcrdist", "logreg", "ridge", "lightgbm", "zeroshot"]
 ACTIVE_METHODS = set(ALL_METHODS)   # overridden by --methods
+TCRDIST_CHAINS = ["beta"]           # ["alpha","beta"] in matched mode
+MATCHED_MASK = None                 # global zero-variance column mask (matched mode)
 
 _FIELDS = ["scheme", "epitope", "seed", "k", "method", "auroc", "auprc",
            "n_support", "n_support_pos", "n_query", "n_query_pos",
@@ -70,6 +72,15 @@ def tcr_features(df, te_v=None, te_j=None, fit_labels=None):
     The epitope is constant within a task, so NO epitope features are included.
     Target encoders for V/J are fit on the support labels only (no query leak).
     """
+    if FEATURE_MODE == "matched":
+        # germline CDR1/CDR2/CDR2.5 + CDR3 for BOTH chains (tcrdist3 loops).
+        # No V/J target-encoding: the germline loops already carry exactly the
+        # V-gene information the TCRdist metric uses.
+        X = common.matched_matrix(df)
+        if MATCHED_MASK is not None:
+            X = X[:, MATCHED_MASK]
+        return X.astype(np.float32), None, None
+
     atch = common.atchley_matrix(df["cdr3b"].tolist())           # (n,100)
     length = np.array([len(s) for s in df["cdr3b"]], dtype=np.float32)[:, None]
     if fit_labels is not None:
@@ -190,25 +201,35 @@ def tcrdist_scores(query_df, support_binder_df):
     """
     from tcrdist.repertoire import TCRrep
     union = pd.concat([query_df, support_binder_df], ignore_index=True)
-    cell = pd.DataFrame({
-        "cdr3_b_aa": union["cdr3b"].astype(str),
-        "v_b_gene": union["vb"].astype(str),
-        "j_b_gene": union["jb"].astype(str),
-        "count": 1,
-    })
-    tr = TCRrep(cell_df=cell, organism="human", chains=["beta"],
-                compute_distances=True)
+    paired = "alpha" in TCRDIST_CHAINS
+    cols = {"cdr3_b_aa": union["cdr3b"].astype(str),
+            "v_b_gene": union["vb"].astype(str),
+            "j_b_gene": union["jb"].astype(str), "count": 1}
+    if paired:
+        cols.update({"cdr3_a_aa": union["cdr3a"].astype(str),
+                     "v_a_gene": union["va"].astype(str),
+                     "j_a_gene": union["ja"].astype(str)})
+    tr = TCRrep(cell_df=pd.DataFrame(cols), organism="human",
+                chains=TCRDIST_CHAINS, compute_distances=True)
     cdf = tr.clone_df
-    key = (cdf["cdr3_b_aa"] + "|" + cdf["v_b_gene"] + "|" + cdf["j_b_gene"]).tolist()
+    if paired:
+        key = (cdf["cdr3_a_aa"] + "|" + cdf["v_a_gene"] + "|" + cdf["j_a_gene"] + "#"
+               + cdf["cdr3_b_aa"] + "|" + cdf["v_b_gene"] + "|" + cdf["j_b_gene"]).tolist()
+    else:
+        key = (cdf["cdr3_b_aa"] + "|" + cdf["v_b_gene"] + "|" + cdf["j_b_gene"]).tolist()
     idx = {k: i for i, k in enumerate(key)}
 
     def rowkey(d):
-        return (d["cdr3b"].astype(str) + "|" + d["vb"].astype(str) + "|"
-                + d["jb"].astype(str)).map(idx).values
+        kb = d["cdr3b"].astype(str) + "|" + d["vb"].astype(str) + "|" + d["jb"].astype(str)
+        if paired:
+            ka = d["cdr3a"].astype(str) + "|" + d["va"].astype(str) + "|" + d["ja"].astype(str)
+            return (ka + "#" + kb).map(idx).values
+        return kb.map(idx).values
 
     q = rowkey(query_df)
     s = rowkey(support_binder_df)
-    sub = tr.pw_beta[np.ix_(q, s)].astype(float)      # query x binders
+    pw = tr.pw_beta.astype(float) + (tr.pw_alpha.astype(float) if paired else 0.0)
+    sub = pw[np.ix_(q, s)]      # query x binders (paired = summed distance)
     sub_sorted = np.sort(sub, axis=1)
     nn = -sub_sorted[:, 0]
     kk = min(KNN_K, sub_sorted.shape[1])
@@ -371,6 +392,16 @@ def run_epitope_scheme(scheme, held_ep, pos_all, controls, tabpfn_clf,
                 _emit(writer, logf, scheme, held_ep, seed, k, "logreg",
                       yq, p, k, half, len(yq), int(yq.sum()), time.time() - t, "")
 
+            # ---- Ridge classifier ----
+            key = (scheme, held_ep, seed, k, "ridge")
+            if "ridge" in ACTIVE_METHODS and key not in done_keys:
+                t = time.time()
+                rc = make_pipeline(StandardScaler(), RidgeClassifier(alpha=1.0))
+                rc.fit(Xs, ys)
+                p = rc.decision_function(Xq)      # score for AUROC
+                _emit(writer, logf, scheme, held_ep, seed, k, "ridge",
+                      yq, p, k, half, len(yq), int(yq.sum()), time.time() - t, "")
+
             # ---- LightGBM ----
             key = (scheme, held_ep, seed, k, "lightgbm")
             if "lightgbm" in ACTIVE_METHODS and key not in done_keys:
@@ -444,14 +475,14 @@ def main():
     ap.add_argument("--schemes", nargs="+", default=["background", "otherep"])
     ap.add_argument("--epitopes", nargs="+", default=None)
     ap.add_argument("--fresh", action="store_true", help="ignore existing results.csv")
-    ap.add_argument("--feature-mode", choices=["beta", "paired"], default="beta")
+    ap.add_argument("--feature-mode", choices=["beta", "paired", "matched"], default="beta")
     ap.add_argument("--out", default=None, help="results csv path override")
     ap.add_argument("--seeds", type=int, default=None, help="limit to first N seeds")
     ap.add_argument("--methods", nargs="+", default=None,
                     help=f"subset of {ALL_METHODS}; default all")
     args = ap.parse_args()
 
-    global FEATURE_MODE, RESULTS_CSV, SEEDS, ACTIVE_METHODS
+    global FEATURE_MODE, RESULTS_CSV, SEEDS, ACTIVE_METHODS, TCRDIST_CHAINS, MATCHED_MASK
     FEATURE_MODE = args.feature_mode
     if args.out:
         RESULTS_CSV = args.out
@@ -461,8 +492,15 @@ def main():
         ACTIVE_METHODS = set(args.methods)
 
     import csv
-    pos_all = pd.read_parquet(os.path.join(CACHE, "positives.parquet"))
-    controls = pd.read_parquet(os.path.join(CACHE, "controls.parquet"))
+    if FEATURE_MODE == "matched":
+        pos_all = pd.read_parquet(os.path.join(CACHE, "positives_matched.parquet"))
+        controls = pd.read_parquet(os.path.join(CACHE, "controls_matched.parquet"))
+        MATCHED_MASK = np.load(os.path.join(CACHE, "matched_colmask.npy"))
+        TCRDIST_CHAINS = ["alpha", "beta"]   # match the tabular models' inputs
+        print(f"[matched] dim={int(MATCHED_MASK.sum())}, TCRdist chains={TCRDIST_CHAINS}")
+    else:
+        pos_all = pd.read_parquet(os.path.join(CACHE, "positives.parquet"))
+        controls = pd.read_parquet(os.path.join(CACHE, "controls.parquet"))
     if FEATURE_MODE == "paired":
         # keep only TCRs with a usable CDR3-alpha (paired-chain subset)
         pa = pos_all["cdr3a"].map(common.valid_cdr3)

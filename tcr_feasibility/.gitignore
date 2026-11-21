@@ -1,6 +1,11 @@
-# Downloaded benchmark (has its own .git), regenerable caches, logs, venv artifacts
+# Downloaded benchmark (own .git), regenerable caches, logs, venv artifacts
 data/
 results/cache/
 results/logs/
 **/__pycache__/
 *.pyc
+# Volatile Q1-Q3 outputs while runs are in progress; force-added when final
+results/results_matched*.csv
+results/results_headroom.csv
+results/coef_similarity*.csv
+results/coef_similarity_summary.json
