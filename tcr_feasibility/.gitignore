@@ -9,3 +9,6 @@ results/results_matched*.csv
 results/results_headroom.csv
 results/coef_similarity*.csv
 results/coef_similarity_summary.json
+results/report_v2.md
+results/q1_auroc_vs_k.png
+results/q2_adaptation.png
