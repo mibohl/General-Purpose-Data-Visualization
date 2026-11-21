@@ -4,3 +4,8 @@ results/cache/
 results/logs/
 **/__pycache__/
 *.pyc
+# Volatile deliverables while the experiment runs; force-added (git add -f) when final
+results/results.csv
+results/report.md
+results/auroc_vs_k.png
+results/per_epitope_k50.csv
