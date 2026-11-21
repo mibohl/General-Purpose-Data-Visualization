@@ -47,3 +47,42 @@ python rtpoc/aggregate.py
 
 Every fit, scaler, LOWESS span choice and hyperparameter search uses context
 peptides only; query peptides are only used to compute metrics.
+
+## Follow-up runs (held-out DeepLC 4.5 comparison, noise, n_estimators, timing)
+
+```bash
+# 6. Held-out PRIDE sets (published after DeepLC 4.5): download the files listed
+#    in data/heldout/heldout.md into data/heldout/raw/<PXD>/, then
+python3 -I rtpoc/heldout_prepare.py --check          # -> data/heldout/<PXD>.csv
+python rtpoc/heldout_generic.py PXD079751 PXD062983 PXD076643 PXD050641 \
+    PXD085246 PXD061731 PXD074962 PXD084949           # legacy + DeepLC 4.5 predictions
+./rtpoc/run_heldout_all.sh                            # results/parts/H_<PXD>.csv
+
+# 7. T1 under label noise (C3T1) and n_estimators=8 (NE8) on the 16 Zenodo sets
+./rtpoc/run_extra.sh                                  # results/parts/{C3T1,NE8}_<ds>.csv
+
+# 8. Speed for 2k to 100k queries (idle machine)
+python rtpoc/timing.py --threads 4                    # results/timing.csv
+
+python rtpoc/aggregate.py
+```
+
+| File | Role |
+|---|---|
+| `heldout_prepare.py` | PRIDE identification tables (MaxQuant, FragPipe, DIA-NN, PEAKS, PD) to `seq,modifications,tr` |
+| `heldout_generic.py` | legacy DeepLC prediction and the DeepLC 4.5 multi-head prediction matrix (stored as its low-rank factors) |
+| `run_heldout.py`, `run_heldout_all.sh` | C2 protocol plus B4 (DeepLC 4.5 `MultiHeadRidgeCalibration` on the context) and T1_d45 |
+| `run_extra.sh` | C3T1 and NE8 checks (via `run.py --checks C3T1 NE8`) |
+| `timing.py` | wall-clock and accuracy for large query sets |
+| `predict.py` | command-line predictor for a new setup (default T1_d45) |
+
+### Using the predictor
+
+```bash
+python rtpoc/predict.py --context ctx.csv --query query.csv --out pred.csv [--method T1_d45|T1|T2]
+```
+
+`ctx.csv` has `seq,modifications,tr` (a few hundred identified peptides from the
+new setup, any RT unit); `query.csv` has `seq,modifications`. The output adds
+`rt_pred` and a 90% interval `rt_lo90`, `rt_hi90`. Modifications outside the
+built-in vocabulary can be added as count features with `--mods TMTpro ...`.

@@ -225,8 +225,9 @@ def heldout(h):
     out.append(fmt(iv, 3))
     rt = d[d.method.isin(["B4", "T1", "T1_d45"])].groupby(["method", "n"]).runtime_s.median() \
         .unstack("n")
-    out.append("\n## Held-out median seconds per fit+predict (B4 includes its 5-fold window "
-               "fits only in T1_d45's time; 1 thread, 4 jobs on 4 cores)\n")
+    out.append("\n## Held-out median seconds per fit+predict (B4: one calibration fit, "
+               "without the 5-fold fits for its interval; T1_d45 includes the B4 fit used to rank "
+               "heads; 1 thread, 4 jobs on 4 cores)\n")
     out.append(fmt(rt, 1))
     heldout_fig(per, os.path.join(RES, "curves_heldout.png"))
     return "\n".join(out)
