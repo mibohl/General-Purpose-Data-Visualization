@@ -14,3 +14,5 @@ results/finetune/parts/
 results/finetune/results.csv
 results/finetune/tables.md
 results/finetune/curves_finetune.png
+results/finetune/timing_4threads.csv
+results/finetune/epochcap_*.csv
