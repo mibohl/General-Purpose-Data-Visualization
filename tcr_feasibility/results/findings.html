@@ -1,0 +1,442 @@
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>TCR In-Context Learning Feasibility</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: single editorial column (max 74rem); charts and tables span the column,
+   prose stays ~68ch. Cool-grey neutrals; blue+purple for the two foundation models,
+   warm red+amber for the TCRdist baseline; green/amber/red reserved for semantics. */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --surface-2:#eef1f5; --fg:#1a2029; --muted:#5c6673;
+  --border:#dde2e9; --accent:#2b6cb0; --accent-soft:#e7effa;
+  --good:#2f855a; --warn:#b7791f; --crit:#c53030;
+  --tabpfn:#2b6cb0; --kumo:#7c53c7; --nn:#c0392b; --knn:#d98014; --lgbm:#2f855a;
+  --grid:#e4e8ee; --chance:#9aa4b1;
+  --fs-display:clamp(2rem,5vw,3.1rem); --fs-h2:clamp(1.3rem,3vw,1.7rem);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e1319; --surface:#161c25; --surface-2:#1d2530; --fg:#e7ecf2; --muted:#9aa6b4;
+  --border:#2a3440; --accent:#63b3ed; --accent-soft:#17293c;
+  --good:#68d391; --warn:#f6ad55; --crit:#fc8181;
+  --tabpfn:#63b3ed; --kumo:#b794f4; --nn:#fc8181; --knn:#f6ad55; --lgbm:#68d391;
+  --grid:#242e3a; --chance:#5a6672; color-scheme:dark;
+}}
+:root[data-theme="dark"]{
+  --bg:#0e1319; --surface:#161c25; --surface-2:#1d2530; --fg:#e7ecf2; --muted:#9aa6b4;
+  --border:#2a3440; --accent:#63b3ed; --accent-soft:#17293c;
+  --good:#68d391; --warn:#f6ad55; --crit:#fc8181;
+  --tabpfn:#63b3ed; --kumo:#b794f4; --nn:#fc8181; --knn:#f6ad55; --lgbm:#68d391;
+  --grid:#242e3a; --chance:#5a6672; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);
+  font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:74rem;margin:0 auto;
+  padding-left:max(18px,env(safe-area-inset-left,0px));
+  padding-right:max(18px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif;line-height:1.15;text-wrap:balance;margin:0}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums}
+
+/* hero */
+.hero{padding-block:clamp(2.6rem,7vw,4.6rem) clamp(1.6rem,4vw,2.4rem)}
+.hero h1{font-size:var(--fs-display);font-weight:700;letter-spacing:-.02em;margin-top:.7rem}
+.verdict{font-size:clamp(1.05rem,2.4vw,1.3rem);margin-top:1.1rem;max-width:40ch;color:var(--fg)}
+.verdict b{color:var(--accent)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-top:1.8rem;max-width:46rem}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem 1.05rem}
+.tile .k{font-size:.72rem;color:var(--muted);letter-spacing:.04em}
+.tile .v{font-family:"JetBrains Mono",monospace;font-size:1.9rem;font-weight:600;
+  font-variant-numeric:tabular-nums;margin-top:.2rem;line-height:1}
+.tile .d{font-size:.78rem;color:var(--muted);margin-top:.35rem}
+.tile.win .v{color:var(--good)}
+
+section{padding-block:clamp(1.8rem,4vw,2.8rem);border-top:1px solid var(--border)}
+section h2{font-size:var(--fs-h2);font-weight:600;letter-spacing:-.01em}
+section .lede{color:var(--muted);max-width:66ch;margin-top:.5rem}
+.sec-head{display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap}
+.sec-head .no{font-family:"JetBrains Mono",monospace;color:var(--accent);font-size:.9rem;font-weight:600}
+
+/* chart panels */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:1.1rem;margin-top:1.3rem}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1rem .8rem .6rem}
+.panel h3{font-size:.92rem;font-weight:600;margin-left:.3rem}
+.panel .sub{font-size:.74rem;color:var(--muted);margin:.1rem 0 .2rem .3rem}
+.chart{width:100%;height:auto;display:block}
+.axis{stroke:var(--border)} .grid{stroke:var(--grid)}
+.tick{fill:var(--muted);font-size:10px;font-family:"JetBrains Mono",monospace}
+.chance{stroke:var(--chance);stroke-dasharray:4 3;stroke-width:1}
+.chance-l{fill:var(--chance);font-size:9px;font-family:"JetBrains Mono",monospace}
+.s-line{fill:none;stroke-width:2.2} .s-dot{stroke:var(--surface);stroke-width:1.4}
+.s-tabpfn{stroke:var(--tabpfn)} .f-tabpfn{fill:var(--tabpfn)}
+.s-kumo{stroke:var(--kumo)} .f-kumo{fill:var(--kumo)}
+.s-nn{stroke:var(--nn)} .f-nn{fill:var(--nn)}
+.s-knn{stroke:var(--knn)} .f-knn{fill:var(--knn)}
+.s-lgbm{stroke:var(--lgbm)} .f-lgbm{fill:var(--lgbm)}
+.s-ridge{stroke:var(--muted)} .f-ridge{fill:var(--muted)}
+.s-td{stroke:var(--nn)} .f-td{fill:var(--nn)}
+.ref-oracle{stroke:var(--warn);stroke-dasharray:5 3;stroke-width:1.2}
+.legend{display:flex;flex-wrap:wrap;gap:.6rem 1.1rem;margin-top:.9rem;font-size:.8rem}
+.legend span{display:inline-flex;align-items:center;gap:.4rem;color:var(--muted)}
+.legend i{width:16px;height:3px;border-radius:2px;display:inline-block}
+
+/* tables */
+.scroll{overflow-x:auto;margin-top:1.2rem;border:1px solid var(--border);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:.85rem;min-width:620px}
+th,td{padding:.55rem .7rem;text-align:right;border-bottom:1px solid var(--border);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{background:var(--surface-2);font-weight:600;font-size:.74rem;letter-spacing:.03em;
+  color:var(--muted);position:sticky;top:0}
+tbody tr:last-child td{border-bottom:none}
+td.num,th.num{font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.best{color:var(--good);font-weight:600}
+.band{background:var(--surface)}
+.pos{color:var(--good)} .neg{color:var(--crit)} .flat{color:var(--muted)}
+caption{caption-side:bottom;text-align:left;color:var(--muted);font-size:.74rem;padding:.6rem .7rem}
+
+/* findings cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:1rem;margin-top:1.3rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.15rem;
+  display:flex;flex-direction:column;gap:.5rem}
+.card .stat{font-family:"JetBrains Mono",monospace;font-size:1.45rem;font-weight:600;
+  font-variant-numeric:tabular-nums;line-height:1}
+.card h3{font-size:.98rem;font-weight:600}
+.card p{font-size:.86rem;color:var(--muted);margin:0}
+.chip{align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.06em;
+  text-transform:uppercase;padding:.2rem .5rem;border-radius:999px;border:1px solid var(--border);color:var(--muted)}
+.chip.ok{color:var(--good);border-color:color-mix(in srgb,var(--good) 45%,transparent)}
+.chip.no{color:var(--crit);border-color:color-mix(in srgb,var(--crit) 45%,transparent)}
+.chip.mid{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent)}
+
+/* per-epitope strip */
+.strip{margin-top:1.2rem;display:flex;flex-direction:column;gap:.35rem}
+.row{display:grid;grid-template-columns:7.4rem 1fr 2.6rem;align-items:center;gap:.6rem;font-size:.82rem}
+.row .ep{font-family:"JetBrains Mono",monospace;color:var(--muted);font-size:.76rem}
+.bar{height:16px;background:var(--surface-2);border-radius:6px;position:relative;overflow:hidden}
+.bar>span{position:absolute;inset:0 auto 0 0;border-radius:6px;background:linear-gradient(90deg,var(--kumo),var(--accent))}
+.bar.lo>span{background:linear-gradient(90deg,var(--nn),var(--knn))}
+.row .av{font-family:"JetBrains Mono",monospace;text-align:right;font-variant-numeric:tabular-nums}
+.chance-mark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--chance);left:14.3%}
+
+/* fairness */
+.fair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem}
+.fcol{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.2rem}
+.fcol h3{font-size:.95rem;font-weight:600;display:flex;align-items:center;gap:.5rem}
+.fcol ul{margin:.7rem 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.fcol li{font-size:.85rem;color:var(--muted);padding-left:1.1rem;position:relative}
+.fcol li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:2px;background:var(--muted)}
+.fcol.ok li::before{background:var(--good)} .fcol.no li::before{background:var(--crit)}
+.fcol li b{color:var(--fg);font-weight:600}
+.bottom{margin-top:1.2rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);
+  border-radius:14px;padding:1.1rem 1.25rem;font-size:.95rem}
+.bottom b{color:var(--accent)}
+
+/* follow-up banner */
+.banner{margin-top:1.6rem;background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 32%,transparent);border-radius:14px;padding:1rem 1.2rem}
+.banner .tag{font-family:"JetBrains Mono",monospace;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.banner p{margin:.35rem 0 0;font-size:.95rem}
+.banner b{color:var(--accent)}
+/* methods */
+.meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.2rem}
+.mcard{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem}
+.mcard .t{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mcard p{margin:.4rem 0 0;font-size:.85rem}
+.rt{display:flex;flex-direction:column;gap:.45rem;margin-top:.6rem}
+.rtrow{display:grid;grid-template-columns:6.6rem 1fr 3.2rem;align-items:center;gap:.5rem;font-size:.78rem}
+.rtbar{height:10px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.rtbar>span{display:block;height:100%;background:var(--accent);border-radius:5px}
+.rtrow .rv{font-family:"JetBrains Mono",monospace;text-align:right;font-variant-numeric:tabular-nums;color:var(--muted)}
+a{color:var(--accent)}
+footer{border-top:1px solid var(--border);padding-block:1.6rem 2.4rem;color:var(--muted);font-size:.8rem}
+@media (max-width:640px){
+  .tiles{grid-template-columns:1fr}
+  .panels,.fair{grid-template-columns:1fr}
+  .row{grid-template-columns:6.2rem 1fr 2.4rem}
+}
+</style>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">CPU feasibility study · IMMREP22 · leave-one-epitope-out</div>
+    <h1>Can in-context tabular learning beat TCRdist on unseen epitopes?</h1>
+    <p class="verdict">Short answer: <b>no, not where it counts.</b> With a few labeled TCRs for a brand-new epitope, TabPFN v2 and NVIDIA Kumo Tabular (S) do not beat the cheap TCRdist nearest-neighbour baseline. They only pull ahead once the support set is large.</p>
+    <div class="tiles">
+      <div class="tile"><div class="k">TabPFN v2 · honest · k=50</div><div class="v num">0.685</div><div class="d">median per-epitope AUROC</div></div>
+      <div class="tile"><div class="k">Kumo Tabular (S) · k=50</div><div class="v num">0.683</div><div class="d">tracks TabPFN almost exactly</div></div>
+      <div class="tile win"><div class="k">TCRdist k-NN · k=50</div><div class="v num">0.741</div><div class="d">best cheap method at few-shot</div></div>
+    </div>
+    <div class="banner">
+      <span class="tag">Follow-up · fair rematch</span>
+      <p>Given <b>exactly TCRdist's inputs</b> — germline CDR1/CDR2/CDR2.5 + CDR3 for both chains — the tabular models reach <b>parity by k=50</b>, but <b>TCRdist still wins at k=20</b>. Representation was most of the story; the learner was not the limiter. Sections 07–09.</p>
+    </div>
+  </header>
+
+  <section>
+    <div class="sec-head"><span class="no">01</span><h2>The task</h2></div>
+    <p class="lede">One task = one epitope. The support set is <b>k</b> labeled TCRs for that epitope; the query is the rest. Leave-one-epitope-out, so every evaluated epitope is unseen by any cross-epitope training. Because the epitope is constant within a task, the model encodes the TCR only. Negatives come in two flavours, reported separately: <b>(a)</b> healthy-donor background TCRs and <b>(b)</b> TCRs that bind other epitopes — the honest, harder choice.</p>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">02</span><h2>AUROC vs support size</h2></div>
+    <p class="lede">Median per-epitope AUROC (each epitope is itself a median over 5 seeds). The dashed line is chance. The tabular models cross the TCRdist lines only at k=200.</p>
+    <div class="panels">
+      <div class="panel"><h3>(a) background negatives</h3><div class="sub">11 epitopes · k=200 on 6</div><div id="chart-a"></div></div>
+      <div class="panel"><h3>(b) other-epitope negatives</h3><div class="sub">the honest comparison</div><div id="chart-b"></div></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--tabpfn)"></i>TabPFN v2</span>
+      <span><i style="background:var(--kumo)"></i>Kumo Tabular (S)</span>
+      <span><i style="background:var(--nn)"></i>TCRdist NN</span>
+      <span><i style="background:var(--knn)"></i>TCRdist k-NN</span>
+      <span><i style="background:var(--chance);height:2px"></i>chance (0.5)</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">03</span><h2>Headline numbers</h2></div>
+    <p class="lede">Δ is the median paired difference against the better TCRdist scorer per epitope. Query sets are class-balanced, so AUPRC chance = 0.5.</p>
+    <div class="scroll">
+      <table>
+        <thead><tr>
+          <th>scheme</th><th class="num">k</th><th class="num">TabPFN</th><th class="num">Kumo&nbsp;(S)</th>
+          <th class="num">TCRdist NN</th><th class="num">TCRdist k-NN</th><th class="num">LightGBM</th>
+          <th class="num">Δ TabPFN</th><th class="num">Δ Kumo</th>
+        </tr></thead>
+        <tbody id="headbody"></tbody>
+      </table>
+      <caption>Bold = best in row. Δ against best-of-{NN,k-NN} per epitope. Negative Δ = foundation model loses to TCRdist.</caption>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">04</span><h2>What the study found</h2></div>
+    <div class="cards">
+      <div class="card"><span class="chip no">few-shot</span><div class="stat" style="color:var(--nn)">k ≤ 50</div><h3>TCRdist wins the few-shot regime</h3><p>At the small support sizes that make "few-shot" meaningful, TCRdist NN/k-NN matches or beats both foundation models — while using only the support binders, not the negatives.</p></div>
+      <div class="card"><span class="chip mid">robustness</span><div class="stat">≈ TabPFN</div><h3>Kumo changes nothing</h3><p>Swapped in on identical splits, Kumo (S) lands within 0.01 AUROC of TabPFN everywhere. The verdict does not depend on which tabular foundation model you pick.</p></div>
+      <div class="card"><span class="chip no">generalization</span><div class="stat" style="color:var(--crit)">~0.50</div><h3>Zero-shot transfer collapses</h3><p>A model trained on all other epitopes and applied to a new one with no target labels falls to chance under honest negatives (0.48–0.54). The generalization gap is real.</p></div>
+      <div class="card"><span class="chip ok">input &gt; model</span><div class="stat pos">+0.045</div><h3>The α-chain is the biggest lever</h3><p>Adding CDR3-alpha features lifts the tabular models by a median +0.045 AUROC — larger and more consistent than any difference between methods.</p></div>
+      <div class="card"><span class="chip mid">sanity check</span><div class="stat">+0.05</div><h3>Negative sampling barely moved it</h3><p>Honest other-epitope negatives were not the catastrophe the usual warning implies — on par with background here, because the honest split removes the usual shortcut.</p></div>
+      <div class="card"><span class="chip no">per-epitope</span><div class="stat">0.59–0.85</div><h3>Huge epitope-to-epitope spread</h3><p>Best achievable AUROC ranges from near-chance (NLVPMVATV) to strong (GILGFVFTL). Pooling across epitopes would hide exactly this failure mode.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">05</span><h2>Per-epitope heterogeneity</h2></div>
+    <p class="lede">Best achievable AUROC per epitope (max over methods, honest negatives, k=50). The marker is chance. Two of eleven epitopes sit near it; one is genuinely easy.</p>
+    <div class="strip" id="epstrip"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">06</span><h2>Is the comparison fair?</h2></div>
+    <p class="lede">It is fair as a protocol, but it is a comparison of <b>pipelines</b>, not of <b>models</b> — and two asymmetries pull in opposite directions.</p>
+    <div class="fair">
+      <div class="fcol ok"><h3>Fair by construction</h3><ul>
+        <li>Identical splits, seeds, query TCRs, labels and metric for every method.</li>
+        <li>The same 90%-identity <b>cluster-aware</b> anti-leakage — which matters most for a nearest-neighbour scorer — applied to all.</li>
+        <li>Beta-chain only in the primary run; no tuning on held-out epitopes; same CPU.</li>
+      </ul></div>
+      <div class="fcol no"><h3>Not a clean model-vs-model test</h3><ul>
+        <li><b>Tilts against TCRdist:</b> it scores on support binders only, ignoring the negatives the tabular models learn from — yet still wins at low k.</li>
+        <li><b>Tilts for TCRdist:</b> its metric uses germline CDR1/CDR2 loops; the tabular models got only generic Atchley CDR3β + a target-encoded V/J label. "Kumo loses" is entangled with "this featurization is weak."</li>
+        <li>Δ uses the better of NN/k-NN per epitope — a mild best-of-two flattering of the baseline.</li>
+      </ul></div>
+    </div>
+    <div class="bottom">What this licenses: <b>with a frozen generic CDR3β featurization, a tabular foundation model does not beat TCRdist's domain distance for unseen-epitope few-shot, at comparable cost.</b> It does not license "the models are worse" — that needs matched inputs (feed the tabular models the same CDR1/CDR2, or run TCRdist on paired chains). The follow-up below runs exactly that test.</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">07</span><h2>The fair rematch: matched inputs</h2></div>
+    <p class="lede">Give the tabular models <b>exactly the information TCRdist uses</b> — Atchley over the germline CDR1, CDR2, CDR2.5 and CDR3 loops of <b>both</b> chains, read from tcrdist3's own germline tables (395 features), on the identical splits, seeds and clustering. TCRdist is given its <b>best</b> configuration per epitope: notably, paired TCRdist is weaker than beta-only here — equal-weighting a noisier α-chain dilutes its nearest-neighbour distance — so it is not handicapped.</p>
+    <div class="panels">
+      <div class="panel"><h3>(a) background negatives</h3><div class="sub">matched inputs</div><div id="m-a"></div></div>
+      <div class="panel"><h3>(b) other-epitope negatives</h3><div class="sub">the honest comparison</div><div id="m-b"></div></div>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--tabpfn)"></i>TabPFN (matched)</span>
+      <span><i style="background:var(--lgbm)"></i>LightGBM (matched)</span>
+      <span><i style="background:var(--muted)"></i>ridge (matched)</span>
+      <span><i style="background:var(--nn)"></i>TCRdist (best)</span>
+      <span><i style="background:var(--chance);height:2px"></i>chance</span>
+    </div>
+    <div class="tiles" style="margin-top:1.4rem">
+      <div class="tile"><div class="k">honest k=20 · TabPFN</div><div class="v num">0.740</div><div class="d">vs TCRdist 0.768 — TCRdist wins</div></div>
+      <div class="tile"><div class="k">honest k=50 · TabPFN</div><div class="v num">0.769</div><div class="d">vs TCRdist 0.765 — parity</div></div>
+      <div class="tile win"><div class="k">honest k=200 · LightGBM</div><div class="v num">0.846</div><div class="d">vs TCRdist 0.756 — tabular wins</div></div>
+    </div>
+    <div class="bottom">Verdict: matched inputs <b>erase most of the prior deficit</b> — the tabular models reach parity with TCRdist by k=50 and win at k=200 — but <b>TCRdist keeps the edge at k=20</b>, where its hand-tuned metric needs no fitting. Not a clean negative, not a clean win. Representation, not the learner, was the dominant factor — exactly as the α-chain result predicted.</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">08</span><h2>Headroom: how high is the ceiling?</h2></div>
+    <p class="lede">Headroom = oracle − zero-shot, per epitope. The <b>oracle</b> is the best within-epitope model under cluster-aware cross-validation on all of an epitope's labels; <b>zero-shot</b> trains on every other epitope and is applied with no target labels. The gap is the most any in-context head could ever capture.</p>
+    <div class="tiles">
+      <div class="tile win"><div class="k">oracle · honest</div><div class="v num">0.816</div><div class="d">within-epitope ceiling</div></div>
+      <div class="tile"><div class="k">zero-shot · honest</div><div class="v num" style="color:var(--crit)">0.280</div><div class="d">below chance</div></div>
+      <div class="tile"><div class="k">headroom</div><div class="v num pos">+0.61</div><div class="d">oracle − zero-shot</div></div>
+    </div>
+    <div class="panel" style="margin-top:1.3rem"><h3>Adaptation curve A(k)</h3><div class="sub">zero-shot → few-shot → within-epitope oracle (LightGBM, both schemes)</div><div id="adapt"></div></div>
+    <div class="legend">
+      <span><i style="background:var(--tabpfn)"></i>background A(k)</span>
+      <span><i style="background:var(--lgbm)"></i>honest A(k)</span>
+      <span><i style="background:var(--warn);height:2px"></i>oracle</span>
+      <span><i style="background:var(--chance);height:2px"></i>chance</span>
+    </div>
+    <div class="bottom">The headroom is <b>enormous</b> under honest negatives — but A(k) shows within-task models capture most of it from only a handful of labels (LightGBM reaches 0.77 by k=50). <b>The limiter is not adaptation capacity; it is that target labels are required at all.</b></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">09</span><h2>Is there anything to meta-learn?</h2></div>
+    <p class="lede">If the per-epitope binding functions were similar, a pooled model with no epitope conditioning would match the per-epitope models, and an in-context head could amortize the shared structure. They are not.</p>
+    <div class="cards">
+      <div class="card"><span class="chip ok">per-epitope</span><div class="stat pos">0.816</div><h3>Each epitope is learnable</h3><p>A model fit on one epitope's own labels (cross-validated) reaches 0.82 AUROC. The within-task signal is strong.</p></div>
+      <div class="card"><span class="chip no">pooled</span><div class="stat" style="color:var(--crit)">0.079</div><h3>Pooling inverts</h3><p>One model over all epitopes with no conditioning scores 0.08 — far below chance. Under honest negatives the same TCR is a positive for its epitope and a negative for others, so the boundary is self-contradictory.</p></div>
+      <div class="card"><span class="chip mid">coefficients</span><div class="stat">≈ 0</div><h3>Orthogonal functions</h3><p>Per-epitope ridge coefficient vectors have pairwise cosine similarity ~0 (−0.18 to +0.20). The binding rules don't overlap.</p></div>
+    </div>
+    <div class="bottom">Each epitope is its own problem. There is little shared structure to amortize across tasks, so the value of in-context learning here is <b>within-task fitting</b>, not meta-learned transfer. It is also why more capacity or a better prior won't close the k=20 gap — only more target labels will.</div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="no">10</span><h2>Methods &amp; provenance</h2></div>
+    <div class="meta">
+      <div class="mcard"><div class="t">Data</div><p><b>IMMREP22</b> benchmark — 11 epitopes with ≥100 positives, paired α/β. Positives are VDJdb-derived; background negatives are healthy-donor CD8 TCRs. <a href="https://github.com/viragbioinfo/IMMREP_2022_TCRSpecificity">source ↗</a></p></div>
+      <div class="mcard"><div class="t">Clonal control</div><p>Exact duplicates collapsed; CDR3β clustered at 90% identity; splits made by cluster so no clone spans support/query. GILGFVFTL: 680 → 444 unique → 282 clusters.</p></div>
+      <div class="mcard"><div class="t">Features (frozen)</div><p>Primary: 100 Atchley factors over CDR3β + length + target-encoded V/J = 103. Fair rematch: Atchley over germline CDR1/CDR2/CDR2.5 + CDR3, both chains, from tcrdist3's tables = 395. No epitope features within a task.</p></div>
+      <div class="mcard"><div class="t">Protocol</div><p>k ∈ {20, 50, 200}, 5 seeds, both negative schemes. TabPFN 2.0.9 (ungated v2 weights), Kumo via <span class="mono">structured-data-models</span> 0.3.0, tcrdist3. Per-epitope, never pooled.</p></div>
+    </div>
+    <h3 style="font-size:.95rem;font-weight:600;margin-top:1.6rem">Runtime per task — CPU (mean seconds/fit)</h3>
+    <div class="rt" id="rt"></div>
+  </section>
+
+  <footer>
+    All runs in <span class="mono">results.csv</span>; report, plot and this page regenerate from the pipeline (<span class="mono">code/run.sh</span>, pinned <span class="mono">requirements.txt</span>). CPU-only, Python 3.13. Numbers are median per-epitope AUROC unless stated.
+  </footer>
+</div>
+
+<script>
+// ---------- data ----------
+const KS=[20,50,200];
+const AUROC={
+  a:{tabpfn:[0.624,0.635,0.723],kumo:[0.637,0.651,0.731],nn:[0.663,0.724,0.698],knn:[0.632,0.697,0.708]},
+  b:{tabpfn:[0.647,0.685,0.773],kumo:[0.645,0.683,0.779],nn:[0.653,0.709,0.696],knn:[0.639,0.741,0.697]}
+};
+const HEAD=[ // scheme,k,tabpfn,kumo,nn,knn,lgbm,dTab,dKumo
+ ["(a) background",20,0.624,0.637,0.663,0.632,0.582,-0.021,-0.008],
+ ["(a) background",50,0.635,0.651,0.724,0.697,0.645,-0.010,-0.004],
+ ["(a) background",200,0.723,0.731,0.698,0.708,0.729,-0.009,0.000],
+ ["(b) other-epitope",20,0.647,0.645,0.653,0.639,0.639,0.012,-0.010],
+ ["(b) other-epitope",50,0.685,0.683,0.709,0.741,0.672,-0.004,-0.007],
+ ["(b) other-epitope",200,0.773,0.779,0.696,0.697,0.749,0.048,0.043],
+];
+const EP=[ // epitope, best AUROC (otherep k=50)
+ ["GILGFVFTL",0.846],["GLCTLVAML",0.780],["ATDALMTGF",0.780],["KSKRTPMGF",0.765],
+ ["YLQPRTFLL",0.745],["LLWNGPMAV",0.741],["CINGVCWTV",0.686],["TTDPSFLGRY",0.685],
+ ["SPRWYFYYL",0.659],["LTDEMIAQY",0.601],["NLVPMVATV",0.594]
+];
+const RT=[["TCRdist",0.28],["LightGBM",0.14],["LogReg",0.01],["Kumo (S)",0.73],["TabPFN v2",6.82]];
+
+// ---------- line charts ----------
+const SVGNS="http://www.w3.org/2000/svg";
+function el(n,a){const e=document.createElementNS(SVGNS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function chart(host,series){
+  const W=340,H=250,mL=34,mR=24,mT=12,mB=28;
+  const y0=0.42,y1=0.86;
+  const px=i=>mL+(W-mL-mR)*(i/(KS.length-1));
+  const py=v=>mT+(H-mT-mB)*(1-(v-y0)/(y1-y0));
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,class:"chart",preserveAspectRatio:"xMidYMid meet"});
+  // y grid + ticks
+  [0.5,0.6,0.7,0.8].forEach(v=>{
+    svg.appendChild(el("line",{x1:mL,y1:py(v),x2:W-mR,y2:py(v),class:"grid"}));
+    const t=el("text",{x:mL-6,y:py(v)+3,class:"tick","text-anchor":"end"});t.textContent=v.toFixed(1);svg.appendChild(t);
+  });
+  // chance
+  svg.appendChild(el("line",{x1:mL,y1:py(0.5),x2:W-mR,y2:py(0.5),class:"chance"}));
+  // x ticks
+  KS.forEach((k,i)=>{const t=el("text",{x:px(i),y:H-10,class:"tick","text-anchor":"middle"});t.textContent="k="+k;svg.appendChild(t);});
+  // axis
+  svg.appendChild(el("line",{x1:mL,y1:mT,x2:mL,y2:H-mB,class:"axis"}));
+  svg.appendChild(el("line",{x1:mL,y1:H-mB,x2:W-mR,y2:H-mB,class:"axis"}));
+  // series
+  for(const s of ["nn","knn","tabpfn","kumo"]){
+    const v=series[s];
+    let d="";v.forEach((val,i)=>{d+=(i?"L":"M")+px(i)+" "+py(val);});
+    svg.appendChild(el("path",{d,class:"s-line s-"+s}));
+    v.forEach((val,i)=>svg.appendChild(el("circle",{cx:px(i),cy:py(val),r:3.4,class:"s-dot f-"+s})));
+  }
+  host.appendChild(svg);
+}
+chart(document.getElementById("chart-a"),AUROC.a);
+chart(document.getElementById("chart-b"),AUROC.b);
+
+// ---------- headline table ----------
+const hb=document.getElementById("headbody");
+HEAD.forEach((r,idx)=>{
+  const [sch,k,tp,ku,nn,knn,lg,dT,dK]=r;
+  const vals=[tp,ku,nn,knn,lg];const best=Math.max(...vals);
+  const cell=v=>`<td class="num${v===best?' best':''}">${v.toFixed(3)}</td>`;
+  const dcell=v=>{const c=v>0.004?'pos':(v<-0.004?'neg':'flat');const s=(v>0?'+':'')+v.toFixed(3);return `<td class="num ${c}">${s}</td>`;};
+  const band=sch.startsWith("(b)")?' class="band"':'';
+  hb.insertAdjacentHTML("beforeend",
+    `<tr${band}><td>${k===20?sch:''}</td><td class="num">${k}</td>${cell(tp)}${cell(ku)}${cell(nn)}${cell(knn)}${cell(lg)}${dcell(dT)}${dcell(dK)}</tr>`);
+});
+
+// ---------- per-epitope strip ----------
+const es=document.getElementById("epstrip");
+const emin=0.5,emax=0.88;
+EP.forEach(([ep,v])=>{
+  const pct=Math.max(2,(v-emin)/(emax-emin)*100);
+  const lo=v<0.63?' lo':'';
+  es.insertAdjacentHTML("beforeend",
+    `<div class="row"><span class="ep">${ep}</span>`+
+    `<div class="bar${lo}"><span style="width:${pct}%"></span><div class="chance-mark"></div></div>`+
+    `<span class="av">${v.toFixed(3)}</span></div>`);
+});
+
+// ---------- runtime bars ----------
+const rt=document.getElementById("rt");
+const rmax=Math.max(...RT.map(r=>r[1]));
+RT.forEach(([n,v])=>{
+  const w=Math.max(3,v/rmax*100);
+  rt.insertAdjacentHTML("beforeend",
+    `<div class="rtrow"><span>${n}</span><div class="rtbar"><span style="width:${w}%"></span></div><span class="rv">${v.toFixed(2)}s</span></div>`);
+});
+
+// ---------- follow-up: matched rematch + adaptation ----------
+const MATCHED={
+  a:{tabpfn:[0.725,0.762,0.803],lgbm:[0.667,0.741,0.798],ridge:[0.660,0.704,0.660],td:[0.738,0.770,0.761]},
+  b:{tabpfn:[0.740,0.769,0.836],lgbm:[0.723,0.768,0.846],ridge:[0.731,0.697,0.645],td:[0.768,0.765,0.756]}
+};
+const ADAPT={ a:{pts:[0.555,0.667,0.741,0.798],oracle:0.797},
+              b:{pts:[0.280,0.723,0.768,0.846],oracle:0.816} };
+
+function lineChart(host, o){
+  const W=340,H=250,mL=34,mR=24,mT=12,mB=28, n=o.xlabels.length;
+  const px=i=>mL+(W-mL-mR)*(n<2?0.5:i/(n-1));
+  const py=v=>mT+(H-mT-mB)*(1-(v-o.y0)/(o.y1-o.y0));
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,class:"chart",preserveAspectRatio:"xMidYMid meet"});
+  for(let v=Math.ceil(o.y0*10)/10; v<=o.y1+1e-9; v+=0.1){ const vv=+v.toFixed(1);
+    svg.appendChild(el("line",{x1:mL,y1:py(vv),x2:W-mR,y2:py(vv),class:"grid"}));
+    const t=el("text",{x:mL-6,y:py(vv)+3,class:"tick","text-anchor":"end"}); t.textContent=vv.toFixed(1); svg.appendChild(t); }
+  (o.refs||[]).forEach(r=> svg.appendChild(el("line",{x1:mL,y1:py(r.y),x2:W-mR,y2:py(r.y),class:r.cls})));
+  if(o.y0<0.5&&o.y1>0.5) svg.appendChild(el("line",{x1:mL,y1:py(0.5),x2:W-mR,y2:py(0.5),class:"chance"}));
+  o.xlabels.forEach((lab,i)=>{ const t=el("text",{x:px(i),y:H-10,class:"tick","text-anchor":"middle"}); t.textContent=lab; svg.appendChild(t); });
+  svg.appendChild(el("line",{x1:mL,y1:mT,x2:mL,y2:H-mB,class:"axis"}));
+  svg.appendChild(el("line",{x1:mL,y1:H-mB,x2:W-mR,y2:H-mB,class:"axis"}));
+  o.series.forEach(s=>{
+    let d=""; s.vals.forEach((v,i)=>{ if(v==null)return; d+=(d?"L":"M")+px(i)+" "+py(v); });
+    const p=el("path",{d,class:"s-line s-"+s.key}); if(s.dash) p.setAttribute("stroke-dasharray","5 3"); svg.appendChild(p);
+    s.vals.forEach((v,i)=>{ if(v==null)return; svg.appendChild(el("circle",{cx:px(i),cy:py(v),r:3.2,class:"s-dot f-"+s.key})); });
+  });
+  host.appendChild(svg);
+}
+["a","b"].forEach(s=> lineChart(document.getElementById("m-"+s),{
+  xlabels:["k=20","k=50","k=200"], y0:0.45, y1:0.88,
+  series:[{key:"td",vals:MATCHED[s].td,dash:true},{key:"ridge",vals:MATCHED[s].ridge},
+          {key:"lgbm",vals:MATCHED[s].lgbm},{key:"tabpfn",vals:MATCHED[s].tabpfn}] }));
+lineChart(document.getElementById("adapt"),{
+  xlabels:["0 (zero-shot)","20","50","200"], y0:0.2, y1:0.9,
+  refs:[{y:ADAPT.a.oracle,cls:"ref-oracle"},{y:ADAPT.b.oracle,cls:"ref-oracle"}],
+  series:[{key:"tabpfn",vals:ADAPT.a.pts},{key:"lgbm",vals:ADAPT.b.pts}] });
+</script>
