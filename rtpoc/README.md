@@ -62,7 +62,7 @@ python rtpoc/heldout_generic.py PXD079751 PXD062983 PXD076643 PXD050641 \
 ./rtpoc/run_extra.sh                                  # results/parts/{C3T1,NE8}_<ds>.csv
 
 # 8. Speed for 2k to 100k queries (idle machine)
-python rtpoc/timing.py --threads 4                    # results/timing.csv
+./rtpoc/run_timing.sh                                 # pruned grid -> results/timing.csv
 
 python rtpoc/aggregate.py
 ```
@@ -73,7 +73,7 @@ python rtpoc/aggregate.py
 | `heldout_generic.py` | legacy DeepLC prediction and the DeepLC 4.5 multi-head prediction matrix (stored as its low-rank factors) |
 | `run_heldout.py`, `run_heldout_all.sh` | C2 protocol plus B4 (DeepLC 4.5 `MultiHeadRidgeCalibration` on the context) and T1_d45 |
 | `run_extra.sh` | C3T1 and NE8 checks (via `run.py --checks C3T1 NE8`) |
-| `timing.py` | wall-clock and accuracy for large query sets |
+| `timing.py`, `run_timing.sh` | wall-clock and accuracy for large query sets (pruned grid) |
 | `predict.py` | command-line predictor for a new setup (default T1_d45) |
 
 ### Using the predictor

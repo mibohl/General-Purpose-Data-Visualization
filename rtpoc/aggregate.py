@@ -370,7 +370,7 @@ def main():
              ("runtime_s", 4): "median", ("runtime_s", 8): "median"})
         g.columns = ["rel MAE (4)", "rel MAE (8)", "ratio 8/4 (geo mean)", "sec (4)", "sec (8)"]
         out.append("\n## TabPFN n_estimators 8 vs 4 (seeds 0-2, same splits; seconds: 1 thread, "
-                   "3 jobs sharing 4 cores for 8, 4 jobs for 4)\n")
+                   "3 to 4 jobs sharing 4 cores)\n")
         out.append(fmt(g, 4))
 
     if c2 is not None:

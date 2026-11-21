@@ -5,6 +5,13 @@ The large hard-set gain over B2 comes mostly from setups where the generic
 predictor is nearly useless, so the more telling comparison is with the
 classical residual model B3. T2 beats B3 there too, by about 10 to 12%.
 
+**Follow-up (see the last section): against DeepLC 4.5's own calibration on
+setups published after its release, TabPFN with the legacy generic feature
+loses by 2 to 3x.** The generic model matters more than the in-context
+learner. With the DeepLC 4.5 head predictions as features (T1_d45), TabPFN
+beats DeepLC 4.5's calibration by 17 to 22% on hard and 3 to 9% on easy
+held-out setups (n >= 100), and by 27 to 50% at n = 25.
+
 Setup in one paragraph: 16 datasets from the DeepLC Zenodo record (9 easy,
 7 hard; list and reasons fixed beforehand in `data/datasets.md`). For each
 dataset and seed, 2,000 peptides are held out as queries, and the contexts
@@ -121,16 +128,23 @@ Mean relative MAE over datasets:
 | Easy, B2 | 0.0280 | 0.0281 | 0.0282 | 0.0282 |
 | Easy, B3 ridge | 0.0268 | 0.0294 | 0.0325 | 0.0394 |
 | Easy, B3 XGBoost | 0.0284 | 0.0416 | 0.0526 | 0.0705 |
-| Easy, T2 | **0.0242** | **0.0245** | **0.0251** | **0.0256** |
+| Easy, T1 | **0.0239** | 0.0248 | 0.0254 | 0.0277 |
+| Easy, T2 | 0.0242 | **0.0245** | **0.0251** | **0.0256** |
 | Hard, B2 | 0.1088 | 0.1092 | 0.1090 | 0.1093 |
 | Hard, B3 ridge | 0.0446 | 0.0529 | 0.0588 | 0.0682 |
 | Hard, B3 XGBoost | 0.0401 | 0.0514 | 0.0591 | 0.0726 |
-| Hard, T2 | **0.0349** | **0.0374** | **0.0390** | **0.0431** |
+| Hard, T1 | **0.0313** | **0.0339** | **0.0364** | **0.0414** |
+| Hard, T2 | 0.0349 | 0.0374 | 0.0390 | 0.0431 |
 
 T2 is fairly robust: +6% error at 20% noise on easy sets, +23% on hard sets.
 B3 degrades much faster (XGBoost up to 2.5x on easy, where it ends far worse
 than plain B2). B2's robust LOWESS barely moves. At 20% false IDs, T2 still
 beats B2 on easy sets (-9%) and stays far ahead of B3 on hard sets.
+
+T1 was run later on the identical corruptions. It degrades more than T2:
++16% on easy and +32% on hard sets at 20% noise. It stays ahead of T2 on hard
+sets at every noise level. On easy sets T2 is better from 5% noise on,
+because its LOWESS anchor is robust.
 
 ## C4 Uncertainty (90% intervals)
 
@@ -206,19 +220,169 @@ queries, so batching or a GPU would be needed for routine use. B2 is about 100 t
 8. **The modification features are coarse** (counts per modification type,
    no positions), and TabPFN sees no sequence order. Gains on modified
    peptides come from learning per-setup shifts for modification counts.
-9. C3 runs B2, B3 and T2, as the plan says; T1 was not run under noise.
+9. C3 runs B2, B3 and T2, as the plan says; T1 was added in the follow-up.
 10. Four smaller easy sets (hela_lumos_1h, plasma x2) were left out for
     runtime only; none were run.
 
-## What this suggests next
+## Follow-up: the suggested next steps
 
-- Use **T1 (direct)** as the default rather than T2. Keep T2 as a fallback
-  when the generic model is known to be good, since it was better on
-  modified peptides in easy setups.
-- Test against DeepLC 4.5's own transfer learning or calibration on setups
-  that are truly held out of its training (new data). That is the baseline a
-  user would actually compare against.
-- Add more independent hard setups (other PTM-rich and non-RP datasets) and
-  report per-dataset confidence intervals.
-- Try n_estimators = 8 and GPU inference, and measure the speed/accuracy
-  trade-off for 20k to 100k queries.
+The first version of this summary ended with four next steps. All four were run
+on the same CPU-only machine (4 cores; no GPU available). Tables are in
+`results/tables.md` (sections "C3", "TabPFN n_estimators", "Per-dataset ratios",
+"Held-out"), the held-out figure is `results/curves_heldout.png`, and timing
+rows are in `results/timing.csv`.
+
+### 1. Held-out comparison with DeepLC 4.5's own calibration
+
+**Data.** There are 8 LC setups from PRIDE projects published 2026-09-21 to
+2026-11-19, after DeepLC 4.5.0 was released on 2026-09-11. None of their PXD
+accessions occurs among the 958 PXDs in DeepLC 4.5's training task names.
+Each set is one run with RT taken as the per-run median, so there is no
+alignment. The labels were fixed before any run (`data/datasets.md`, addendum;
+details in `data/heldout/heldout.md`):
+
+- 3 easy: tryptic, mostly unmodified.
+- 5 hard: crotonyl-enriched, TMTpro phospho, two HLA-I sets, and an
+  endogenous peptidome.
+
+All 8 are reversed phase, because no new non-RP dataset could be found. Same
+protocol as C2: nested contexts n = 25 to 1,000, 5 seeds, up to 2,000 queries,
+every fit on the context only.
+
+**New methods.**
+
+- **B4**: the DeepLC 4.5 default model (6,543 setup heads) with its own
+  `MultiHeadRidgeCalibration` fit on the context. This is what
+  `predict_and_calibrate(..., psm_list_reference=context)` does. Its 90% window
+  is +/- the 90th percentile of 5-fold cross-fitted context residuals.
+- **T1_d45**: T1 plus the raw predictions of the 8 DeepLC 4.5 heads that B4
+  ranks highest on the context. The ranking uses context labels only.
+
+Geometric-mean ratio of relative MAE to B4 (below 1 = better than B4):
+
+| | n=25 | 50 | 100 | 250 | 500 | 1000 |
+|---|---|---|---|---|---|---|
+| Easy, T1 (legacy generic) | 1.88 | 2.34 | 3.10 | 3.22 | 3.12 | 3.13 |
+| Easy, T1_d45 | **0.73** | **0.73** | **0.95** | **0.97** | **0.92** | **0.91** |
+| Hard, T1 (legacy generic) | 1.38 | 2.48 | 2.41 | 2.38 | 2.34 | 2.22 |
+| Hard, T1_d45 | **0.50** | **0.79** | **0.78** | **0.83** | **0.83** | **0.81** |
+
+Mean relative MAE at n = 250 was as follows:
+
+- Easy: B4 0.0044, T1_d45 0.0042, T1 0.0140, B2 0.0193.
+- Hard: B4 0.0150, T1_d45 0.0122, T1 0.0358, B2 0.0574.
+
+What this shows:
+
+- **DeepLC 4.5 + its calibration is the baseline to beat, and the original
+  TabPFN pipeline does not beat it.** With the legacy generic feature, every
+  method is 2 to 7x worse than B4 once n >= 100. That includes T1, T2 and B3,
+  and holds on both easy and hard sets. The main study's gains were relative
+  to calibrating an old model. The newer generic model gives a much larger
+  gain than switching calibration to in-context learning.
+- **TabPFN on top of DeepLC 4.5 helps.** T1_d45 is better than B4 in every
+  group and at every n. On hard sets the gain is 17 to 22% for n >= 50.
+  Per dataset, the 95% CI of T1_d45/B4 lies below 1:
+  - n = 250: 4 of 5 hard sets (PXD061731 is at 0.86 [0.73, 1.01]);
+  - n = 100: 3 of 5.
+  At n = 100 and 250, T1_d45 wins in 80 to 100% of seeds on every hard set. On easy sets the gain
+  is 3 to 9% for n >= 100: clear on PXD062983 (0.88 to 0.89, CI below 1),
+  and a tie on PXD076643 and PXD079751 (CI includes 1).
+- **Small contexts: B4 is fragile, T1_d45 is not.** At n = 25, B4 has single
+  seeds with relative MAE up to 0.35 (PXD085246) and a hard-set mean of
+  0.047, against 0.020 for T1_d45. At n = 50, B4 recovers.
+- **Where the gain is.** On hard sets T1_d45 helps unmodified peptides most:
+  at n = 250, 0.0116 vs 0.0158 for B4, which covers the non-tryptic HLA and
+  peptidome sets. On modified peptides the gain is 0.0183 vs 0.0205. On easy
+  sets modified peptides are a tie.
+- **Intervals.** T1_d45 coverage is 0.89 to 0.91 for n >= 100 on easy sets
+  and 0.886 to 0.890 on hard sets, so 1 point under nominal on hard sets. At
+  n = 25 it undercovers (0.85 to 0.86). On hard sets its intervals are
+  20 to 35% narrower than B4's constant window (n >= 50); B4 covers 0.89
+  to 0.90. On easy sets the widths are about equal.
+- **Cost.** B4 takes 0.1 to 0.6 s per fit. T1_d45 takes 28 to 100 s for
+  2,000 queries (1 thread, 4 jobs on 4 cores), so 100 to 300x more.
+
+DeepLC's transfer learning (fine-tuning the network on the context) was not
+run. The plan forbids neural-network training, and DeepLC's own documentation
+recommends calibration over fine-tuning for contexts below about 500 peptides,
+which is the range studied here. So B4 is the relevant baseline in this
+regime, but it is not the strongest possible one for n = 500 to 1,000.
+
+### 2. T1 as default, and a predictor CLI
+
+T1 beats T2 in the main study on hard sets (per-dataset CIs below) and under
+label noise on hard sets (C3 above). The held-out results add that the best
+variant is T1 with DeepLC 4.5 head features. `rtpoc/predict.py` implements
+it, with T1_d45 as the default and T1 / T2 as options. It takes a context CSV
+(`seq, modifications, tr`) and a query CSV, and writes `rt_pred` and a 90%
+interval. On PXD084949 (250 context peptides, 500 queries) it gave relative
+MAE 0.017 and 89% coverage.
+
+### 3. Per-dataset confidence intervals (main study, 5 seeds)
+
+Ratio of relative MAE with a 95% t-interval over seeds on the log ratio
+(full table in `results/tables.md`):
+
+- T1 vs best B3 (per-seed min of ridge and XGBoost), n = 250: the CI lies
+  below 1 on 15 of 16 datasets. The exception is arabidopsis
+  (0.97 [0.94, 1.01]). On the non-RP hard sets the ratio is 0.64 to 0.79.
+- T2 vs best B3 is smaller: 0.81 to 0.95 on hard sets at n = 250. At
+  n = 100, prosit_ptm_2020 is not significant (0.995 [0.946, 1.047]).
+- The two new independent hard groups, PTM-rich RP and HLA/peptidome RP, now
+  come from the held-out sets in section 1. Non-RP remains covered by one
+  study only (the 5 HILIC/SCX/silica sets from the same lab).
+
+### 4. n_estimators = 8 and speed for large query sets
+
+**n_estimators 8 vs 4** (all 16 datasets, seeds 0 to 2, n = 100 and 250):
+the geometric-mean ratio of relative MAE is 0.995 to 1.000 in every group.
+The best single dataset gains 0.8% (Xbridge, T1). Runtime doubles. Keep 4.
+
+**Timing** (`rtpoc/timing.py`, hela_hf, 4 torch threads on an idle machine,
+queries predicted in blocks of 10,000; pruned grid to fit the budget):
+
+| context n | queries | n_estimators | ms / query | total |
+|---|---|---|---|---|
+| 250 | 2,000 | 4 | 7.3 | 15 s |
+| 250 | 20,000 | 4 | 5.8 | 1.9 min |
+| 250 | 100,000 | 4 | 6.9 | 11.6 min |
+| 1,000 | 2,000 | 4 | 15.6 | 31 s |
+| 1,000 | 20,000 | 4 | 9.8 | 3.3 min |
+| 1,000 | 100,000 | 4 | 9.3 | 15.5 min |
+| 250 | 20,000 | 8 | 15.0 | 5.0 min |
+| 1,000 | 20,000 | 8 | 21.2 | 7.1 min |
+
+- Cost is linear in queries, at about 6 to 10 ms per query on 4 CPU threads.
+  A 100k-peptide library takes 12 to 16 minutes per setup. That is usable
+  for offline library building, not for interactive use.
+- `fit_with_cache` (context cache reused across query blocks) gave 9.3
+  ms/query vs 9.8 at n = 1,000 / 20k queries, with the same accuracy. That
+  is a 5% saving, not worth the extra 9 s fit and memory.
+- n_estimators = 8 costs 2.2 to 2.6x. On this single split it lowered
+  relative MAE by 3 to 4%. The 16-dataset NE8 test above (< 0.5%) is the
+  better estimate.
+- GPU: none is available in this environment (no CUDA device), so GPU
+  speed was not measured.
+
+### Revised recommendation
+
+1. For a new LC setup, use **DeepLC 4.5 + TabPFN on its head predictions
+   (T1_d45, `rtpoc/predict.py`)**. It was better than DeepLC 4.5's own
+   calibration in both groups at every n, by about 20% on hard setups.
+   At n = 250 it had lower error on 7 of 8 held-out datasets; the eighth is
+   a tie. It is robust at n = 25 to 50, where the
+   calibration can fail.
+2. If runtime matters more than the last 5 to 20%, DeepLC 4.5's
+   calibration (B4) is 100 to 300x cheaper and already 2 to 3x better than
+   anything built on the legacy model.
+3. Open questions:
+   - non-RP held-out setups (none were found);
+   - DeepLC fine-tuning at n >= 500, excluded here by the no-training rule;
+   - adding B4's calibrated prediction itself as a T1_d45 feature;
+   - GPU throughput.
+
+Data budget: Zenodo 118 MB, TabPFN weights 43 MB (the DeepLC models ship
+with the pip package), held-out downloads
+352 MB kept (517 MB on disk after extraction in `data/heldout/raw/`, ignored
+by git). That is under 2 GB in total.
