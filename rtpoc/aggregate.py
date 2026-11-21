@@ -234,7 +234,7 @@ def heldout(h):
 
 
 def heldout_fig(per, path):
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.4))
+    fig, axes = plt.subplots(1, 2, figsize=(11, 5.0))
     for ax, g in zip(axes, ("easy", "hard")):
         x = per[per.group == g]
         agg = x.groupby(["method", "n"]).rel_mae.mean()
@@ -254,10 +254,11 @@ def heldout_fig(per, path):
         ax.set_title(f"{g.capitalize()} held-out setups (k={x.dataset.nunique()})", fontsize=10,
                      loc="left")
         ax.grid(True, axis="y", which="both", color="#e4e3df", lw=0.8)
-    axes[1].legend(frameon=False, fontsize=8.5)
+    h, lab = axes[0].get_legend_handles_labels()
+    fig.legend(h, lab, loc="lower center", ncol=3, frameon=False, fontsize=8.5)
     fig.suptitle("Setups published after DeepLC 4.5: RT error vs. context size, 5 seeds",
                  fontsize=11, x=0.01, ha="left")
-    fig.tight_layout()
+    fig.tight_layout(rect=(0, 0.11, 1, 1))
     fig.savefig(path, dpi=150)
     plt.close(fig)
 
