@@ -3,6 +3,7 @@ cache/
 data/
 # logs & python caches
 results/run.log
+results/run_kumo.log
 __pycache__/
 *.pyc
 # in-progress run output (force-added in final commit)
