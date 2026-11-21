@@ -1,0 +1,14 @@
+# CPU-only. Install CPU torch first if needed:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+numpy
+pandas
+scipy
+scikit-learn
+matplotlib
+tqdm
+jinja2
+tabpfn
+mhcflurry
+PyTDC            # dataset provenance; dataset is also fetched directly in run.sh
+fuzzywuzzy
+python-Levenshtein

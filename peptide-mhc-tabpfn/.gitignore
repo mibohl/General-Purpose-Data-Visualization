@@ -1,0 +1,7 @@
+# Large downloaded artifacts (re-created by run.sh) — not committed
+cache/
+data/
+# logs & python caches
+results/run.log
+__pycache__/
+*.pyc
