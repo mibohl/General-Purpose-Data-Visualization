@@ -9,4 +9,8 @@ results/parts/
 data/heldout/raw/
 data/heldout/*.csv
 results/finetune/preds/
-results/finetune/parts/  # tracked again once the runs finish
+# fine-tuning outputs: tracked again once the runs finish
+results/finetune/parts/
+results/finetune/results.csv
+results/finetune/tables.md
+results/finetune/curves_finetune.png
