@@ -8,3 +8,7 @@ __pycache__/
 # in-progress run output (force-added in final commit)
 results/results.csv
 results/results_kumo.csv
+# generated artifacts (force-added in final commit)
+results/report.md
+results/summary_tables.md
+results/results_vs_k.png
