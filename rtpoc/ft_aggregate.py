@@ -29,7 +29,7 @@ LABEL = {"B4": "DeepLC 4.5 calibration (B4)", "FT": "DeepLC 4.5 fine-tuned (FT)"
          "T1_d45_B4": "TabPFN on heads + B4 prediction"}
 COLOR = {"B4": "#2a78d6", "FT": "#eb6834", "T1_d45": "#1baf7a", "T1_d45_FT": "#6250d6",
          "T1_d45_B4": "#8b939b"}
-MARK = {"B4": "*", "FT": "s", "T1_d45": "o", "T1_d45_FT": "D", "T1_d45_B4": "^"}
+MARK = {"B4": "v", "FT": "s", "T1_d45": "o", "T1_d45_FT": "D", "T1_d45_B4": "^"}
 
 
 def fmt(df, nd=2):
@@ -46,6 +46,9 @@ def load():
     h = h.assign(check="H_reused")
     allr = pd.concat([h, ft], ignore_index=True)
     allr["rel_mae_pct"] = 100 * allr["rel_mae"]
+    # ft_d45 counts _validate_epoch calls minus one; deeplc.finetune also calls it once
+    # after training (_warn_if_fit_collapsed), so the logged count is one too high.
+    allr["ft_epochs"] = allr["ft_epochs"] - 1
     return allr
 
 
@@ -88,12 +91,14 @@ def fig(ps, path):
         ax.set_xlabel("context size k (identified peptides)")
         ax.set_ylabel("relative MAE, % of RT range (mean over setups)")
         nds = x.index.get_level_values("dataset").nunique()
-        ax.set_title(f"{g.capitalize()} held-out setups (k={nds})", fontsize=10, loc="left")
+        ax.set_title(f"{g.capitalize()} held-out setups ({nds} setups)", fontsize=10, loc="left")
         ax.grid(True, axis="y", color="#e4e3df", lw=0.8)
         for s in ("top", "right"):
             ax.spines[s].set_visible(False)
     h, lab = axes[0].get_legend_handles_labels()
     fig.legend(h, lab, loc="lower center", ncol=2, frameon=False, fontsize=9)
+    axes[1].annotate("hybrid and T1+heads overlap", xy=(500, 1.13), xytext=(1000, 1.25), ha="right",
+                     fontsize=8, color="#555", arrowprops=dict(arrowstyle="-", color="#999"))
     fig.suptitle("DeepLC 4.5 fine-tuning vs calibration vs TabPFN stacking, 5 seeds",
                  fontsize=11, x=0.01, ha="left")
     fig.tight_layout(rect=(0, 0.11, 1, 1))
@@ -119,7 +124,8 @@ def main():
     out.append(tab.to_markdown())
     # geometric-mean ratios per group
     out.append("\n## Geometric-mean ratio over setups (below 1 = numerator better)\n")
-    pairs = [("FT", "B4"), ("FT", "T1_d45"), ("T1_d45_FT", "FT"), ("T1_d45_FT", "T1_d45"),
+    pairs = [("FT", "B4"), ("FT", "T1_d45"), ("FT_raw", "T1_d45"), ("FT_raw", "FT"),
+             ("T1_d45_FT", "FT"), ("T1_d45_FT", "T1_d45"),
              ("T1_d45_B4", "T1_d45")]
     gr = {}
     cis = {}
@@ -174,6 +180,7 @@ def main():
     tp = os.path.join(OUT, "timing_4threads.csv")
     if os.path.exists(tp):
         t4 = pd.read_csv(tp)
+        t4["epochs_run"] = t4["epochs_run"] - 1  # same off-by-one as above
         out.append("\n## Fine-tune wall-clock on 4 threads, idle machine (seed 0)\n")
         out.append(fmt(t4.groupby("n")[["ft_train_s", "total_s", "epochs_run"]]
                        .agg(["median", "max"]), 1))
@@ -182,10 +189,12 @@ def main():
     if hr:
         h = pd.concat([pd.read_csv(f) for f in hr])
         h["rel_mae_pct"] = 100 * h.rel_mae
+        h["epochs_run"] = h["epochs_run"] - 1  # same off-by-one as above
         w = h.pivot_table(index="dataset", columns="method", values="rel_mae_pct")
         k1 = pdm.xs(1000, level="n").droplevel("group")
         w["FT_k1000"] = k1["FT"]
         w["B4_k1000"] = k1["B4"]
+        w["T1_d45_k1000"] = k1["T1_d45"]
         w["headroom (zero_shot - FT_full)"] = w["zero_shot"] - w["FT_full"]
         info = h[h.method == "FT_full"].set_index("dataset")[["n", "epochs_cap", "epochs_run",
                                                               "ft_train_s"]]
