@@ -8,3 +8,4 @@ __pycache__/
 results/parts/
 data/heldout/raw/
 data/heldout/*.csv
+results/finetune/preds/
