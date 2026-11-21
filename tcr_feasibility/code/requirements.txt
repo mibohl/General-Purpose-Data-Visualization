@@ -1,0 +1,12 @@
+lightgbm==4.7.0
+matplotlib==3.11.2
+numpy==2.5.5
+pandas==2.3.3
+pyarrow==26.0.1
+RapidFuzz==3.14.6
+scikit-learn==1.6.1
+scipy==1.18.1
+structured-data-models==0.3.0
+tabpfn==2.0.9
+tcrdist3==0.3
+torch==2.15.0+cpu
