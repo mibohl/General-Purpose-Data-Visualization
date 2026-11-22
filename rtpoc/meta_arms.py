@@ -211,9 +211,14 @@ def main():
         zs_dlc = np.full(len(df), np.nan)
         zs_dlc[used] = A_u[:, 0]
         q0, _ = R.split(len(df), 0)
+        os.makedirs(os.path.join(ROOT, "results", "finetune", "metapreds"), exist_ok=True)
+        np.savez(os.path.join(ROOT, "results", "finetune", "metapreds", f"{name}.npz"),
+                 used=used, B_knn=zs_knn[used], B_lgbm=zs_lgb[used], DeepLC45_zero_shot=zs_dlc[used])
         for meth, z, t in (("B_knn", zs_knn, t_knn), ("B_lgbm", zs_lgb, t_lgb), ("DeepLC45_zero_shot", zs_dlc, 0.0)):
             zrows.append(dict(dataset=name, group=grp, method=meth, rel_mae=np.abs(z[q0] - tr[q0]).mean() / rng,
-                              pearson=np.corrcoef(z[q0], tr[q0])[0, 1], seconds=t,
+                              pearson=np.corrcoef(z[q0], tr[q0])[0, 1],
+                              spearman=pd.Series(z[q0]).corr(pd.Series(tr[q0]), method="spearman"),
+                              seconds=t,
                               knn_dist=dk if meth == "B_knn" else np.nan,
                               nn_projects=";".join(nn[:10]) if meth == "B_knn" else "",
                               n_train_rows=len(y) if meth == "B_lgbm" else np.nan))
