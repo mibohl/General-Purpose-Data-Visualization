@@ -105,7 +105,7 @@ def fig(ps, path):
         ax.set_xticks(KS)
         ax.set_xticklabels([str(k) for k in KS])
         ax.minorticks_off()
-        yt = {"easy": [0.35, 0.4, 0.5, 0.6, 0.8, 1.0, 1.2], "hard": [1.0, 1.2, 1.5, 2.0, 2.5, 3.0]}[g]
+        yt = {"easy": [0.35, 0.4, 0.5, 0.6, 0.8, 1.0, 1.5, 2.0, 3.0], "hard": [1.0, 1.2, 1.5, 2.0, 2.5, 3.0, 4.0]}[g]
         ax.set_yticks(yt)
         ax.set_yticklabels([f"{v:g}" for v in yt])
         ax.set_xlabel("context size k (identified peptides)")
