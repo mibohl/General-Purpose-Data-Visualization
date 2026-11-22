@@ -280,7 +280,43 @@ SPEARMAN_TABLE
 
 ## Uncertainty: TabPFN's 90% intervals vs the fine-tuned model's residual spread
 
-INTERVAL_TABLE
+Coverage on the query peptides / median width, both as % of the RT range;
+mean over setups and 5 seeds. TabPFN's interval is its own 5% to 95%
+predictive quantiles. FT has no interval of its own, so it gets a
+split-conformal one from its 15% early-stopping part (context only). FT
+spread is the central 90% range of FT's actual query residuals: an oracle
+reference for how wide a constant interval around FT must be, not a method.
+
+| group | arm | k = 100 | 250 | 500 | 1000 |
+|---|---|---|---|---|---|
+| easy | T1_d45 | 0.893 / 1.48 | 0.905 / 1.30 | 0.912 / 1.22 | 0.908 / 1.12 |
+| easy | T1_d45_B4 | 0.897 / 1.46 | 0.910 / 1.24 | 0.915 / 1.17 | 0.910 / 1.08 |
+| easy | FT, conformal | 0.892 / 2.35 | 0.914 / 2.06 | 0.896 / 1.72 | 0.895 / 1.39 |
+| easy | FT spread (oracle) | 0.900 / 2.10 | 0.900 / 1.68 | 0.900 / 1.56 | 0.900 / 1.41 |
+| easy | B4 window | 0.892 / 1.95 | 0.904 / 1.74 | 0.909 / 1.72 | 0.905 / 1.61 |
+| hard | T1_d45 | 0.886 / 3.75 | 0.889 / 3.27 | 0.890 / 3.09 | 0.888 / 2.85 |
+| hard | T1_d45_B4 | 0.881 / 3.71 | 0.889 / 3.25 | 0.891 / 3.06 | 0.886 / 2.84 |
+| hard | FT, conformal | 0.931 / 12.03 | 0.917 / 8.54 | 0.897 / 7.23 | 0.893 / 6.30 |
+| hard | FT spread (oracle) | 0.900 / 8.33 | 0.900 / 7.05 | 0.900 / 7.09 | 0.900 / 6.30 |
+| hard | B4 window | 0.898 / 7.28 | 0.899 / 6.10 | 0.894 / 5.36 | 0.898 / 5.18 |
+
+- TabPFN's 90% intervals are close to nominal: 0.89 to 0.92 on easy setups and
+  0.88 to 0.89 on hard setups (slightly under; per setup 0.88 to 0.92 on
+  average, single runs 0.81 to 0.96).
+- They are much narrower than the fine-tuned model's residual spread: median
+  width 1.1 to 1.5% vs 1.4 to 2.1% of the RT range on easy setups (0.70 to
+  0.79x), and 2.9 to 3.8% vs 6.3 to 8.3% on hard setups (0.44 to 0.46x).
+  TabPFN's width varies per peptide, so its mean width is larger than its
+  median (1.5 to 1.8% easy, 4.0 to 5.4% hard), but still below FT's spread.
+- The gap is largest where FT's residuals have heavy tails (PXD084949, HLA
+  class I: FT spread 16.6% vs TabPFN median width 2.7% at the same coverage
+  level, 0.89).
+- FT's conformal interval, built from only 15 to 150 validation peptides,
+  overcovers at small k on hard setups (0.93) and is up to 1.4x wider than
+  the oracle spread.
+- Data: `IV_*.csv` in `results/finetune/parts/` (per run); the reruns
+  reproduce the stored predictions (TabPFN identical over 320 runs, FT within
+  1.1e-6 of the RT range).
 
 ## Timing and compute
 
