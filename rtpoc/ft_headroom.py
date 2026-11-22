@@ -12,7 +12,10 @@ Output: results/finetune/parts/HR_<name>.csv
 --parts selects which of zero_shot, B4_full, FT_full to compute; rows for other
 methods already in the output file are kept. On the 90k-peptide PXD079751 the
 three in one process ran out of memory (the 6,543-head matrix plus the
-fine-tune), so it is run in two processes there.
+fine-tune), so it is run in two processes there. The fine-tune alone still
+ran out of memory on its 90,685-peptide pool (about 14 GB, DeepLC's encoded
+training data), so there FT_full uses the first --max-pool peptides of the pool
+(30,000; the same nested-context convention as the grid) and says so in n.
 Usage: python rtpoc/ft_headroom.py <name> --lr .. --epochs .. --patience .. [--threads 4] [--parts zs b4 ft]
 """
 import argparse, os, sys, time
@@ -30,6 +33,7 @@ BUDGET_S = 540
 ap = argparse.ArgumentParser(); ap.add_argument("name")
 ap.add_argument("--lr", type=float, required=True); ap.add_argument("--epochs", type=int, required=True)
 ap.add_argument("--patience", type=int, required=True); ap.add_argument("--threads", type=int, default=4)
+ap.add_argument("--max-pool", type=int, default=0, help="cap the fine-tuning pool (0 = no cap)")
 ap.add_argument("--parts", nargs="+", default=["zs", "b4", "ft"], choices=["zs", "b4", "ft"])
 a = ap.parse_args()
 import torch; torch.set_num_threads(a.threads)  # noqa: E401,E702
@@ -53,11 +57,12 @@ if "b4" in a.parts:
     rows.append(dict(dataset=a.name, method="B4_full", n=len(pool), rel_mae=np.abs(pb - tr[q]).mean() / rng,
                      pearson=np.corrcoef(pb, tr[q])[0, 1], seconds=time.time() - t))
     del D, cal
-cap = int(min(a.epochs, max(3, BUDGET_S // (SEC_PER_PEPTIDE_EPOCH * len(pool)))))
+ftpool = pool[:a.max_pool] if a.max_pool else pool
+cap = int(min(a.epochs, max(3, BUDGET_S // (SEC_PER_PEPTIDE_EPOCH * len(ftpool)))))
 cfg = dict(lr=a.lr, epochs=cap, patience=a.patience)
 if "ft" in a.parts:
-    pred, raw, t_ft, t_all, ep = FT.finetune_predict(df, pool, q, seed, cfg, a.threads)
-    rows.append(dict(dataset=a.name, method="FT_full", n=len(pool), rel_mae=np.abs(pred - tr[q]).mean() / rng,
+    pred, raw, t_ft, t_all, ep = FT.finetune_predict(df, ftpool, q, seed, cfg, a.threads)
+    rows.append(dict(dataset=a.name, method="FT_full", n=len(ftpool), pool_size=len(pool), rel_mae=np.abs(pred - tr[q]).mean() / rng,
                      pearson=np.corrcoef(pred, tr[q])[0, 1], seconds=t_all, ft_train_s=t_ft,
                      epochs_cap=cap, epochs_cfg=a.epochs, epochs_run=ep))
 out = pd.DataFrame(rows); out["threads"] = a.threads

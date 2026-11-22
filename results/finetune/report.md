@@ -7,9 +7,12 @@ the old winner) at every k in both groups. On the 5 hard setups FT is 21 to 27%
 worse (geometric mean over setups), and the 95% CI over seeds lies above 1 on
 19 of 20 (setup, k) cells. On the 3 easy setups the gap shrinks with k: 11.5%
 at k = 100, 3.6% at 250, 4.8% at 500 and 1.4% at 1,000. At k = 1,000 FT is
-significantly worse on 1 easy setup and indistinguishable on the other 2, so on
-easy data the curves are converging and a crossover just above k = 1,000 is
-plausible but not shown. Against DeepLC 4.5's default calibration (B4), FT
+significantly worse on 1 easy setup and indistinguishable on the other 2. On
+easy data the curves are converging: fine-tuned on each setup's largest
+available context (11,000 to 30,000 peptides), FT beats T1+heads at k = 1,000 on 2 of 3 easy
+setups, so the easy-setup crossover lies between 1,000 and about 10,000 context
+peptides (TabPFN itself was not run on contexts that large). On hard setups T1+heads at k = 1,000 still beats FT on the whole pool
+on all 5 setups. Against DeepLC 4.5's default calibration (B4), FT
 only pays off on easy setups from k = 500 (3% better at 500, 8% at 1,000); on
 hard setups FT and B4 are tied on average at every k. The hybrid, TabPFN
 stacked on the fine-tuned prediction (T1_d45_FT), is the best method overall:
@@ -99,11 +102,85 @@ fully below / above 1:
 
 ## Headroom: DeepLC 4.5 with no target labels vs fine-tuned on the largest context
 
-HEADROOM_TABLE
+Relative MAE in % of the RT range on the seed-0 queries. "No labels" is
+`deeplc.predict` with the default model and no reference peptides: DeepLC then
+reports its PXD005573_mcp setup, a 200-minute gradient. "Fine-tuned, largest
+context" is fine-tuned on the whole non-query pool (85% train, 15% validation),
+except PXD079751 (see below). Headroom = no labels minus fine-tuned. The k =
+1,000 columns are 5-seed means from the grid, for reference.
+
+| setup | group | no labels | fine-tuned, largest context | headroom (points) | context used | epochs (cap) | B4 on same context | FT k=1000 | T1+heads k=1000 |
+|---|---|---|---|---|---|---|---|---|---|
+| PXD062983 | easy | 30.91 | 0.31 | 30.60 | 24,941 | 27 (27) | 0.35 | 0.34 | 0.32 |
+| PXD076643 | easy | 40.36 | 0.37 | 39.99 | 10,944 | 59 (61) | 0.41 | 0.40 | 0.41 |
+| PXD079751 | easy | 19.57 | 0.38 | 19.18 | 30,000 of 90,685 | 22 (22) | 0.39 (all 90,685) | 0.40 | 0.40 |
+| PXD050641 | hard | 36.92 | 1.51 | 35.41 | 12,275 | 54 (54) | 1.66 | 1.57 | 1.24 |
+| PXD061731 | hard | 22.21 | 0.89 | 21.32 | 3,021 | 112 (150) | 2.03 | 0.88 | 0.78 |
+| PXD074962 | hard | 25.82 | 1.20 | 24.62 | 2,006 | 88 (150) | 1.45 | 1.16 | 1.02 |
+| PXD084949 | hard | 52.87 | 2.00 | 50.87 | 1,575 | 52 (150) | 1.98 | 2.14 | 1.41 |
+| PXD085246 | hard | 19.93 | 1.00 | 18.93 | 3,800 | 73 (150) | 1.02 | 1.04 | 0.89 |
+
+- The headroom is 19 to 51 points of the RT range. Almost all of it is the
+  time axis: without labels DeepLC predicts on its own 200-minute gradient. The
+  order of peptides is already good without labels (Pearson 0.96 to 0.995), so
+  even a handful of labeled peptides recovers most of it, as the k = 100 rows
+  of the main table show.
+- **Easy setups: with their whole pool (11k to 30k peptides), fine-tuning beats
+  T1+heads at k = 1,000** on 2 of 3 setups (PXD062983 0.31 vs 0.32,
+  PXD076643 0.37 vs 0.41) and ties on the third. So the crossover on easy data
+  sits somewhere between 1,000 and about 10,000 context peptides. TabPFN was
+  not run at those sizes.
+- **Hard setups: T1+heads at k = 1,000 is still better than fine-tuning on the
+  whole pool** on all 5 setups (by 11 to 30%). Fine-tuning gains little from
+  more data on these (PXD061731: 0.88 at k = 1,000, 0.89 with 3,021).
+- PXD079751: fine-tuning on its 90,685-peptide pool was killed twice by the
+  16 GB memory limit (about 14 GB resident, DeepLC's encoded training data),
+  so it was fine-tuned on the first 30,000 pool peptides, the largest context
+  that fits. The B4 column for this setup uses the whole pool.
+- The three largest contexts had their epochs capped (27, 54, 22) to keep one
+  fine-tune under 10 minutes on 4 threads; PXD076643 early-stopped before its
+  cap. These caps were set by a fixed seconds-per-peptide-epoch budget before
+  the runs, not tuned.
+- Side finding: B4 on the whole pool of PXD061731 (3,021 peptides) is worse
+  than B4 at k = 1,000 (2.03 vs 0.90, Pearson 0.61), so DeepLC's default
+  calibration can fail with more data. Fine-tuning on the same pool did not.
 
 ## Timing
 
-TIMING_TABLE
+**4 threads, idle machine, seed 0, one fine-tune per (setup, k)**,
+seconds for `deeplc.finetune` alone (calibrate and predict add under 2 s):
+
+| setup | k = 100 | 250 | 500 | 1,000 |
+|---|---|---|---|---|
+| PXD062983 | 9 | 30 | 45 | 141 |
+| PXD076643 | 8 | 29 | 51 | 85 |
+| PXD079751 | 15 | 16 | 42 | 78 |
+| PXD050641 | 10 | 29 | 66 | 78 |
+| PXD061731 | 9 | 13 | 42 | 136 |
+| PXD074962 | 6 | 12 | 71 | 156 |
+| PXD084949 | 6 | 37 | 49 | 68 |
+| PXD085246 | 5 | 26 | 43 | 84 |
+| **median** | **9** | **27** | **47** | **84** |
+
+Median epochs run: 96, 136, 110 and 100 at k = 100, 250, 500 and 1,000.
+
+No fine-tune in the grid came near 10 minutes (longest 156 s on 4 threads),
+so no epochs were reduced there. The headroom fine-tunes on 2,006 to 30,000
+peptides took 64 to 587 s on 4 threads; the three largest ran with an epoch
+cap, listed in the headroom table.
+
+**Grid runs** (1 thread per job, 4 jobs on 4 cores), median seconds per
+(setup, k, seed):
+
+| | k = 100 | 250 | 500 | 1,000 |
+|---|---|---|---|---|
+| B4 calibration | 0.3 | 0.4 | 0.4 | 0.5 |
+| FT fine-tune + calibrate + predict | 20 | 67 | 150 | 309 |
+| T1_d45_B4 (TabPFN, 2,000 queries) | 34 | 45 | 58 | 94 |
+| Hybrid T1_d45_FT (full fine-tune + 3 cross-fit fine-tunes + TabPFN) | 92 | 211 | 464 | 813 |
+
+The whole study (grid, cross-fitting, timing, headroom) took about 7 hours
+of wall-clock on the 4 cores.
 
 ## Protocol
 
@@ -152,13 +229,15 @@ TIMING_TABLE
 ## Caveats and negative results
 
 - The hybrid's gain on easy setups is real but small in absolute terms
-  (0.024 percentage points of the RT range at k = 1,000, about 2 s on a
-  127-min gradient).
+  (0.024 percentage points of the RT range at k = 1,000, 1 to 2 s on these
+  59- to 127-min gradients).
 - Only 3 easy and 5 hard setups; the per-setup CIs are over 5 seeds of the
   same setup, not over setups.
-- Config D hit the 150-epoch cap in some runs (max 150 epochs run), so a
-  longer schedule might help FT a little. It was not tuned further to keep the
-  protocol fixed.
+- Config D hit its 150-epoch cap in 32% of grid fine-tunes (45% at k = 500
+  and 1,000). A check on the Part 1 tuning datasets (k = 500 and 1,000, seeds
+  0 and 1, `epochcap_*.csv`) reran D with a 500-epoch cap: only 2 of 8 runs
+  went past 150 epochs and error changed by at most 0.3%. So the cap did not
+  hold FT back in any way that matters here. The held-out grid was not rerun.
 - The default model's fine-tuning only trains a new 66-parameter head. A
   deeper fine-tune (unfreezing the encoder) is not what DeepLC ships for this
   model and was not tried.
@@ -172,8 +251,11 @@ TIMING_TABLE
   `rel_mae_pct` = relative MAE in % of RT range.
 - `tables.md`: all tables, including per-setup mean ± SD and CIs.
 - `curves_finetune.png`: the plot above.
-- `timing_4threads.csv`, `parts/HR_*.csv`: timing pass and headroom runs.
+- `timing_4threads.csv`, `parts/HR_*.csv`: timing pass and headroom runs
+  (epochs in these raw files include the off-by-one noted above).
+- `epochcap_*.csv`: epoch-cap check on Part 1.
 - `tune_*.csv`: hyperparameter selection on Part 1.
 - Code: `rtpoc/ft_d45.py`, `rtpoc/ft_tune.py`, `rtpoc/run_ft.py`,
-  `rtpoc/ft_timing.py`, `rtpoc/ft_headroom.py`, `rtpoc/ft_aggregate.py`,
-  `rtpoc/run_ft_all.sh`, `rtpoc/run_ft_after.sh`.
+  `rtpoc/ft_timing.py`, `rtpoc/ft_headroom.py`, `rtpoc/ft_epochcap.py`,
+  `rtpoc/ft_aggregate.py`, `rtpoc/run_ft_all.sh`, `rtpoc/run_ft_after.sh`,
+  `rtpoc/run_ft_epochcap.sh`, `rtpoc/run_hr_big.sh`.

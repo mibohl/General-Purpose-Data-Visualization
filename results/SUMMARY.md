@@ -10,7 +10,9 @@ setups published after its release, TabPFN with the legacy generic feature
 loses by 2 to 3x.** The generic model matters more than the in-context
 learner. With the DeepLC 4.5 head predictions as features (T1_d45), TabPFN
 beats DeepLC 4.5's calibration by 17 to 22% on hard and 3 to 9% on easy
-held-out setups (n >= 100), and by 27 to 50% at n = 25.
+held-out setups (n >= 100), and by 27 to 50% at n = 25. DeepLC 4.5 fine-tuned on the
+same context does not beat it either, at any n from 100 to 1,000
+(`results/finetune/report.md`).
 
 Setup in one paragraph: 16 datasets from the DeepLC Zenodo record (9 easy,
 7 hard; list and reasons fixed beforehand in `data/datasets.md`). For each
@@ -308,6 +310,15 @@ run. The plan forbids neural-network training, and DeepLC's own documentation
 recommends calibration over fine-tuning for contexts below about 500 peptides,
 which is the range studied here. So B4 is the relevant baseline in this
 regime, but it is not the strongest possible one for n = 500 to 1,000.
+
+**Update: fine-tuning was run later, see `results/finetune/report.md`.**
+DeepLC 4.5 fine-tuned on the context (its shipped API, settings fixed on
+Part 1) does not beat T1_d45 at any k from 100 to 1,000: 21 to 27% worse on
+hard and 1 to 12% worse on easy setups. Fine-tuned on each setup's largest
+context (11,000 to 30,000 peptides), it beats T1_d45 at k = 1,000 on 2 of 3
+easy setups but on none of the 5 hard ones. Adding the B4 prediction as an
+extra TabPFN input lowers T1_d45's error by 5 to 6% on easy setups (k >= 250)
+and leaves hard setups unchanged.
 
 ### 2. T1 as default, and a predictor CLI
 
