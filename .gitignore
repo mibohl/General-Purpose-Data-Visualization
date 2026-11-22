@@ -10,7 +10,4 @@ data/heldout/raw/
 data/heldout/*.csv
 results/finetune/preds/
 results/finetune/ivpreds/
-# in progress, tracked once the runs finish
-results/finetune/parts/IV_*.csv
-results/finetune/parts/MB_*.csv
 results/finetune/metapreds/

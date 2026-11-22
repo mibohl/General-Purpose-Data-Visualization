@@ -19,13 +19,19 @@ than DeepLC 4.5's default calibration (B4). The 95% CI of the ratio to B4 lies
 above 1 on every testable setup at every k for every metadata arm. Zero-shot,
 the best metadata model leaves 3.4 to 26% of the RT range as error, against
 0.3 to 2.0% for FT on the largest context: a median gap of 4.5 points on easy
-and 18.9 points on hard setups. In rank terms SPEARMAN_SENTENCE The
-small-molecule result (0.03 Spearman headroom left after metadata conditioning)
-does not transfer to these peptide setups. Competitor B was testable: 6 of 8
-held-out setups have usable LC metadata by a rule fixed before counting (5 if
-only sources for the dataset itself count), and B fails just as clearly on
-the three setups documented with 8 or 9 of 9 fields. The in-context direction
-does not close.
+and 18.9 points on hard setups. In rank terms the headroom is tiny, but
+metadata does not provide it: the Spearman gap between the best zero-shot
+model and the best k = 1,000 model is 0.0012 (easy median) and 0.0054 (hard
+median, max 0.015), below the 0.03 of the small-molecule study, yet DeepLC 4.5
+with no labels and no metadata already reaches it (metadata changes zero-shot
+Spearman by -0.0014 to +0.0033). Peptide order is solved without labels; what
+labels fix is the time axis, which Spearman does not measure. So a Spearman
+criterion cannot decide this question for peptides, and on the agreed metric
+(relative MAE) the small-molecule result does not transfer. Competitor B was
+testable: 6 of 8 held-out setups have usable LC metadata by a rule fixed
+before counting (5 if only sources for the dataset itself count), and B fails
+just as clearly on the three setups documented with 8 or 9 of 9 fields. The
+in-context direction does not close.
 
 Also run: giving TabPFN DeepLC 4.5's calibrated prediction as an extra input
 (T1_d45_B4) helps on easy setups (5 to 6% better than T1_d45 at k >= 250, CI
@@ -273,10 +279,37 @@ first 30,000 of 90,685 pool peptides, the most that fits in 16 GB).
 - Metadata conditioning cuts DeepLC's zero-shot error by a factor of 4 to 8
   on 5 of 7 setups (for example PXD079751 19.6 -> 3.4, PXD061731 22.2 -> 3.9), but the
   remaining zero-shot error is still 3 to 24 times the fine-tuned model's
-  own error. In the small-molecule study the same gap was 0.03
-  Spearman; here it is large in absolute and in rank terms (next table).
+  own error. In the small-molecule study the remaining gap was 0.03
+  Spearman. Here the rank gap is even smaller, and metadata is not what closes
+  it (next table); the gap that matters, in minutes, stays large.
 
-SPEARMAN_TABLE
+Spearman on the seed-0 queries (`spearman_headroom.csv`). Zero-shot columns
+use no labels; the k columns use the 5-seed grid's seed-0 run. Gap = best
+method at k = 1,000 minus best zero-shot (including DeepLC 4.5 alone).
+
+| setup | group | DeepLC 4.5 zero-shot | metadata kNN | metadata LightGBM | B4 k=100 | FT k=100 | T1_d45 k=100 | B4 k=1000 | FT k=1000 | T1_d45 k=1000 | Spearman gap |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| PXD079751 | easy | 0.9983 | 0.9989 | 0.9985 | 0.9997 | 0.9997 | 0.9997 | 0.9998 | 0.9998 | 0.9997 | 0.0008 |
+| PXD062983 | easy | 0.9970 | 0.9977 | 0.9947 | 0.9993 | 0.9993 | 0.9994 | 0.9996 | 0.9995 | 0.9996 | 0.0019 |
+| PXD076643 | easy | 0.9931 | 0.9936 | 0.9929 | 0.9948 | 0.9948 | 0.9947 | 0.9947 | 0.9948 | 0.9948 | 0.0012 |
+| PXD050641 | hard | 0.9790 | 0.9784 | 0.9663 | 0.9911 | 0.9910 | 0.9936 | 0.9923 | 0.9927 | 0.9940 | 0.0150 |
+| PXD085246 | hard | 0.9890 | untestable | untestable | 0.9919 | 0.9918 | 0.9919 | 0.9919 | 0.9919 | 0.9921 | 0.0031 |
+| PXD061731 | hard | 0.9870 | 0.9848 | 0.9856 | 0.9923 | 0.9924 | 0.9920 | 0.9928 | 0.9927 | 0.9931 | 0.0061 |
+| PXD074962 | hard | 0.9842 | 0.9875 | 0.9823 | 0.9932 | 0.9929 | 0.9938 | 0.9910 | 0.9929 | 0.9924 | 0.0054 |
+| PXD084949 | hard | 0.9895 | 0.9884 | 0.9899 | 0.9914 | 0.9912 | 0.9922 | 0.9903 | 0.9896 | 0.9927 | 0.0028 |
+| **median** | easy | 0.9970 | 0.9977 | 0.9947 | | | | | | | **0.0012** |
+| **median** | hard | 0.9870 | 0.9861 | 0.9840 | | | | | | | **0.0054** |
+
+- By Spearman, every method including no-label DeepLC is within 0.015 of the
+  best, and metadata adds no rank information over DeepLC alone. This is why
+  Spearman headroom is not the right yardstick here: the small-molecule
+  finding was about a gap that existed in rank terms; for peptides the rank
+  gap is absent from the start and the whole calibration problem is the
+  mapping to minutes.
+- The FT largest-context predictions were not stored, so the Spearman gap is
+  taken against k = 1,000. On relative MAE, T1_d45 at k = 1,000 is within 11%
+  of FT on the whole pool on easy setups and better on hard ones, so this does
+  not change the picture.
 
 ## Uncertainty: TabPFN's 90% intervals vs the fine-tuned model's residual spread
 
@@ -320,7 +353,56 @@ reference for how wide a constant interval around FT must be, not a method.
 
 ## Timing and compute
 
-TIMING_TABLE
+Seconds for one fit plus 2,000-query prediction, median over setups and
+seeds (`timing.csv`, `extras.md`). Compute is in core-seconds (seconds x
+threads). "Adequate" (rule fixed before computing): geometric-mean error ratio
+to B4 within 5% of the best arm of that group at that k.
+
+| arm | threads | k = 100 | 250 | 500 | 1000 | what is timed |
+|---|---|---|---|---|---|---|
+| B4 | 1 | 0.3 | 0.4 | 0.5 | 0.6 | DeepLC 4.5 calibration (head predictions precomputed) |
+| FT | 4 | 9.7 | 28.0 | 47.7 | 85.5 | fine-tune + calibrate + predict, idle machine |
+| T1_d45 | 1 | 41.6 | 55.7 | 70.6 | 109.0 | TabPFN (4 estimators) + head ranking |
+| T1_d45_B4 | 1 | 42.5 | 57.6 | 74.1 | 116.4 | as T1_d45 + 5-fold cross-fitted B4 |
+| T1_d45_FT | 1 | 91.5 | 211.0 | 464.2 | 812.5 | fine-tune + 3 cross-fit fine-tunes + TabPFN |
+| metadata kNN + ridge | 1 | 0.5 | 0.5 | 0.5 | 0.5 | kNN zero-shot + anchored ridge |
+| metadata LightGBM + ridge | 4 | 20.4 | 20.4 | 20.4 | 20.4 | LightGBM refit for each held-out setup + ridge |
+
+Compute ratio to the cheapest adequate arm (core-seconds):
+
+| group | arm | k = 100 | 250 | 500 | 1000 |
+|---|---|---|---|---|---|
+| easy | B4 (not adequate) | 0.01 | 0.01 | 0.01 | 0.01 |
+| easy | FT (not adequate) | 0.93 | 1.94 | 2.57 | 2.94 |
+| easy | T1_d45 | **1.00** | 0.97 (not adequate) | 0.95 (not adequate) | 0.94 (not adequate) |
+| easy | T1_d45_B4 | 1.02 | **1.00** | **1.00** | **1.00** |
+| easy | T1_d45_FT | 2.20 | 3.66 | 6.27 | 6.98 |
+| easy | metadata arms (not adequate) | <0.01 to 1.96 | | | |
+| hard | B4 (not adequate) | 0.01 | 0.01 | 0.01 | 0.01 |
+| hard | FT (not adequate) | 0.93 | 2.01 | 2.70 | 3.14 |
+| hard | T1_d45 | **1.00** | **1.00** | **1.00** | **1.00** |
+| hard | T1_d45_B4 | 1.02 | 1.03 | 1.05 | 1.07 |
+| hard | T1_d45_FT | 2.20 | 3.79 | 6.58 | 7.45 |
+| hard | metadata arms (not adequate) | <0.01 to 1.96 | | | |
+
+- The cheapest adequate arm is TabPFN stacking: T1_d45 on hard setups at
+  every k and on easy setups at k = 100, T1_d45_B4 on easy setups from k =
+  250 (it costs 2 to 7% more than T1_d45).
+- FT costs 0.9 to 3.1x as much as T1_d45 (4 threads for 10 to 86 s) and is
+  not adequate anywhere. The hybrid costs 2.2 to 7.5x and is adequate
+  everywhere, but T1_d45_B4 is as accurate at a seventh of the cost at k =
+  1,000.
+- B4 is about 100 times cheaper than TabPFN, and the metadata arms are cheap
+  once trained, but neither is within 5% of the best error at any k.
+- No fine-tune came near 10 minutes on 4 threads (grid maximum 158 s), so no
+  epochs were cut in the grid; the largest-context fine-tunes of the headroom
+  table were capped by a fixed time budget (see above).
+- Timing conditions: FT and the metadata models were timed on an idle
+  machine with 4 threads; TabPFN and the hybrid were timed in the grid with 4
+  single-thread jobs running at once, which makes them look slower than on an
+  idle machine, not faster. The LightGBM metadata model is refit for each
+  held-out setup (leave-one-setup-out panel); deployed, it would be trained
+  once, and the per-setup cost would be the ridge step only (<0.1 s).
 
 ## Caveats
 

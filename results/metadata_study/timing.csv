@@ -1,0 +1,73 @@
+arm,n,seconds,threads,core_s,note,method,err_ratio_to_B4,adequate,compute_ratio_to_cheapest_adequate,group
+B4,100,0.29233682155609125,1,0.29233682155609125,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.007021978363134855,easy
+FT,100,9.65,4,38.6,"finetune + calibrate + predict, idle machine",FT,1.0628109020678242,False,0.9271783259263453,easy
+T1_d45,100,41.63168931007385,1,41.63168931007385,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.9528709326915572,True,1.0,easy
+T1_d45_B4,100,42.50123727321625,1,42.50123727321625,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.9385467128946564,True,1.0208866845797675,easy
+T1_d45_FT,100,91.45946884155273,1,91.45946884155273,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.9311813030539245,True,2.1968714303270365,easy
+B_knn+ridge (per new setup),100,0.514080286026001,1,0.514080286026001,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,4.738240676416161,False,0.012348292719930683,easy
+B_knn+ridge (model trained once),100,0.0042290687561035,1,0.0042290687561035,anchored ridge only,B_knn+ridge,4.738240676416161,False,0.00010158292459874235,easy
+B_lgbm+ridge (per new setup),100,20.44451880455017,4,81.77807521820068,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,5.38628662911453,False,1.964322768867618,easy
+B_lgbm+ridge (model trained once),100,0.0038151741027832,1,0.0038151741027832,anchored ridge only,B_lgbm+ridge,5.38628662911453,False,9.164110719523507e-05,easy
+B4,250,0.443248987197876,1,0.443248987197876,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.007691720626929258,easy
+FT,250,28.0,4,112.0,"finetune + calibrate + predict, idle machine",FT,1.0042817430160254,False,1.943541294165432,easy
+T1_d45,250,55.734288692474365,1,55.734288692474365,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.9690528432496757,False,0.9671597462032271,easy
+T1_d45_B4,250,57.626766324043274,1,57.626766324043274,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.907460799038661,True,1.0,easy
+T1_d45_FT,250,211.0031394958496,1,211.0031394958496,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.9185027298808527,True,3.6615474536493995,easy
+B_knn+ridge (per new setup),250,0.5139007568359375,1,0.5139007568359375,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,4.995175183666631,False,0.008917744125120652,easy
+B_knn+ridge (model trained once),250,0.00404953956604,1,0.00404953956604,anchored ridge only,B_knn+ridge,4.995175183666631,False,7.027185150853128e-05,easy
+B_lgbm+ridge (per new setup),250,20.44497275352478,4,81.77989101409912,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,5.661130316683051,False,1.4191303144486624,easy
+B_lgbm+ridge (model trained once),250,0.0042691230773925,1,0.0042691230773925,anchored ridge only,B_lgbm+ridge,5.661130316683051,False,7.40822945605976e-05,easy
+B4,500,0.46297466754913325,1,0.46297466754913325,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.0062501016782745425,easy
+FT,500,47.650000000000006,4,190.60000000000002,"finetune + calibrate + predict, idle machine",FT,0.9704917924835661,False,2.5730768082525906,easy
+T1_d45,500,70.55573225021362,1,70.55573225021362,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.92623017154433,False,0.9524938003268836,easy
+T1_d45_B4,500,74.07474172115326,1,74.07474172115326,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.8718018161753484,True,1.0,easy
+T1_d45_FT,500,464.20516097545624,1,464.20516097545624,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.8749620832884681,True,6.2667131898064365,easy
+B_knn+ridge (per new setup),500,0.5142204761505127,1,0.5142204761505127,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,4.840474958487122,False,0.006941913858927011,easy
+B_knn+ridge (model trained once),500,0.0043692588806152,1,0.0043692588806152,anchored ridge only,B_knn+ridge,4.840474958487122,False,5.898446324744303e-05,easy
+B_lgbm+ridge (per new setup),500,20.44520115852356,4,81.78080463409424,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,5.403912065456055,False,1.1040309116695899,easy
+B_lgbm+ridge (model trained once),500,0.0044975280761718,1,0.0044975280761718,anchored ridge only,B_lgbm+ridge,5.403912065456055,False,6.07160817799714e-05,easy
+B4,1000,0.5728700160980225,1,0.5728700160980225,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.004920636348627425,easy
+FT,1000,85.5,4,342.0,"finetune + calibrate + predict, idle machine",FT,0.9202293582519407,False,2.9375906993579313,easy
+T1_d45,1000,109.00044059753418,1,109.00044059753418,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.907698213660666,False,0.9362534518281669,easy
+T1_d45_B4,1000,116.42193722724915,1,116.42193722724915,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.8590345273716224,True,1.0,easy
+T1_d45_FT,1000,812.5118156671524,1,812.5118156671524,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.8466325200564713,True,6.979026762638166,easy
+B_knn+ridge (per new setup),1000,0.5147709846496582,1,0.5147709846496582,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,4.778337630435989,False,0.004421597826918598,easy
+B_knn+ridge (model trained once),1000,0.0049197673797607,1,0.0049197673797607,anchored ridge only,B_knn+ridge,4.778337630435989,False,4.225807864850752e-05,easy
+B_lgbm+ridge (per new setup),1000,20.445597410202026,4,81.7823896408081,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,5.261322575598664,False,0.7024654595909483,easy
+B_lgbm+ridge (model trained once),1000,0.0048937797546386,1,0.0048937797546386,anchored ridge only,B_lgbm+ridge,5.261322575598664,False,4.203485933313594e-05,easy
+B4,100,0.29233682155609125,1,0.29233682155609125,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.007021978363134855,hard
+FT,100,9.65,4,38.6,"finetune + calibrate + predict, idle machine",FT,1.0071979771782293,False,0.9271783259263453,hard
+T1_d45,100,41.63168931007385,1,41.63168931007385,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.791574571979259,True,1.0,hard
+T1_d45_B4,100,42.50123727321625,1,42.50123727321625,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.8008363446234418,True,1.0208866845797675,hard
+T1_d45_FT,100,91.45946884155273,1,91.45946884155273,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.7934871579248962,True,2.1968714303270365,hard
+B_knn+ridge (per new setup),100,0.514080286026001,1,0.514080286026001,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,2.0734933171759464,False,0.012348292719930683,hard
+B_knn+ridge (model trained once),100,0.0042290687561035,1,0.0042290687561035,anchored ridge only,B_knn+ridge,2.0734933171759464,False,0.00010158292459874235,hard
+B_lgbm+ridge (per new setup),100,20.44451880455017,4,81.77807521820068,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,2.3496995592280023,False,1.964322768867618,hard
+B_lgbm+ridge (model trained once),100,0.0038151741027832,1,0.0038151741027832,anchored ridge only,B_lgbm+ridge,2.3496995592280023,False,9.164110719523507e-05,hard
+B4,250,0.443248987197876,1,0.443248987197876,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.007952895741499372,hard
+FT,250,28.0,4,112.0,"finetune + calibrate + predict, idle machine",FT,0.9975003350727999,False,2.009534931323579,hard
+T1_d45,250,55.734288692474365,1,55.734288692474365,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.824209224654413,True,1.0,hard
+T1_d45_B4,250,57.626766324043274,1,57.626766324043274,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.8188327493166039,True,1.0339553563159485,hard
+T1_d45_FT,250,211.0031394958496,1,211.0031394958496,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.8213115777610916,True,3.785876602105819,hard
+B_knn+ridge (per new setup),250,0.5139007568359375,1,0.5139007568359375,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,2.0655349538291703,False,0.00922054930442358,hard
+B_knn+ridge (model trained once),250,0.00404953956604,1,0.00404953956604,anchored ridge only,B_knn+ridge,2.0655349538291703,False,7.265795726548489e-05,hard
+B_lgbm+ridge (per new setup),250,20.44497275352478,4,81.77989101409912,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,2.3151169893184735,False,1.4673173899345309,hard
+B_lgbm+ridge (model trained once),250,0.0042691230773925,1,0.0042691230773925,anchored ridge only,B_lgbm+ridge,2.3151169893184735,False,7.659778526910575e-05,hard
+B4,500,0.46297466754913325,1,0.46297466754913325,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.006561829248788379,hard
+FT,500,47.650000000000006,4,190.60000000000002,"finetune + calibrate + predict, idle machine",FT,1.0069484131088922,False,2.7014105576010508,hard
+T1_d45,500,70.55573225021362,1,70.55573225021362,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.8252277371430007,True,1.0,hard
+T1_d45_B4,500,74.07474172115326,1,74.07474172115326,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.8225079212064523,True,1.049875599879824,hard
+T1_d45_FT,500,464.20516097545624,1,464.20516097545624,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.8241696081869072,True,6.579269269422836,hard
+B_knn+ridge (per new setup),500,0.5142204761505127,1,0.5142204761505127,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,2.1078597931968197,False,0.007288145976955059,hard
+B_knn+ridge (model trained once),500,0.0043692588806152,1,0.0043692588806152,anchored ridge only,B_knn+ridge,2.1078597931968197,False,6.192634873549868e-05,hard
+B_lgbm+ridge (per new setup),500,20.44520115852356,4,81.78080463409424,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,2.360292261088324,False,1.1590951156749794,hard
+B_lgbm+ridge (model trained once),500,0.0044975280761718,1,0.0044975280761718,anchored ridge only,B_lgbm+ridge,2.360292261088324,False,6.374433278109991e-05,hard
+B4,1000,0.5728700160980225,1,0.5728700160980225,DeepLC 4.5 calibration fit + predict (head matrix precomputed),B4,1.0,False,0.005255666976734973,hard
+FT,1000,85.5,4,342.0,"finetune + calibrate + predict, idle machine",FT,0.9873078192936848,False,3.1376019961495163,hard
+T1_d45,1000,109.00044059753418,1,109.00044059753418,TabPFN fit + predict (4 estimators) + B4 head ranking,T1_d45,0.8060925319455376,True,1.0,hard
+T1_d45_B4,1000,116.42193722724915,1,116.42193722724915,as T1_d45 plus 5-fold cross-fitted B4,T1_d45_B4,0.7998327380735899,True,1.0680868498240075,hard
+T1_d45_FT,1000,812.5118156671524,1,812.5118156671524,"full fine-tune + 3 cross-fit fine-tunes + TabPFN (grid, 4 jobs on 4 cores)",T1_d45_FT,0.8040197499646009,True,7.454206709743641,hard
+B_knn+ridge (per new setup),1000,0.5147709846496582,1,0.5147709846496582,zero-shot model 1 s per new setup + anchored ridge,B_knn+ridge,2.1942952363440664,False,0.004722650494142162,hard
+B_knn+ridge (model trained once),1000,0.0049197673797607,1,0.0049197673797607,anchored ridge only,B_knn+ridge,2.1942952363440664,False,4.5135298103299547e-05,hard
+B_lgbm+ridge (per new setup),1000,20.445597410202026,4,81.7823896408081,zero-shot model 20 s per new setup + anchored ridge,B_lgbm+ridge,2.3964169380305247,False,0.7502941198446696,hard
+B_lgbm+ridge (model trained once),1000,0.0048937797546386,1,0.0048937797546386,anchored ridge only,B_lgbm+ridge,2.3964169380305247,False,4.4896880487924445e-05,hard

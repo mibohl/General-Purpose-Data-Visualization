@@ -14,6 +14,16 @@ held-out setups (n >= 100), and by 27 to 50% at n = 25. DeepLC 4.5 fine-tuned on
 same context does not beat it either, at any n from 100 to 1,000
 (`results/finetune/report.md`).
 
+**Second follow-up (`results/metadata_study/report.md`): neither fine-tuning
+nor recorded LC metadata replaces TabPFN stacking.** Fine-tuning stays 21 to
+27% behind on hard setups at every k from 100 to 1,000, with the easy-setup
+crossover between 1,000 and about 10,000 peptides. A pooled model conditioned
+on LC metadata extracted from PRIDE and the papers (6 of 8 held-out setups
+documented) and recalibrated on the same k peptides has 2.3 to 5.8 times the
+error of TabPFN on DeepLC 4.5 heads, CI above 1 on every setup. Its Spearman
+headroom is tiny, but DeepLC with no labels has the same Spearman: the
+remaining error is the time axis, not peptide order.
+
 Setup in one paragraph: 16 datasets from the DeepLC Zenodo record (9 easy,
 7 hard; list and reasons fixed beforehand in `data/datasets.md`). For each
 dataset and seed, 2,000 peptides are held out as queries, and the contexts
