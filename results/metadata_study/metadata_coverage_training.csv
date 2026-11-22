@@ -1,0 +1,959 @@
+pxd,chemistry,column_length_cm,inner_diameter_um,particle_um,gradient_min,start_pct_b,flow_nl_min,temperature_c,additive,end_pct_b,solvent_b,multi_gradient,evosep_spd,lc_system,enrichment,instrument,protocol_chars,protocol_truncated,has_publication,n_fields,usable,usable_single_gradient
+PXD000044,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,13,False,False,0,False,False
+PXD000171,RP,,,,,7.0,,,FA,40.0,ACN,,,Eksigent,HLA/MHC peptides,LTQ Orbitrap,2471,False,True,3,False,False
+PXD000239,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,13,False,True,0,False,False
+PXD000258,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,13,False,True,0,False,False
+PXD000292,,,,,,,,,,,,,,,none detected,Q Exactive,13,False,True,0,False,False
+PXD000511,,,,,,,,,,,,,,,iTRAQ,LTQ Orbitrap Velos,13,False,True,0,False,False
+PXD001820,,,,,,4.0,,,,12.0,,,,,none detected,LTQ Orbitrap Velos,581,False,True,1,False,False
+PXD002549,,,,,,,,,,,ACN,,,,none detected,Q Exactive,262,False,True,0,False,False
+PXD002704,,,,,,,,,,,,,,,phospho-enriched,LTQ Orbitrap Velos,1012,False,True,0,False,False
+PXD002929,RP,50.0,75.0,,220.0,2.0,,,FA,35.0,ACN,False,,UltiMate 3000,crosslinked,Q Exactive,3193,False,True,6,True,True
+PXD002966,,,,,,,,,,,,,,,none detected,LTQ Orbitrap;Q Exactive,446,False,True,0,False,False
+PXD003093,RP,15.0,,3.0,70.0,,,,high-pH buffer,,,False,,,none detected,LTQ Orbitrap Velos;Q Exactive,1800,False,True,5,True,True
+PXD003587,,,,,,,,,,,,,,,TMT,Orbitrap Fusion,2165,False,True,0,False,False
+PXD003698,,,,,,,,,,,,,,,none detected,LTQ Orbitrap;LTQ Orbitrap Velos,1001,False,True,0,False,False
+PXD003712,RP,,,,,,,,,,,,,UltiMate 3000,phospho-enriched,LTQ Orbitrap,936,False,True,1,False,False
+PXD003879,RP,15.0,,5.0,140.0,,300.0,,FA,,ACN,False,,UltiMate 3000,iTRAQ,LTQ Orbitrap Velos,2340,False,True,6,True,True
+PXD003968,,,,,,,,,,,,,,EASY-nLC,none detected,LTQ Orbitrap Velos,1137,False,True,0,False,False
+PXD003969,,,,,,,,,,,,,,,phospho-enriched;TMT,Orbitrap Fusion;Q Exactive HF,256,False,True,0,False,False
+PXD004186,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,4529,False,True,0,False,False
+PXD004233,RP,,,5.0,,,,,AcOH,,,,,EASY-nLC,HLA/MHC peptides,LTQ Orbitrap Elite,2226,False,True,3,False,False
+PXD004245,,,,,,,,,,,,,,,none detected,Q Exactive,174,False,True,0,False,False
+PXD004269,RP,15.0,,5.0,140.0,,300.0,,FA,,ACN,False,,UltiMate 3000,iTRAQ,LTQ Orbitrap Velos,2340,False,True,6,True,True
+PXD004356,,,,,,,,,,,,,,EASY-nLC,none detected,LTQ Orbitrap Elite,638,False,False,0,False,False
+PXD004520,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,318,False,True,0,False,False
+PXD004562,,50.0,75.0,,85.0,10.0,300.0,,FA,35.0,ACN,False,,EASY-nLC,diGly,LTQ Orbitrap Elite,4211,False,True,6,False,False
+PXD005143,,,,,,,,,,,,,,,iTRAQ;glyco,LTQ Orbitrap Velos;Q Exactive,1047,False,True,0,False,False
+PXD005184,RP,30.0,75.0,1.7,90.0,3.0,400.0,,FA,30.0,ACN,False,,Waters nano,iTRAQ,Q Exactive,3585,False,True,8,True,True
+PXD005232,,,,,,,,,,,,,,,iTRAQ;glyco,LTQ Orbitrap Velos;Q Exactive,984,False,False,0,False,False
+PXD005271,RP,15.0,75.0,3.5,65.0,5.0,250.0,,FA,40.0,ACN,False,,Eksigent,none detected,LTQ Orbitrap XL,3284,False,True,8,True,True
+PXD005346,RP,25.0,,2.0,300.0,0.0,30000.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,2628,False,True,7,True,True
+PXD005499,,,,,,,,,,,,,,,none detected,Q Exactive,184,False,False,0,False,False
+PXD005509,RP,40.0,,,100.0,2.0,250.0,,FA,30.0,ACN,True,,UltiMate 3000,crosslinked,Q Exactive HF,2248,False,True,6,True,False
+PXD005514,,,,,120.0,,5000.0,,FA,,ACN,False,,,phospho-enriched,Q Exactive Plus,2008,False,True,3,False,False
+PXD005573,,,,,,,,,,,,,,,none detected,Q Exactive HF,54,False,True,0,False,False
+PXD005664,,,,,,,,,,,,,,EASY-nLC,none detected,Q Exactive,153,False,True,0,False,False
+PXD005751,,,,,,,,,,,,,,,none detected,Q Exactive,1196,False,True,0,False,False
+PXD005766,RP,28.0,,,120.0,,300.0,,,,ACN,False,,,none detected,Q Exactive Plus,3691,False,True,4,True,True
+PXD005849,,,,,,,,,,,,,,,none detected,Orbitrap Fusion;LTQ Orbitrap Velos,403,False,True,0,False,False
+PXD005850,,,,,,,,,,,,,,,none detected,Q Exactive,528,False,True,0,False,False
+PXD005857,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,403,False,True,0,False,False
+PXD006085,RP,50.0,75.0,2.0,70.0,2.0,,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,3187,False,True,7,True,True
+PXD006115,RP,40.0,,1.9,150.0,,250.0,50.0,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,4280,False,True,7,True,True
+PXD006116,RP,25.0,75.0,3.0,90.0,0.0,300.0,,FA,20.0,ACN,False,,EASY-nLC,HLA/MHC peptides,Q Exactive,4903,False,True,8,True,True
+PXD006522,,,,,,,,,,,,,,,none detected,Q Exactive,76,False,True,0,False,False
+PXD006638,,,,,,,,,TFA,,ACN,,,,none detected,Q Exactive,4461,False,True,1,False,False
+PXD006644,,,,,,,,,,,,,,,none detected,Q Exactive,99,False,True,0,False,False
+PXD006702,RP,25.0,,3.0,180.0,0.0,500.0,,FA,40.0,ACN,False,,,phospho-enriched,LTQ Orbitrap;Q Exactive,4941,False,True,7,True,True
+PXD006717,,,,,,6.0,,,,10.0,,,,,crosslinked,LTQ Orbitrap Velos,683,False,True,1,False,False
+PXD007089,,,,,,,,,,,,,,,acetyl-enriched,Q Exactive,685,False,True,0,False,False
+PXD007168,,,,,,,,,,,,,,,none detected,Bruker Daltonics instrument model,3464,False,True,0,False,False
+PXD007546,,,,,60.0,,,,FA,,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Velos,1328,False,False,2,False,False
+PXD007562,RP,,,,,,,20.0,,,ACN,,,,none detected,TripleTOF 5600;LTQ Orbitrap Elite,3288,False,True,2,False,False
+PXD007897,RP,50.0,75.0,,105.0,3.0,300.0,50.0,FA,25.0,ACN,True,,EASY-nLC,none detected,Q Exactive,3185,False,True,8,True,False
+PXD008005,RP,10.0,100.0,5.0,120.0,5.0,,,FA,30.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Velos,944,False,True,7,True,True
+PXD008039,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,945,False,True,0,False,False
+PXD008048,,,,,,,,,,,,,,Waters nano,phospho-enriched,LTQ Orbitrap;Q Exactive,1249,False,True,0,False,False
+PXD008250,RP,15.0,100.0,3.0,90.0,12.0,300.0,,AcOH,40.0,ACN,False,,,none detected,LTQ FT,3294,False,True,8,True,True
+PXD008289,,,,,,,,,,,,,,,phospho-enriched,Q Exactive,86,False,True,0,False,False
+PXD008476,,,,,,,,,,,,,,,none detected,Orbitrap Fusion ETD,100,False,False,0,False,False
+PXD008495,,,,,,,,,,,,,,,phospho-enriched,LTQ Orbitrap Elite,273,False,False,0,False,False
+PXD008574,,,,,,,,,,,,,,,none detected,Bruker Daltonics instrument model;Q Exactive,145,False,True,0,False,False
+PXD008599,,,,,165.0,4.5,,,,31.0,ACN,False,,,none detected,Q Exactive,2095,False,True,2,False,False
+PXD008726,,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive,1820,False,True,0,False,False
+PXD008798,,,,,103.0,5.0,,,,33.0,ACN,False,,,none detected,Orbitrap Fusion,2256,False,True,2,False,False
+PXD008863,,,,,,,,,,,,,,,none detected,Q Exactive,234,False,True,0,False,False
+PXD008916,RP,,,,50.0,2.0,,,FA,35.0,ACN,False,,,none detected,Q Exactive,2104,False,True,4,False,False
+PXD009262,,,,,165.0,4.5,,,,31.0,ACN,False,,,none detected,Q Exactive,2062,False,True,2,False,False
+PXD009359,RP,15.0,75.0,1.7,58.0,,,,,,,False,20.0,Evosep,none detected,timsTOF SCP,2288,False,False,5,True,True
+PXD009424,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,62,False,True,0,False,False
+PXD009453,,,,,,,,,,,,,,,none detected,Orbitrap Fusion ETD;LTQ Orbitrap Velos,2480,False,True,0,False,False
+PXD009464,RP,16.0,,1.9,120.0,0.0,250.0,,FA,95.0,ACN,False,,EASY-nLC,none detected,Q Exactive,2723,False,True,7,True,True
+PXD009621,,,,,60.0,,,,FA,,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Velos,1327,False,False,2,False,False
+PXD009668,RP,50.0,75.0,3.0,240.0,4.0,30.0,50.0,FA,40.0,ACN,True,,UltiMate 3000,TMT;crosslinked,Orbitrap Fusion Lumos;Q Exactive,4993,True,True,9,True,False
+PXD009955,,,,,,,,,FA,,,,,,glyco,Orbitrap Fusion ETD;LTQ Orbitrap Velos,3531,False,True,1,False,False
+PXD010098,RP,15.0,75.0,3.0,120.0,,300.0,,FA,,ACN,False,,EASY-nLC,crosslinked,Q Exactive,3733,False,False,7,True,True
+PXD010099,RP,15.0,75.0,3.0,120.0,,300.0,,FA,,ACN,False,,EASY-nLC,crosslinked,Q Exactive,3653,False,False,7,True,True
+PXD010133,RP,15.0,75.0,3.0,120.0,,300.0,,FA,,ACN,False,,EASY-nLC,crosslinked,Q Exactive,3681,False,False,7,True,True
+PXD010248,,,,,,,,,,,,,,,none detected,Q Exactive,461,False,True,0,False,False
+PXD010249,,,,,,,,,,,,,,,none detected,Q Exactive,461,False,True,0,False,False
+PXD010576,,,,,,,,,,,,,,Waters nano,none detected,Q Exactive,308,False,True,0,False,False
+PXD010606,RP,50.0,,,,,,,,,,,,,TMT,LTQ Orbitrap,2276,False,True,2,False,False
+PXD010709,,,,,,,,,,,,,,,none detected,Orbitrap Fusion ETD,100,False,True,0,False,False
+PXD010773,,,,,,6.0,,,,12.0,,,,,none detected,LTQ Orbitrap Velos,1974,False,True,1,False,False
+PXD010819,RP,50.0,75.0,,240.0,4.0,,,,64.0,ACN,False,,EASY-nLC,phospho-enriched,Q Exactive,1954,False,True,5,True,True
+PXD010895,RP,25.0,75.0,3.0,,,,,,,,,,,crosslinked,LTQ Orbitrap Velos;Q Exactive HF;Q Exactive,1491,False,True,4,False,False
+PXD011143,RP,50.0,75.0,2.0,95.0,10.0,5000.0,,FA,35.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Elite,3615,False,False,8,True,True
+PXD011185,RP,,500.0,,15.0,5.0,,,FA,30.0,ACN,False,,,crosslinked,QSTAR,3189,False,True,5,False,False
+PXD011252,RP,50.0,,,79.0,5.0,300.0,,,22.0,,False,,,none detected,Q Exactive,3177,False,True,5,True,True
+PXD011518,,,,,,,,,,,,,,,none detected,Q Exactive,1803,False,True,0,False,False
+PXD011545,,,,,100.0,0.0,,,FA,53.0,ACN,False,,,none detected,Orbitrap Fusion Lumos,4173,False,True,3,False,False
+PXD011565,RP,25.0,75.0,1.9,53.0,5.0,,,FA,29.0,ACN,False,,,none detected,Q Exactive,793,False,True,7,True,True
+PXD011808,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,1291,False,True,0,False,False
+PXD011863,RP,15.0,,,180.0,1.0,,55.0,FA,95.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Elite,3163,False,True,6,False,False
+PXD011921,RP,15.0,,,180.0,1.0,,55.0,FA,95.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Elite,3158,False,True,6,False,False
+PXD012121,RP,40.0,,,10.0,,250.0,50.0,FA,,ACN,False,,UltiMate 3000,none detected,LTQ Orbitrap Elite,3796,False,True,6,True,True
+PXD012147,,,,,,,,,,,,,,UltiMate 3000,none detected,maXis,1250,False,False,0,False,False
+PXD012332,,,,,,,,,,,,,,,none detected,Q Exactive,432,False,True,0,False,False
+PXD012544,RP,,100.0,5.0,60.0,,1000.0,,FA,,ACN,False,,EASY-nLC,TMT,LTQ Orbitrap Velos,4612,False,True,6,True,True
+PXD012584,,,,,,,,,,,,,,UltiMate 3000,none detected,LTQ Orbitrap XL,882,False,False,0,False,False
+PXD012650,RP,30.0,75.0,1.9,90.0,5.0,300.0,50.0,FA,35.0,ACN,False,,UltiMate 3000,none detected,Q Exactive Plus,1233,False,True,9,True,True
+PXD012681,RP,25.0,100.0,1.7,55.0,5.0,250.0,,FA,55.0,ACN,False,,,none detected,Q Exactive,4247,False,True,8,True,True
+PXD012891,,,,,480.0,5.0,200.0,,,40.0,,False,,UltiMate 3000,none detected,Q Exactive,1407,False,True,3,False,False
+PXD012975,RP,25.0,,,155.0,4.0,250000.0,,,76.0,ACN,False,,,none detected,LTQ Orbitrap Velos,2990,False,True,5,True,True
+PXD012997,RP,50.0,,,210.0,4.0,300.0,35.0,FA,40.0,ACN,False,,,none detected,LTQ Orbitrap,2307,False,True,7,True,True
+PXD013056,,,,,,,,,,,,,,,acetyl-enriched,Orbitrap Fusion,114,False,True,0,False,False
+PXD013129,,,,,,,,,,,,,,,crosslinked,Q Exactive,3388,False,True,0,False,False
+PXD013307,,,,,,,,,FA,,ACN,,,,none detected,Orbitrap Fusion Lumos;LTQ Orbitrap,1600,False,False,1,False,False
+PXD013340,RP,25.0,4600.0,3.5,84.0,6.0,1000000.0,50.0,high-pH buffer,30.0,ACN,True,,EASY-nLC,glyco,Orbitrap Fusion Lumos,3719,False,True,9,True,False
+PXD013485,,,,,,,,,,,,,,,none detected,Q Exactive HF,237,False,False,0,False,False
+PXD013507,RP,15.0,,,,,150.0,,,,ACN,,,,none detected,Orbitrap Fusion Lumos,1936,False,True,3,False,False
+PXD013590,,,,,150.0,,200.0,,FA,,ACN,False,,,none detected,LTQ Orbitrap Elite,1637,False,True,3,False,False
+PXD013640,,,,,180.0,,,,FA,,ACN,False,,Waters nano,none detected,Q Exactive,1154,False,True,2,False,False
+PXD013738,RP,50.0,,1.7,240.0,,,,,,ACN,False,,EASY-nLC,none detected,Q Exactive,1383,False,False,4,True,True
+PXD013923,,,,,,,,,,,,,,,phospho-enriched,Q Exactive,4990,True,True,0,False,False
+PXD014119,,,,,,,,,,,,,,,none detected,Orbitrap Fusion,1224,False,True,0,False,False
+PXD014247,,,,,,,,,,,,,,,none detected,Q Exactive Plus,1389,False,True,0,False,False
+PXD014324,RP,12.0,,2.4,40.0,2.0,250.0,,,33.0,ACN,False,,,none detected,Q Exactive,2049,False,True,6,True,True
+PXD014325,,,,,,,,,,,,,,,none detected,Q Exactive,864,False,True,0,False,False
+PXD014525,,,,,15.0,,,,,,,False,,EASY-nLC,phospho-enriched,Q Exactive,384,False,True,1,False,False
+PXD014552,RP,15.0,,,45.0,,,,FA,,ACN,False,,UltiMate 3000,TMT;diGly,Orbitrap Fusion Lumos;Orbitrap Fusion,2160,False,True,4,False,False
+PXD014561,RP,50.0,,,240.0,5.0,,,FA,25.0,,True,,UltiMate 3000,phospho-enriched;TMT,Orbitrap Fusion,4440,False,True,5,False,False
+PXD014619,RP,75.0,,,35.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Bruker BAF format,3013,False,True,5,True,True
+PXD014691,RP,15.0,,,,2.4,,,FA,32.0,ACN,,,UltiMate 3000,none detected,Q Exactive,3481,False,True,4,False,False
+PXD014794,RP,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos;Q Exactive,1305,False,True,1,False,False
+PXD014893,RP,50.0,75.0,2.0,160.0,25.0,,,FA,40.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,1318,False,True,7,True,True
+PXD014897,RP,50.0,,2.7,150.0,,,,FA,,,True,,EASY-nLC,none detected,Q Exactive,4950,False,True,5,True,False
+PXD014998,,,,,120.0,2.0,250.0,,FA,40.0,ACN,False,,,diGly,LTQ Orbitrap Velos,3985,False,True,4,False,False
+PXD015352,RP,50.0,75.0,2.0,60.0,4.0,250.0,,FA,26.0,ACN,False,,EASY-nLC,none detected,Q Exactive,1174,False,True,8,True,True
+PXD015442,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,571,False,True,0,False,False
+PXD015453,RP,25.0,,,120.0,,400.0,,FA,,ACN,False,,EASY-nLC,phospho-enriched,Q Exactive,3897,False,True,5,True,True
+PXD015736,,,,,,,,,,,,,,,none detected,Q Exactive,1141,False,True,0,False,False
+PXD015936,RP,25.0,,,90.0,10.0,300.0,,FA,40.0,ACN,False,,Waters nano,none detected,LTQ Orbitrap Elite,3590,False,True,6,True,True
+PXD015993,,,,,,,,,,,,,,,phospho-enriched;TMT,Orbitrap Fusion Lumos,440,False,True,0,False,False
+PXD016003,RP,50.0,75.0,2.0,,,250.0,,FA,,ACN,,,UltiMate 3000,none detected,Q Exactive,1485,False,True,6,False,False
+PXD016004,RP,50.0,,2.0,178.0,4.0,300.0,,FA,48.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,3933,False,True,7,True,True
+PXD016054,,,,,90.0,,,,,,,False,,,none detected,LTQ Orbitrap Elite,1206,False,True,1,False,False
+PXD016145,RP,15.0,75.0,3.0,,,300.0,,,,,,,,none detected,Orbitrap Fusion Lumos,1954,False,True,5,False,False
+PXD016190,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,168,False,True,0,False,False
+PXD016383,,,,,,,,,,,,,,,none detected,Orbitrap Fusion,138,False,True,0,False,False
+PXD016438,,,,,,,,,,,,,,,none detected,Q Exactive,4945,False,True,0,False,False
+PXD016565,,,,,,,,,,,,,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,882,False,False,0,False,False
+PXD016632,RP,50.0,75.0,,120.0,,250.0,,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive,2540,False,True,6,True,True
+PXD016675,RP,25.0,75.0,1.7,90.0,1.0,400.0,,FA,35.0,ACN,False,,Waters nano,none detected,maXis,1172,False,True,8,True,True
+PXD016745,RP,15.0,75.0,2.0,70.0,,,,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive,3588,False,True,6,True,True
+PXD016750,,,,,,,,,,,,,,,phospho-enriched,Orbitrap Fusion Lumos,869,False,True,0,False,False
+PXD016786,RP,10.0,100.0,3.0,,,,,,,,,,EASY-nLC,none detected,Q Exactive,311,False,True,4,False,False
+PXD017056,RP,25.0,,,120.0,5.0,300.0,,AcOH,65.0,,False,,UltiMate 3000,none detected,LTQ Orbitrap Velos,3793,False,True,6,True,True
+PXD017415,,,,,,,,,,,,,,,none detected,Q Exactive HF,378,False,True,0,False,False
+PXD017478,RP,50.0,75.0,,120.0,,250.0,,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive,3895,False,True,6,True,True
+PXD017523,,,,,,,,,TFA,,,,,UltiMate 3000,none detected,Q Exactive,2623,False,True,1,False,False
+PXD017541,,,,,90.0,,,,,,,False,,,none detected,LTQ Orbitrap Velos,571,False,True,1,False,False
+PXD017579,,,,,,,,,,,,,,,none detected,Q Exactive,122,False,True,0,False,False
+PXD017597,RP,15.0,,,60.0,5.0,400.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Q Exactive,3080,False,True,6,True,True
+PXD017821,,25.0,75.0,1.8,150.0,4.0,,,FA,35.0,ACN,False,,,none detected,Q Exactive HF,656,False,True,6,False,False
+PXD017932,,,,,200.0,3.7,,,FA,31.3,ACN,False,,,none detected,Orbitrap Fusion;LTQ Orbitrap Velos,2992,False,True,3,False,False
+PXD017959,RP,36.0,75.0,1.9,65.0,5.0,200.0,,FA,12.0,ACN,True,,EASY-nLC,none detected,Orbitrap Fusion Lumos,4942,False,True,8,True,False
+PXD017994,RP,50.0,,,60.0,6.0,300.0,,FA,30.0,ACN,False,,UltiMate 3000,phospho-enriched,Q Exactive,3200,False,True,6,True,True
+PXD018148,,,,,,,,,,,,,,,HLA/MHC peptides;iTRAQ,Q Exactive HF,957,False,True,0,False,False
+PXD018218,,,,,60.0,,,,,,,False,,,phospho-enriched;TMT,Q Exactive HF-X,533,False,True,1,False,False
+PXD018253,RP,25.0,,1.6,90.0,,400.0,,FA,,ACN,False,,,none detected,Q Exactive,1829,False,True,6,True,True
+PXD018387,RP,,,,110.0,8.0,,,FA,30.0,,True,,Waters nano,TMT,Orbitrap Fusion Lumos,2421,False,False,4,False,False
+PXD018422,RP,30.0,150.0,1.9,120.0,10.0,500.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion,3880,False,True,8,True,True
+PXD018584,RP,25.0,,,140.0,3.0,200.0,,FA,99.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion,1847,False,True,6,True,True
+PXD018617,,,,,80.0,3.0,,,FA,8.0,,False,,UltiMate 3000,TMT,Q Exactive,2808,False,False,3,False,False
+PXD018727,RP,15.0,,,,,300.0,,FA,,ACN,,,UltiMate 3000,none detected,LTQ Orbitrap Elite,2422,False,False,4,False,False
+PXD018752,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,461,False,True,0,False,False
+PXD018874,,,,,,,,,,,ACN,,,,none detected,TripleTOF 6600,2377,False,True,0,False,False
+PXD018900,RP,12.0,75.0,1.9,60.0,,250.0,,,,ACN,False,,UltiMate 3000,none detected,Q Exactive,4965,False,True,6,True,True
+PXD018905,RP,25.0,75.0,,150.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive,4503,False,False,6,True,True
+PXD018975,RP,15.0,75.0,2.0,83.0,2.4,200.0,,FA,32.0,ACN,False,,UltiMate 3000,none detected,Q Exactive Plus,3793,False,False,8,True,True
+PXD019074,RP,50.0,,1.8,95.0,,300.0,,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2727,False,True,6,True,True
+PXD019252,,25.0,75.0,1.8,150.0,4.0,,,FA,35.0,ACN,False,,,none detected,Q Exactive,463,False,True,6,False,False
+PXD019254,,25.0,,,150.0,4.0,,,FA,35.0,ACN,False,,,none detected,Q Exactive,1973,False,True,4,False,False
+PXD019285,RP,50.0,,1.9,120.0,5.0,300.0,,FA,30.0,ACN,True,,EASY-nLC,none detected,Q Exactive HF,3934,False,True,7,True,False
+PXD019362,RP,50.0,75.0,3.5,126.0,2.0,300.0,,FA,5.0,ACN,True,,UltiMate 3000,none detected,Q Exactive HF,3908,False,False,8,True,False
+PXD019443,RP,,,,100.0,2.0,,,,30.0,ACN,False,,,TMT;glyco,Q Exactive,4904,False,True,3,False,False
+PXD019454,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,796,False,True,0,False,False
+PXD019483,,,,,,,,,FA,,ACN,,,,none detected,Q Exactive,1648,False,True,1,False,False
+PXD019513,,,,,,,500000.0,,,,,,,UltiMate 3000,none detected,Q Exactive,3128,False,True,1,False,False
+PXD019545,RP,,,,120.0,3.2,,,,76.0,ACN,True,,Waters nano,none detected,Q Exactive HF,1492,False,True,3,False,False
+PXD019600,RP,25.0,,,120.0,,300.0,,,,,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos;Q Exactive HF,2197,False,True,4,True,True
+PXD019692,RP,50.0,75.0,2.0,100.0,2.0,250.0,,high-pH buffer,35.0,ACN,True,,UltiMate 3000,none detected,Orbitrap Fusion Lumos;Q Exactive HF,2955,False,False,8,True,False
+PXD019704,,,,,,,,,,,,,,,none detected,Q Exactive,150,False,False,0,False,False
+PXD019708,,,,,,,,,FA,,ACN,,,EASY-nLC,none detected,Orbitrap Fusion,949,False,True,1,False,False
+PXD019880,,,,,,,,,,,,,,,TMT,LTQ Orbitrap Elite,174,False,True,0,False,False
+PXD019881,,,,,,,,,,,,,,,TMT,LTQ Orbitrap Elite,196,False,True,0,False,False
+PXD019929,,,,,,4.0,,,,12.0,,,,,none detected,LTQ Orbitrap,579,False,True,1,False,False
+PXD019951,RP,,,,160.0,0.0,250.0,,FA,35.0,ACN,False,,,none detected,Q Exactive,980,False,True,5,False,False
+PXD019957,,,,,,4.0,,,,12.0,,,,,none detected,LTQ Orbitrap,579,False,True,1,False,False
+PXD019967,RP,25.0,75.0,1.6,90.0,,400.0,,FA,,ACN,False,,,none detected,Q Exactive,2908,False,True,7,True,True
+PXD020019,,,,,95.0,,,,,,ACN,True,,,diGly;crosslinked,Q Exactive HF,4782,False,False,1,False,False
+PXD020042,RP,25.0,75.0,2.4,67.0,2.0,200.0,,FA,5.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Elite,3833,False,True,8,True,True
+PXD020180,,,,,,,,,,,,,,Waters nano,none detected,Q Exactive,303,False,True,0,False,False
+PXD020202,RP,50.0,75.0,2.0,120.0,2.0,300.0,,FA,5.0,ACN,True,,UltiMate 3000,phospho-enriched;TMT,Q Exactive,3699,False,False,8,True,False
+PXD020222,RP,20.0,,1.9,90.0,30.0,300.0,,,95.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2239,False,True,6,True,True
+PXD020224,RP,25.0,,5.0,,,,,high-pH buffer,,ACN,,,EASY-nLC,HLA/MHC peptides;peptidome,Q Exactive HF-X;Q Exactive Plus;Orbitrap Fusion,3180,False,True,4,False,False
+PXD020303,RP,10.0,,1.9,40.0,3.0,250.0,,,32.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,3813,False,True,6,True,True
+PXD020450,RP,,,,160.0,5.0,250.0,,FA,35.0,ACN,False,,Waters nano,none detected,Q Exactive,1284,False,True,5,False,False
+PXD020490,,,,,,,,,,,,,,,none detected,Q Exactive HF,714,False,True,0,False,False
+PXD020491,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,714,False,True,0,False,False
+PXD020494,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,714,False,True,0,False,False
+PXD020547,,,,,,,,,,,,,,UltiMate 3000,none detected,LTQ Orbitrap Velos,1042,False,True,0,False,False
+PXD020559,RP,,,,145.0,1.0,750.0,50.0,FA,55.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,4723,False,True,6,False,False
+PXD020561,,,,,,,,,,,,,,,none detected,Q Exactive,54,False,True,0,False,False
+PXD020686,,,,,,,,,,,,,,EASY-nLC,crosslinked,micrOTOF II;Orbitrap Fusion;Q Exactive,4433,False,True,0,False,False
+PXD020711,RP,25.0,75.0,5.0,,,300.0,,high-pH buffer,,ACN,,,,iTRAQ,LTQ Orbitrap,3912,False,True,6,False,False
+PXD020742,RP,50.0,75.0,2.0,100.0,4.0,,,FA,40.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2751,False,True,7,True,True
+PXD020759,RP,15.0,75.0,2.5,90.0,5.0,300.0,,FA,30.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,2210,False,False,8,True,True
+PXD020760,,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive HF,340,False,True,0,False,False
+PXD020805,,,,,,,,,,,,,,UltiMate 3000,phospho-enriched,Q Exactive HF,723,False,True,0,False,False
+PXD020812,RP,,,3.0,120.0,8.0,250.0,,,64.0,ACN,False,,,crosslinked,Q Exactive HF,4732,False,True,5,True,True
+PXD020844,RP,,,,90.0,,,,,,,False,,UltiMate 3000,none detected,Q Exactive HF,1665,False,True,2,False,False
+PXD020910,RP,,,,90.0,,,,,,,False,,UltiMate 3000,none detected,Q Exactive HF,1659,False,True,2,False,False
+PXD020939,RP,,,,90.0,,,,,,,False,,UltiMate 3000,none detected,Q Exactive HF,1659,False,True,2,False,False
+PXD020969,RP,,,,,,,,FA,,ACN,,,,none detected,Q Exactive,1498,False,True,2,False,False
+PXD020972,,,,,,,,,,,,,,Waters nano,none detected,Q Exactive HF,509,False,True,0,False,False
+PXD020974,RP,,,,90.0,,,,,,,False,,UltiMate 3000,none detected,Q Exactive HF,1659,False,True,2,False,False
+PXD020987,,,,,,,,,,,,,,,none detected,Q Exactive HF,1316,False,True,0,False,False
+PXD020996,RP,7.5,250.0,1.7,90.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2619,False,True,7,True,True
+PXD021018,RP,,,,180.0,,,,,,,False,,UltiMate 3000,none detected,Q Exactive HF,1653,False,True,2,False,False
+PXD021109,,,,,,,,,,,,,,,phospho-enriched,Q Exactive,1124,False,True,0,False,False
+PXD021145,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4994,True,True,6,True,False
+PXD021152,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4994,True,True,6,True,False
+PXD021153,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4994,True,True,6,True,False
+PXD021154,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4994,True,True,6,True,False
+PXD021320,RP,50.0,75.0,,215.0,0.0,200.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,3340,False,True,7,True,True
+PXD021359,RP,30.0,150.0,1.9,140.0,3.0,500.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion,2523,False,True,8,True,True
+PXD021360,,,,,,,,,AcOH,,ACN,,,,none detected,Q Exactive HF-X,2572,False,True,1,False,False
+PXD021402,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4986,False,True,6,True,False
+PXD021403,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4986,False,True,6,True,False
+PXD021437,RP,50.0,100.0,,120.0,0.0,300.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,1716,False,True,7,True,True
+PXD021507,,,,,60.0,,250.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2000,False,True,3,False,False
+PXD021540,RP,15.0,,5.0,60.0,5.0,400.0,,FA,40.0,ACN,False,,,none detected,Orbitrap Fusion Lumos,2395,False,True,7,True,True
+PXD021561,RP,10.0,,,,,,,,,,,,,glyco;crosslinked,LTQ Orbitrap Velos,2179,False,True,2,False,False
+PXD021623,,,,,,,,,,,,,,,TMT;crosslinked,LTQ Orbitrap Velos,3377,False,False,0,False,False
+PXD021624,,,,,,,,,,,,,,,crosslinked,LTQ Orbitrap Velos,1420,False,True,0,False,False
+PXD021630,RP,25.0,75.0,,105.0,5.0,,,FA,7.0,ACN,True,,EASY-nLC,none detected,Q Exactive HF,2770,False,True,6,True,False
+PXD021631,,,,,,,,,,,,,,,crosslinked,LTQ Orbitrap Velos,1458,False,True,0,False,False
+PXD021636,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,1804,False,True,0,False,False
+PXD021677,,,,,,,,,,,,,,,none detected,Q Exactive,135,False,True,0,False,False
+PXD021731,,,,,,,,,,,,,,,TMT,Orbitrap Eclipse,109,False,True,0,False,False
+PXD021742,,,,,,,,,,,,,,UltiMate 3000,none detected,Orbitrap Fusion Lumos;MaxQuant,1692,False,True,0,False,False
+PXD021758,RP,25.0,,,150.0,2.0,300.0,35.0,FA,25.0,ACN,False,,Waters nano,none detected,Orbitrap Fusion Lumos,2954,False,True,7,True,True
+PXD021818,RP,25.0,,,150.0,2.0,300.0,35.0,FA,25.0,ACN,False,,Waters nano,diGly,Orbitrap Fusion Lumos,3167,False,True,7,True,True
+PXD021882,,,30.0,,100.0,8.0,40.0,,FA,22.0,ACN,True,,,none detected,Orbitrap Exploris 480,4722,False,False,5,False,False
+PXD021924,RP,50.0,75.0,1.9,240.0,7.0,250.0,,FA,30.0,ACN,True,,,phospho-enriched,Q Exactive HF-X;Orbitrap Fusion,3098,False,True,8,True,False
+PXD022091,RP,25.0,75.0,1.9,53.0,2.0,300.0,,,30.0,ACN,False,,,none detected,Q Exactive,3449,False,True,7,True,True
+PXD022149,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,227,False,True,0,False,False
+PXD022285,,,,,30.0,,,,,,,False,,,none detected,Orbitrap Fusion Lumos;TripleTOF 6600,478,False,True,1,False,False
+PXD022303,,,,,,,,,FA,,,,,UltiMate 3000,phospho-enriched,Q Exactive HF,1236,False,True,1,False,False
+PXD022383,,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive HF,871,False,True,0,False,False
+PXD022492,,,,,,,,,,,,,,,none detected,Q Exactive HF,177,False,True,0,False,False
+PXD022525,RP,30.0,150.0,1.9,140.0,3.0,500.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion,106,False,True,8,True,True
+PXD022544,,,,,,,,,,,,,,,none detected,Orbitrap Fusion,271,False,True,0,False,False
+PXD022549,RP,25.0,,,,,,,FA,,ACN,,,UltiMate 3000,none detected,Orbitrap Fusion,2797,False,False,3,False,False
+PXD022565,RP,15.0,,,60.0,5.0,400.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2660,False,True,6,True,True
+PXD022614,,,,,,,,,,,,,,,none detected,LTQ Orbitrap;Q Exactive,241,False,False,0,False,False
+PXD022662,RP,15.0,150.0,1.5,21.0,,,,FA,,,True,60.0,,none detected,Q Exactive HF,3177,False,True,6,True,False
+PXD022752,RP,50.0,75.0,3.0,240.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,1969,False,False,7,True,True
+PXD022759,,,,,,,,,,,,,,,phospho-enriched,Q Exactive,277,False,True,0,False,False
+PXD022786,RP,15.0,100.0,5.0,165.0,5.0,250.0,,FA,25.0,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Velos,2672,False,True,8,True,True
+PXD022904,,50.0,,,140.0,3.0,300.0,,FA,30.0,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos,2297,False,True,5,False,False
+PXD022909,RP,50.0,75.0,2.0,120.0,5.0,300.0,,FA,35.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,1741,False,True,8,True,True
+PXD022949,RP,,,,120.0,,,,TFA,,ACN,False,,,HLA/MHC peptides,Q Exactive HF,2008,False,True,3,False,False
+PXD022955,RP,50.0,75.0,5.0,95.0,,,,FA,,ACN,False,,,none detected,Q Exactive HF,2522,False,True,6,True,True
+PXD022962,RP,25.0,,,120.0,,400.0,50.0,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive,2925,False,True,6,True,True
+PXD022975,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,84,False,True,0,False,False
+PXD022984,RP,25.0,,1.9,130.0,3.0,250.0,,FA,99.0,ACN,False,,,none detected,LTQ Orbitrap Elite,1714,False,True,7,True,True
+PXD022985,,,,,,,,,,,,,,,none detected,LTQ Orbitrap;Q Exactive,191,False,False,0,False,False
+PXD023239,,,,,,,,,,,,,,,none detected,Q Exactive Plus,95,False,True,0,False,False
+PXD023277,,,,,,,,,,,,,,,none detected,Q Exactive Plus,797,False,True,0,False,False
+PXD023538,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4925,False,True,6,True,False
+PXD023539,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4925,False,True,6,True,False
+PXD023540,RP,50.0,,,95.0,3.0,6000.0,,FA,34.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,4925,False,True,6,True,False
+PXD023559,RP,50.0,,1.9,120.0,5.0,300.0,,FA,30.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2891,False,True,7,True,True
+PXD023595,RP,,,,120.0,3.2,,,,7.2,ACN,True,,Waters nano,none detected,Q Exactive HF,1486,False,True,3,False,False
+PXD023679,,,,,90.0,2.0,,,,40.0,ACN,False,,,none detected,Q Exactive,1833,False,True,2,False,False
+PXD023684,RP,50.0,100.0,3.0,48.0,13.0,,,FA,40.0,ACN,False,,,HLA/MHC peptides;glyco,Orbitrap Fusion Lumos;Q Exactive HF,2432,False,True,7,True,True
+PXD023701,,,,,,,,,,,,,,,none detected,Q Exactive,229,False,True,0,False,False
+PXD023703,,15.0,,,,,,,,,,,,,phospho-enriched,Q Exactive HF,1388,False,True,1,False,False
+PXD023735,,,,,,,,,,,,,,,TMT,Q Exactive HF,179,False,True,0,False,False
+PXD023739,RP,25.0,,,90.0,4.0,300.0,,FA,38.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,1917,False,True,6,True,True
+PXD023852,RP,50.0,75.0,1.9,87.0,5.0,300.0,50.0,FA,55.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,4302,False,True,9,True,True
+PXD023998,RP,20.0,,3.0,,,,,,,,,,,none detected,Q Exactive HF,1582,False,True,3,False,False
+PXD024043,,,,,,,,,,,,,,,none detected,timsTOF,1513,False,False,0,False,False
+PXD024045,RP,50.0,75.0,2.7,150.0,,,,FA,,ACN,True,,EASY-nLC,none detected,Q Exactive HF,1683,False,True,6,True,False
+PXD024093,RP,50.0,75.0,2.7,150.0,,,,FA,,ACN,True,,EASY-nLC,none detected,Q Exactive HF,1682,False,True,6,True,False
+PXD024094,RP,50.0,,2.7,,,,,,,,,,EASY-nLC,diGly,Q Exactive HF,2361,False,True,3,False,False
+PXD024095,RP,50.0,,2.7,,,,,,,,,,EASY-nLC,none detected,Q Exactive HF,1703,False,True,3,False,False
+PXD024127,,,,,,,,,,,,,,,none detected,Q Exactive Plus,2933,False,True,0,False,False
+PXD024162,RP,,,5.0,60.0,5.0,250.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,1766,False,True,6,True,True
+PXD024168,RP,,,,90.0,6.0,,,FA,44.0,ACN,False,,,none detected,Orbitrap Fusion Lumos,2181,False,True,4,False,False
+PXD024193,RP,50.0,,,,,250.0,,FA,,ACN,,,,none detected,LTQ Orbitrap Velos,2899,False,True,4,False,False
+PXD024335,,,,,,,,,,,,,,,none detected,Q Exactive HF,114,False,True,0,False,False
+PXD024340,,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive,1238,False,True,0,False,False
+PXD024399,,,,,,,,,,,,,,,none detected,Q Exactive HF,192,False,True,0,False,False
+PXD024550,,,,,,,,,,,,,,,none detected,Q Exactive HF,173,False,True,0,False,False
+PXD024707,RP,50.0,75.0,2.7,95.0,9.0,300.0,,FA,40.0,ACN,False,,,none detected,Q Exactive HF,4582,False,True,8,True,True
+PXD024782,RP,20.0,,3.0,,,,,,,,,,,none detected,Q Exactive,1872,False,True,3,False,False
+PXD024794,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,1393,False,True,0,False,False
+PXD024803,RP,50.0,,2.7,39.0,3.0,250.0,,FA,8.0,ACN,False,,EASY-nLC,none detected,Q Exactive Plus,2015,False,True,7,True,True
+PXD024808,,,,,,,,,,,,,,,crosslinked,Orbitrap Fusion Lumos,2218,False,True,0,False,False
+PXD024852,RP,12.0,,3.0,120.0,,300.0,,FA,,ACN,False,,,none detected,Q Exactive Plus,1069,False,True,6,True,True
+PXD024872,RP,25.0,,,179.0,1.0,300.0,,FA,7.5,ACN,True,,Waters nano,diGly;crosslinked,LTQ Orbitrap Elite;Q Exactive Plus,4630,False,True,6,True,False
+PXD024937,RP,30.0,100.0,1.9,180.0,3.0,,,FA,30.0,,False,,,none detected,Q Exactive,1304,False,True,7,True,True
+PXD025052,,,,,,,,,,,,,,,TMT,Q Exactive,1667,False,True,0,False,False
+PXD025127,,,300.0,5.0,38.0,3.0,5000.0,35.0,FA,25.0,ACN,False,,Eksigent,none detected,TripleTOF 5600,2544,False,True,7,False,False
+PXD025146,RP,20.0,75.0,5.0,166.0,2.0,,,AcOH,99.0,ACN,False,,EASY-nLC,none detected,Q Exactive,4986,False,False,7,True,True
+PXD025184,RP,25.0,75.0,2.0,,,,,FA,,ACN,,,UltiMate 3000,none detected,Orbitrap Fusion,2389,False,True,5,False,False
+PXD025217,RP,15.0,75.0,2.0,70.0,3.0,250.0,,,40.0,ACN,False,,,none detected,Q Exactive Plus,4171,False,True,7,True,True
+PXD025258,,,,,,,,,,,,,,EASY-nLC,crosslinked,micrOTOF II;Orbitrap Fusion;Q Exactive,4970,False,True,0,False,False
+PXD025375,RP,50.0,,2.7,41.0,4.0,,,FA,31.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF-X,2715,False,True,6,True,True
+PXD025503,RP,50.0,,2.7,150.0,,,,FA,,,False,,EASY-nLC,none detected,Q Exactive Plus,2345,False,True,5,True,True
+PXD025626,RP,25.0,,,90.0,5.0,300.0,,,30.0,,False,,,none detected,Q Exactive HF,1972,False,True,5,True,True
+PXD025726,RP,25.0,180.0,1.7,90.0,5.0,5000.0,55.0,FA,30.0,ACN,False,,Waters nano,none detected,Orbitrap Exploris 480,834,False,True,9,True,True
+PXD025727,RP,25.0,180.0,1.7,90.0,5.0,5000.0,55.0,FA,30.0,ACN,False,,Waters nano,none detected,Orbitrap Exploris 480,708,False,True,9,True,True
+PXD025767,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,631,False,False,0,False,False
+PXD025770,,,,,,,,,,,,,,,none detected,Q Exactive,54,False,True,0,False,False
+PXD025792,RP,30.0,100.0,1.9,84.0,2.0,,,FA,98.0,ACN,False,,EASY-nLC,none detected,Orbitrap Exploris 480,3328,False,True,7,True,True
+PXD025817,RP,,,,75.0,,,,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive Plus,2571,False,True,3,False,False
+PXD025820,RP,15.0,75.0,3.0,45.0,5.0,300.0,,FA,40.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Eclipse,1352,False,True,8,True,True
+PXD025832,,,,,,,,,,,,,,EASY-nLC,none detected,micrOTOF II;Orbitrap Fusion;Q Exactive,1758,False,False,0,False,False
+PXD025899,RP,25.0,180.0,5.0,177.0,,,,FA,,ACN,False,,Waters nano,none detected,Q Exactive Plus,4883,False,True,6,True,True
+PXD025933,HILIC,,,1.9,75.0,,50000.0,50.0,FA,,ACN,True,,UltiMate 3000,none detected,Q Exactive Plus,4538,False,True,6,True,False
+PXD025980,RP,50.0,75.0,2.0,180.0,5.0,300.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,3424,False,True,8,True,True
+PXD026057,RP,25.0,75.0,1.8,110.0,45.0,300.0,,FA,95.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,1879,False,True,8,True,True
+PXD026072,RP,,,,120.0,4.0,18000.0,,FA,35.0,ACN,False,,,none detected,Orbitrap Fusion,4384,False,True,5,False,False
+PXD026085,RP,25.0,75.0,1.8,110.0,45.0,300.0,,FA,95.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2048,False,True,8,True,True
+PXD026264,RP,30.0,75.0,1.9,180.0,5.0,180.0,,FA,40.0,ACN,False,,,none detected,LTQ Orbitrap Elite,1840,False,True,8,True,True
+PXD026407,,,,,,,,,,,,,,,crosslinked,Orbitrap Exploris 480,1287,False,True,0,False,False
+PXD026452,,,,,,,,,,,,,,,none detected,Q Exactive,788,False,True,0,False,False
+PXD026487,RP,15.0,,,,,300.0,,FA,,ACN,,,UltiMate 3000,crosslinked,LTQ Orbitrap Velos,4681,False,True,4,False,False
+PXD026638,RP,15.0,75.0,1.7,112.0,5.0,350.0,,,30.0,,True,,,none detected,Orbitrap Fusion Lumos,2128,False,True,7,True,False
+PXD026713,RP,,,,70.0,3.2,,,FA,76.0,ACN,True,,Waters nano,none detected,Q Exactive HF,1309,False,True,4,False,False
+PXD026719,,,,,,,,,,,,,,,none detected,Q Exactive HF,286,False,True,0,False,False
+PXD026720,,,,,60.0,,,,,,,False,,,phospho-enriched,LTQ Orbitrap;LTQ Orbitrap Velos,1875,False,True,1,False,False
+PXD026804,,,,,,,,,,,,,,UltiMate 3000,none detected,Orbitrap Fusion,1578,False,True,0,False,False
+PXD026805,,,,,,,,,,,,,,Waters nano,none detected,Orbitrap Fusion Lumos;Q Exactive HF,728,False,True,0,False,False
+PXD026824,,,,,,,,,,,,,,Waters nano,none detected,Orbitrap Fusion Lumos;Q Exactive HF,728,False,True,0,False,False
+PXD026842,,,,,,,,,,,,,,Waters nano,none detected,Orbitrap Fusion Lumos;Q Exactive HF,728,False,True,0,False,False
+PXD026844,,,,,,,,,,,,,,Waters nano,none detected,Orbitrap Fusion Lumos;Q Exactive HF,728,False,True,0,False,False
+PXD026857,,,,,,,,,,,,,,Waters nano,none detected,Orbitrap Fusion Lumos;Q Exactive HF,728,False,True,0,False,False
+PXD026894,RP,20.0,75.0,1.9,100.0,,300.0,,FA,,ACN,False,,Waters nano,none detected,Orbitrap Fusion Lumos,4128,False,True,7,True,True
+PXD026907,RP,15.0,4600.0,5.0,57.0,,5000.0,40.0,FA,,ACN,False,,Eksigent,none detected,TripleTOF 5600,3639,False,True,8,True,True
+PXD027163,,,,,,,,,,,,,,,none detected,Q Exactive HF,234,False,True,0,False,False
+PXD027185,RP,20.0,,1.9,87.0,10.0,500.0,,FA,50.0,ACN,False,,,none detected,Q Exactive HF,2125,False,True,7,True,True
+PXD027242,,,,,,,,,FA,,ACN,,,,none detected,Orbitrap Fusion Lumos,1750,False,True,1,False,False
+PXD027288,RP,,2000.0,,15.0,5.0,,,,40.0,ACN,False,,,none detected,LTQ Orbitrap,1467,False,False,4,False,False
+PXD027294,RP,,,3.6,60.0,6.0,400.0,40.0,FA,40.0,,False,,UltiMate 3000,none detected,Q Exactive,4144,False,False,7,True,True
+PXD027352,RP,50.0,75.0,2.0,90.0,3.0,15000.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,2337,False,True,8,True,True
+PXD027427,RP,15.0,100.0,1.9,56.0,40.0,700.0,,FA,99.0,ACN,False,,EASY-nLC,none detected,Q Exactive,2614,False,True,8,True,True
+PXD027707,,,,,,,,,,,,,,EASY-nLC,TMT,Orbitrap Fusion Lumos,1390,False,False,0,False,False
+PXD027768,RP,25.0,,,80.0,5.0,300.0,,FA,22.0,ACN,False,,Waters nano,none detected,Orbitrap Fusion Lumos,3725,False,True,6,True,True
+PXD027786,RP,15.0,75.0,,68.0,,10000.0,,FA,,ACN,False,,UltiMate 3000,crosslinked,Q Exactive HF,4980,False,True,6,True,True
+PXD027810,RP,50.0,,,150.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,1760,False,False,5,True,True
+PXD028028,,,,,,,,,,,,,,,phospho-enriched,Q Exactive HF,1284,False,True,0,False,False
+PXD028034,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,1843,False,True,0,False,False
+PXD028107,RP,50.0,75.0,2.0,180.0,2.0,300.0,,FA,35.0,,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,2884,False,True,8,True,True
+PXD028125,RP,25.0,,,70.0,1.0,300.0,50.0,FA,28.0,ACN,False,,UltiMate 3000,none detected,LTQ Orbitrap,1934,False,True,7,True,True
+PXD028276,RP,20.0,,1.9,120.0,,,,,,ACN,False,,,none detected,Q Exactive HF,1447,False,True,4,True,True
+PXD028326,,,,,,,,,,,,,,,none detected,Q Exactive,514,False,False,0,False,False
+PXD028518,RP,25.0,180.0,5.0,177.0,,,,FA,,ACN,False,,Waters nano,none detected,Q Exactive Plus,4914,False,True,6,True,True
+PXD028526,,,,,74.0,0.0,,,FA,50.0,ACN,False,,,none detected,Orbitrap Eclipse,2329,False,True,3,False,False
+PXD028568,RP,20.0,75.0,1.9,85.0,4.0,250.0,,,12.0,ACN,False,,,none detected,Q Exactive,1570,False,True,7,True,True
+PXD028599,RP,50.0,75.0,,120.0,,5000.0,,FA,,ACN,False,,UltiMate 3000,phospho-enriched,Orbitrap Fusion Lumos,1884,False,True,6,True,True
+PXD028634,,,,,30.0,,,,,,,False,,,none detected,TripleTOF 6600,319,False,True,1,False,False
+PXD028636,RP,15.0,150.0,1.9,44.0,,500.0,,,,,False,30.0,Evosep,none detected,Orbitrap Exploris 480,2162,False,True,6,True,True
+PXD028797,,,,,,,,,,,,,,,none detected,Q Exactive HF,483,False,True,0,False,False
+PXD028901,,,,,,,,,,,,,,,none detected,Q Exactive HF-X,858,False,True,0,False,False
+PXD028911,,,,,,,,,,,,,,,none detected,Q Exactive HF,878,False,False,0,False,False
+PXD028925,RP,25.0,75.0,1.6,90.0,,400.0,,FA,,ACN,False,,,none detected,Q Exactive HF,3696,False,True,7,True,True
+PXD028992,RP,25.0,75.0,3.0,180.0,,,,FA,,ACN,False,,,none detected,Orbitrap Fusion,3973,False,True,6,True,True
+PXD029009,RP,5.0,2100.0,1.8,5.0,1.0,800000.0,,FA,40.0,ACN,False,,,none detected,TripleTOF 6600,2375,False,True,8,True,True
+PXD029014,RP,25.0,,,90.0,10.0,300.0,,FA,40.0,ACN,False,,Waters nano,none detected,LTQ Orbitrap,2905,False,False,6,True,True
+PXD029029,RP,25.0,50.0,,90.0,3.0,175.0,50.0,FA,30.0,ACN,False,,UltiMate 3000,HLA/MHC peptides,LTQ Orbitrap XL,1990,False,True,8,True,True
+PXD029191,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,188,False,False,0,False,False
+PXD029290,,,,,,,,,,,,,,,none detected,Q Exactive HF,881,False,True,0,False,False
+PXD029297,,,,,,,,,,,,,,,none detected,Q Exactive,687,False,True,0,False,False
+PXD029404,RP,,,,40.0,7.0,400.0,45.0,FA,25.0,ACN,False,,EASY-nLC,TMT;acetyl-enriched,Q Exactive,4366,False,False,6,False,False
+PXD029429,RP,32.0,,2.2,127.0,5.0,400.0,,FA,45.0,ACN,False,,,none detected,Orbitrap Exploris 480;Q Exactive,3129,False,True,7,True,True
+PXD029539,RP,25.0,,,59.0,1.0,300.0,,FA,7.0,ACN,True,,Waters nano,crosslinked,Q Exactive Plus,2002,False,True,6,True,False
+PXD029625,RP,25.0,75.0,3.0,,5.0,350.0,45.0,FA,38.0,ACN,,,EASY-nLC,none detected,Q Exactive HF,3263,False,True,8,False,False
+PXD029660,,,,,,,,,,,,,,,none detected,Q Exactive,605,False,True,0,False,False
+PXD029668,,,,,90.0,2.0,300.0,,FA,15.0,,True,,UltiMate 3000,none detected,Q Exactive HF-X,4252,False,True,4,False,False
+PXD029710,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Elite,4573,False,True,0,False,False
+PXD029721,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,264,False,False,0,False,False
+PXD029730,,,,,,,,,,,,,,,phospho-enriched,Q Exactive HF,944,False,True,0,False,False
+PXD029738,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,527,False,False,0,False,False
+PXD029747,RP,,,1.9,75.0,5.0,,,AcOH,95.0,ACN,True,,EASY-nLC,none detected,Q Exactive HF,2885,False,True,5,False,False
+PXD029753,,,,,,,,,,,,,,,phospho-enriched,LTQ Orbitrap,543,False,False,0,False,False
+PXD029831,RP,50.0,75.0,2.0,125.0,2.0,300.0,50.0,FA,5.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,3610,False,True,9,True,True
+PXD029882,,,,,,,,,,,,,,,HLA/MHC peptides,Orbitrap Fusion Lumos,528,False,True,0,False,False
+PXD029895,,50.0,,,35.0,,,,FA,,ACN,False,,,HLA/MHC peptides;peptidome,Q Exactive HF-X,2025,False,True,3,False,False
+PXD029900,RP,5.0,300.0,3.0,86.0,,5000.0,,FA,,ACN,False,,UltiMate 3000,none detected,TripleTOF 5600,1547,False,True,7,True,True
+PXD030003,,,,,,,,,,,,,,,none detected,LTQ Orbitrap Velos,162,False,True,0,False,False
+PXD030009,,,,,,,,,,,,,,,none detected,timsTOF Pro,1225,False,True,0,False,False
+PXD030012,RP,50.0,,,60.0,3.0,,,FA,6.0,ACN,False,,,none detected,Q Exactive,2603,False,True,5,False,False
+PXD030130,,,,,104.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2835,False,True,2,False,False
+PXD030164,RP,,300.0,5.0,180.0,1.6,230.0,,FA,32.0,ACN,False,,UltiMate 3000,TMT;acetyl-enriched,Q Exactive HF-X,4856,False,True,7,True,True
+PXD030309,RP,40.0,,1.9,120.0,2.0,250.0,50.0,FA,56.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,3904,False,True,8,True,True
+PXD030406,,,,,,,,,FA,,ACN,,,,none detected,Q Exactive HF-X,3001,False,True,1,False,False
+PXD030419,RP,50.0,75.0,2.0,120.0,1.0,15000.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,4806,False,True,8,True,True
+PXD030480,RP,,75.0,1.8,,,15000.0,,,,ACN,,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,4014,False,True,4,False,False
+PXD030484,RP,25.0,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive HF,1270,False,True,2,False,False
+PXD030524,RP,25.0,,,100.0,,500.0,,FA,,ACN,False,,UltiMate 3000,TMT,LTQ Orbitrap Elite,3710,False,True,5,True,True
+PXD030540,RP,50.0,30.0,5.0,64.0,2.0,300.0,,FA,40.0,,False,,UltiMate 3000,none detected,LTQ Orbitrap Elite,1553,False,True,8,True,True
+PXD030702,,,,,20.0,,5000.0,,,,,False,,,none detected,TripleTOF 6600,468,False,True,2,False,False
+PXD030729,RP,,,,226.0,5.0,,,,33.0,ACN,True,,EASY-nLC,diGly,Q Exactive HF,4059,False,True,3,False,False
+PXD030883,RP,20.0,75.0,,120.0,10.0,200.0,,FA,90.0,ACN,False,,EASY-nLC,TMT,Q Exactive HF,3311,False,True,7,True,True
+PXD030955,,,,,180.0,,,,FA,,ACN,False,,Waters nano,TMT,Q Exactive,1672,False,True,2,False,False
+PXD030992,,,,,90.0,2.0,400.0,,FA,34.0,ACN,True,,,none detected,timsTOF Pro,3629,False,True,4,False,False
+PXD031032,RP,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,1453,False,True,1,False,False
+PXD031051,RP,25.0,75.0,5.0,40.0,2.0,300.0,55.0,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,4035,False,True,9,True,True
+PXD031115,RP,45.0,75.0,3.0,80.0,,300.0,,FA,,ACN,False,,UltiMate 3000,TMT,Orbitrap Fusion,4533,False,True,7,True,True
+PXD031137,RP,25.0,,,80.0,5.0,300.0,,,22.0,,False,,Waters nano,none detected,Orbitrap Fusion Lumos,2541,False,True,5,True,True
+PXD031174,RP,50.0,,,80.0,2.0,300.0,,FA,65.0,ACN,False,,Waters nano,none detected,Q Exactive HF,2484,False,True,6,True,True
+PXD031272,RP,18.0,,3.0,113.0,1.0,250.0,,FA,25.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2926,False,False,7,True,True
+PXD031322,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,1270,False,True,0,False,False
+PXD031332,,,,,,,,,,,,,,,phospho-enriched;TMT,Orbitrap Fusion Lumos,2157,False,True,0,False,False
+PXD031378,,,,,,,,,,,,,,,none detected,Q Exactive HF,517,False,True,0,False,False
+PXD031795,RP,25.0,75.0,1.7,160.0,3.0,1000000.0,,FA,5.0,ACN,False,,Waters nano,TMT,Q Exactive,4462,False,True,8,True,True
+PXD031921,RP,50.0,75.0,,180.0,5.0,,,FA,15.0,ACN,True,,EASY-nLC,none detected,Q Exactive,3866,False,True,6,True,False
+PXD031936,RP,25.0,75.0,1.8,95.0,,250.0,,,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2864,False,True,6,True,True
+PXD031987,RP,50.0,75.0,,200.0,5.0,300.0,,FA,30.0,,False,,EASY-nLC,none detected,LTQ Orbitrap XL,3277,False,True,7,True,True
+PXD032030,,,,,80.0,3.0,,,FA,8.0,ACN,False,,UltiMate 3000,TMT,Q Exactive Plus,2679,False,False,3,False,False
+PXD032031,RP,15.0,,,195.0,,200.0,,FA,,ACN,False,,UltiMate 3000,TMT,Orbitrap Fusion Lumos;Q Exactive Plus,4173,False,True,5,True,True
+PXD032041,RP,50.0,75.0,2.4,120.0,7.0,250.0,,FA,34.0,ACN,False,,,none detected,Orbitrap Fusion,693,False,True,8,True,True
+PXD032234,RP,25.0,75.0,1.6,104.0,,,50.0,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro 2,2810,False,True,7,True,True
+PXD032260,RP,25.0,75.0,1.7,100.0,3.0,300.0,,AcOH,20.0,ACN,False,,,phospho-enriched,Orbitrap Fusion,1960,False,True,8,True,True
+PXD032328,RP,,,1.9,120.0,2.0,200.0,,FA,20.0,ACN,True,,EASY-nLC,TMT;glyco,Orbitrap Fusion Lumos;Orbitrap Fusion,2524,False,True,6,True,False
+PXD032350,RP,45.0,75.0,,80.0,,300.0,,FA,,ACN,False,,UltiMate 3000,TMT,Orbitrap Fusion Lumos,3533,False,True,6,True,True
+PXD032759,RP,22.0,75.0,,45.0,5.0,300.0,,,30.0,,False,,nanoElute,none detected,timsTOF Pro,796,False,True,6,True,True
+PXD032781,RP,25.0,75.0,1.6,30.0,,300.0,,TFA,,ACN,False,,nanoElute,none detected,Q Exactive,2642,False,True,7,True,True
+PXD032893,,,,,,,,,,,,,,,none detected,Q Exactive HF,957,False,True,0,False,False
+PXD032903,RP,,,,90.0,5.0,,,,33.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,1990,False,False,3,False,False
+PXD032958,RP,15.0,,,,4.0,,,,20.0,,,,UltiMate 3000,none detected,Q Exactive HF-X,1902,False,True,3,False,False
+PXD032979,,,,,,,,,,,,,,,none detected,Q Exactive HF,286,False,True,0,False,False
+PXD033012,,,,5.0,,,,,,,,,,,none detected,Q Exactive HF,2444,False,False,1,False,False
+PXD033065,,,,,,,,,,,,,,,phospho-enriched;glyco,Orbitrap Fusion Lumos,577,False,True,0,False,False
+PXD033122,,,,,104.0,2.0,250.0,,FA,24.0,ACN,True,,,none detected,Orbitrap Fusion,648,False,True,4,False,False
+PXD033395,,,,,20.0,,5000.0,,,,,False,,,none detected,TripleTOF 6600,468,False,True,2,False,False
+PXD033488,,,,,,,,,,,,,,,none detected,timsTOF Pro,2102,False,True,0,False,False
+PXD033538,,,,,,,,,FA,,ACN,,,,none detected,Q Exactive HF,1453,False,True,1,False,False
+PXD033662,RP,50.0,75.0,3.5,70.0,,,,FA,,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,3646,False,True,6,True,False
+PXD033763,,,,,,,,,,,,,,,diGly,Q Exactive Plus,1353,False,True,0,False,False
+PXD033998,,,,,,,,,,,,,,EASY-nLC,iTRAQ,LTQ Orbitrap Elite,1419,False,True,0,False,False
+PXD034055,RP,50.0,,5.0,100.0,,5000.0,,FA,,ACN,False,,,TMT,Orbitrap Fusion Lumos,3460,False,True,6,True,True
+PXD034187,,,,,,,,,TFA,,,,,,none detected,Q Exactive HF,407,False,True,1,False,False
+PXD034196,,,,,,,,,,,,,,,TMT,Q Exactive HF,705,False,True,0,False,False
+PXD034370,RP,50.0,100.0,1.9,120.0,0.0,250.0,,FA,32.0,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos,2763,False,True,8,True,True
+PXD034453,RP,25.0,75.0,1.9,120.0,,300.0,,,,,False,,EASY-nLC,none detected,Q Exactive,1495,False,True,6,True,True
+PXD034457,RP,25.0,75.0,1.9,60.0,,250.0,,,,,False,,EASY-nLC,crosslinked,Q Exactive Plus,2670,False,True,6,True,True
+PXD034517,RP,,,,120.0,2.0,,,TFA,80.0,ACN,False,,UltiMate 3000,none detected,Q Exactive Plus,1583,False,True,4,False,False
+PXD034776,,,,,60.0,,300000.0,,,,ACN,False,,,none detected,Q Exactive,3070,False,True,2,False,False
+PXD035249,,50.0,,,250.0,3.0,400.0,,FA,7.0,ACN,False,,nanoElute,none detected,timsTOF Pro,2873,False,True,5,False,False
+PXD035484,RP,30.0,75.0,2.4,120.0,,300.0,,FA,,ACN,False,,UltiMate 3000,crosslinked,Q Exactive HF,3560,False,True,7,True,True
+PXD035547,,,,,,,,,,,,,,,none detected,Q Exactive HF,940,False,True,0,False,False
+PXD035553,,,,,,,,,,,,,,,none detected,Q Exactive HF,660,False,True,0,False,False
+PXD035924,RP,18.0,,,60.0,5.0,150.0,,FA,28.0,ACN,True,,,none detected,Q Exactive,1493,False,True,6,True,False
+PXD036074,,15.0,300.0,1.8,20.0,,5000.0,,,,,False,,Waters nano,none detected,SCIEX instrument model,2513,False,True,5,False,False
+PXD036107,RP,25.0,,1.7,40.0,2.0,300.0,,TFA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,1851,False,True,7,True,True
+PXD036258,RP,15.0,150.0,1.9,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF SCP,724,False,True,5,True,True
+PXD036365,RP,45.0,75.0,3.0,80.0,,300.0,,FA,,,False,,UltiMate 3000,TMT,Orbitrap Fusion Lumos;LTQ Orbitrap Elite,1374,False,True,7,True,True
+PXD036608,RP,15.0,75.0,1.6,90.0,2.0,400.0,,FA,34.0,ACN,False,,,none detected,timsTOF Pro,2704,False,True,8,True,True
+PXD036782,,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive HF,1296,False,True,0,False,False
+PXD036786,,,,,,,,,,,,,,,none detected,TripleTOF 6600;SCIEX software,3632,False,True,0,False,False
+PXD036896,RP,50.0,,3.0,80.0,4.0,300.0,,FA,39.0,ACN,True,,,phospho-enriched;crosslinked,Q Exactive HF,3243,False,True,7,True,False
+PXD037164,,,,,68.0,,,,,,,False,,nanoElute,none detected,timsTOF Pro,782,False,True,1,False,False
+PXD037337,RP,15.0,,,110.0,1.0,,,FA,5.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,2572,False,True,5,False,False
+PXD037472,RP,50.0,100.0,,80.0,4.0,,,FA,24.0,ACN,False,,UltiMate 3000,phospho-enriched,Orbitrap Fusion Lumos,3115,False,True,6,True,True
+PXD037508,RP,25.0,75.0,1.6,88.0,,,50.0,FA,,ACN,False,15.0,Evosep,none detected,timsTOF Pro 2,1736,False,True,7,True,True
+PXD037649,,,,,,,,,,,,,,UltiMate 3000,none detected,timsTOF Pro,1050,False,True,0,False,False
+PXD037724,RP,65.0,,1.9,90.0,,,,FA,,ACN,False,,Waters nano,phospho-enriched,Q Exactive HF,2992,False,True,5,True,True
+PXD037918,,,,,,,,,,,,,,,TMT,Orbitrap Fusion,1873,False,True,0,False,False
+PXD038358,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos;Q Exactive HF,2120,False,True,0,False,False
+PXD038442,RP,20.0,300.0,3.0,,,,,,,ACN,,,UltiMate 3000,none detected,TripleTOF 5600,881,False,True,4,False,False
+PXD038621,RP,30.0,75.0,5.0,72.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,1797,False,True,7,True,True
+PXD038693,RP,25.0,,2.0,128.0,,300.0,,FA,,ACN,True,,,none detected,Q Exactive Plus,2938,False,False,6,True,False
+PXD039077,,,,,,,,,,,,,,,none detected,timsTOF Pro,432,False,True,0,False,False
+PXD039414,RP,15.0,,1.7,10.0,5.0,200000.0,40.0,FA,40.0,ACN,False,,,none detected,TripleTOF 6600,4911,False,True,8,True,True
+PXD039437,RP,15.0,,3.0,120.0,0.0,300.0,,FA,30.0,,True,,,none detected,Q Exactive,1069,False,True,7,True,False
+PXD039510,,,,,,,,,,,,,,,none detected,Q Exactive HF-X;Q Exactive Plus,3162,False,True,0,False,False
+PXD039928,RP,30.0,,5.0,72.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,1621,False,False,6,True,True
+PXD040040,RP,15.0,,5.0,105.0,5.0,40000.0,,FA,80.0,ACN,False,,Eksigent,none detected,TripleTOF 5600,1777,False,True,7,True,True
+PXD040042,RP,15.0,150.0,1.9,44.0,,,,FA,,ACN,False,30.0,Evosep,none detected,timsTOF SCP,1298,False,False,6,True,True
+PXD040620,RP,15.0,150.0,1.5,88.0,,,40.0,,,,False,15.0,Evosep,none detected,timsTOF Pro 2,1703,False,True,6,True,True
+PXD040818,RP,25.0,75.0,,140.0,,600.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF,2390,False,True,6,True,True
+PXD041045,RP,,,,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF Pro 2,656,False,True,2,False,False
+PXD041339,RP,15.0,75.0,1.6,30.0,2.0,400.0,,FA,34.0,ACN,False,,,none detected,timsTOF Pro,2650,False,True,8,True,True
+PXD041391,RP,15.0,300.0,5.0,60.0,5.0,300.0,50.0,FA,27.0,ACN,False,,nanoElute,none detected,timsTOF Pro,4336,False,True,9,True,True
+PXD041421,RP,15.0,300.0,5.0,60.0,5.0,300.0,50.0,FA,27.0,ACN,False,,nanoElute,none detected,timsTOF Pro,4377,False,True,9,True,True
+PXD041688,RP,50.0,75.0,2.4,90.0,6.0,250.0,,FA,30.0,ACN,True,,Evosep,none detected,Orbitrap Exploris 480,2515,False,True,8,True,False
+PXD041819,RP,50.0,,,80.0,2.0,,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Eclipse,2501,False,True,5,False,False
+PXD042009,RP,15.0,,1.9,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF Pro,2303,False,True,4,True,True
+PXD042358,RP,25.0,75.0,,130.0,,,,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,2097,False,True,5,True,True
+PXD042470,RP,25.0,300.0,5.0,240.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,Bruker Daltonics timsTOF series,1920,False,True,6,True,True
+PXD042834,RP,15.0,,1.9,44.0,,,,TFA,,,False,30.0,Evosep,none detected,timsTOF Pro,921,False,True,5,True,True
+PXD042891,,,,,,,,,,,,,,,none detected,TripleTOF 5600,2454,False,True,0,False,False
+PXD042895,,,,,,,,,,,,,,,none detected,Q Exactive HF,1072,False,True,0,False,False
+PXD042909,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,443,False,True,0,False,False
+PXD043240,,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,1087,False,True,0,False,False
+PXD043369,,,,,,,,,,,,,,,HLA/MHC peptides,Orbitrap Fusion,281,False,True,0,False,False
+PXD043658,RP,50.0,75.0,2.4,135.0,6.0,,,FA,30.0,ACN,False,,Evosep,HLA/MHC peptides;phospho-enriched;peptidome,Orbitrap Exploris 480,3992,False,True,7,True,True
+PXD043770,RP,25.0,50.0,,90.0,3.0,300.0,50.0,FA,40.0,ACN,False,,UltiMate 3000,HLA/MHC peptides;crosslinked;peptidome,Orbitrap Fusion Lumos,4184,False,True,8,True,True
+PXD043872,RP,50.0,75.0,2.4,65.0,13.0,300.0,,FA,44.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,1585,False,True,8,True,True
+PXD043873,RP,25.0,75.0,1.7,31.0,2.0,400.0,40.0,FA,10.0,ACN,True,40.0,Evosep,none detected,timsTOF Pro,5317,True,True,9,True,False
+PXD043895,,,,,,,,,,,,,,,none detected,Q Exactive HF,2720,False,True,0,False,False
+PXD044081,,,,,41.0,1.0,300.0,,FA,6.0,ACN,True,,EASY-nLC,none detected,Orbitrap Exploris 480,2770,False,True,4,False,False
+PXD044084,,,2100.0,,130.0,0.0,250.0,,,67.0,,True,,,none detected,Orbitrap Exploris 480,3980,False,True,4,False,False
+PXD044173,RP,,,,44.0,,,,FA,,ACN,False,30.0,Evosep,none detected,Orbitrap Fusion Lumos,2323,False,True,3,False,False
+PXD044176,RP,42.0,75.0,2.4,40.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 480,2138,False,True,7,True,False
+PXD044214,RP,42.0,75.0,2.4,60.0,6.0,300.0,,FA,35.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,4351,False,True,8,True,True
+PXD044409,RP,30.0,75.0,5.0,,,400.0,,,,ACN,,,Vanquish,none detected,Orbitrap Exploris 480,2955,False,True,5,False,False
+PXD044410,RP,50.0,75.0,2.4,90.0,6.0,250.0,,FA,30.0,ACN,False,,,phospho-enriched,Orbitrap Exploris 480,2005,False,True,8,True,True
+PXD044595,RP,50.0,,3.0,103.0,7.0,300.0,,FA,35.0,ACN,False,,,none detected,Orbitrap Fusion Lumos,3778,False,True,7,True,True
+PXD044616,RP,25.0,75.0,1.6,15.0,2.0,400.0,,FA,17.0,ACN,False,,nanoElute,none detected,timsTOF Pro,1736,False,True,8,True,True
+PXD044680,RP,15.0,150.0,1.5,88.0,,220.0,,FA,,ACN,False,15.0,,none detected,timsTOF fleX,1559,False,True,7,True,True
+PXD044934,RP,15.0,75.0,1.9,31.0,,,,FA,,ACN,True,40.0,,none detected,Orbitrap Exploris 480;Orbitrap Eclipse,4909,False,True,6,True,False
+PXD044980,RP,,300.0,3.0,57.0,,5000.0,,FA,,,False,,Eksigent,none detected,TripleTOF 6600,948,False,True,6,True,True
+PXD045052,RP,35.0,75.0,2.4,120.0,5.0,,,FA,25.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2095,False,True,7,True,True
+PXD045074,,,,,,,,,,,,,,,none detected,TripleTOF 6600,2177,False,True,0,False,False
+PXD045168,RP,25.0,300.0,5.0,240.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF,1924,False,True,6,True,True
+PXD045276,RP,,,,,,,,FA,,ACN,,,,none detected,Bruker Daltonics timsTOF series;Q Exactive HF,772,False,True,2,False,False
+PXD045353,RP,15.0,,,60.0,,300.0,40.0,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Eclipse,4982,False,True,6,True,False
+PXD045463,RP,50.0,75.0,2.4,90.0,6.0,250.0,,FA,30.0,ACN,False,,,none detected,Orbitrap Exploris 480,2443,False,True,8,True,True
+PXD045466,RP,35.0,100.0,1.9,90.0,6.0,450.0,50.0,FA,32.0,ACN,False,,,phospho-enriched,Orbitrap Exploris 480,4891,False,True,9,True,True
+PXD045472,,,,,,,,,,,,,,,phospho-enriched,SCIEX instrument model,184,False,True,0,False,False
+PXD045522,,20.0,75.0,1.7,102.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2138,False,True,6,False,False
+PXD045597,,,,,,,,,,,,,,,glyco,Orbitrap Fusion Lumos;Orbitrap Fusion,806,False,True,0,False,False
+PXD045665,RP,25.0,75.0,1.6,86.5,2.0,400.0,40.0,FA,10.0,ACN,True,,UltiMate 3000,none detected,timsTOF Pro,1969,False,True,9,True,False
+PXD045850,,,,,,,,,,,,,,,none detected,timsTOF Pro,261,False,True,0,False,False
+PXD045889,,,,,,,,,,,,,,,none detected,timsTOF Pro,516,False,True,0,False,False
+PXD045912,RP,50.0,100.0,5.0,80.0,5.0,250.0,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2531,False,True,8,True,True
+PXD046085,,,,,,,,,,,,,,,none detected,timsTOF Pro,516,False,True,0,False,False
+PXD046358,RP,42.0,75.0,2.4,60.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2729,False,True,7,True,True
+PXD046365,RP,15.0,75.0,1.7,31.0,,200000.0,50.0,FA,,ACN,True,40.0,Evosep,none detected,timsTOF Pro 2;timsTOF SCP,3461,False,True,8,True,False
+PXD046550,RP,50.0,75.0,2.7,44.0,9.0,300.0,,FA,44.0,ACN,False,30.0,Evosep,none detected,Orbitrap Exploris 480,4689,False,True,8,True,True
+PXD046735,,,,,,,,,,,,,,,TMT,Q Exactive HF,313,False,False,0,False,False
+PXD046745,RP,,75.0,1.9,,,,50.0,,,,,,EASY-nLC,none detected,Orbitrap Exploris 480,1054,False,True,4,False,False
+PXD046854,,,,,,,,,,,,,,,none detected,timsTOF Pro 2,1139,False,True,0,False,False
+PXD046949,RP,25.0,,,80.0,5.0,300.0,50.0,,22.0,,False,,Waters nano,HLA/MHC peptides,Orbitrap Fusion Lumos,2371,False,True,6,True,True
+PXD046960,RP,50.0,75.0,2.0,125.0,4.0,300.0,,FA,25.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,2689,False,True,8,True,True
+PXD047218,,,,,,,,,,,,,,,none detected,Bruker Daltonics timsTOF series,1093,False,True,0,False,False
+PXD047420,RP,35.0,150.0,1.9,150.0,,200.0,,,,,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,2430,False,True,6,True,True
+PXD047443,RP,42.0,75.0,2.4,60.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,1396,False,True,7,True,True
+PXD047502,,,,,,,,,,,,,,UltiMate 3000,TMT,Orbitrap Fusion Lumos,753,False,True,0,False,False
+PXD047546,RP,25.0,75.0,2.0,90.0,0.0,300.0,,FA,35.0,ACN,False,,EASY-nLC,none detected,Orbitrap Exploris 480,2397,False,True,8,True,True
+PXD047668,,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,173,False,True,0,False,False
+PXD047828,RP,,,,44.0,,,,,,,False,30.0,,none detected,Q Exactive HF-X,786,False,True,2,False,False
+PXD047839,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF Pro 2;timsTOF,1181,False,True,1,False,False
+PXD047854,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF Pro 2;timsTOF,1181,False,True,1,False,False
+PXD047857,RP,25.0,75.0,1.6,21.0,2.0,400.0,,FA,17.0,ACN,False,60.0,Evosep,none detected,timsTOF Pro,3317,False,True,8,True,True
+PXD047870,,,,,101.5,,250.0,,,,,False,,,TMT,Q Exactive,3477,False,True,2,False,False
+PXD047957,RP,15.0,,1.9,,,,,,,,,,Evosep,none detected,timsTOF Pro 2,2498,False,True,3,False,False
+PXD048008,RP,25.0,,,80.0,5.0,300.0,50.0,,22.0,,False,,Waters nano,none detected,Orbitrap Fusion Lumos,3148,False,True,6,True,True
+PXD048277,,,,,90.0,,,,TFA,,ACN,False,,,phospho-enriched,timsTOF Pro,3553,False,True,2,False,False
+PXD048564,RP,,300.0,3.0,57.0,3.0,10000.0,,,30.0,,False,,,none detected,TripleTOF 6600,1905,False,True,6,True,True
+PXD048650,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,245,False,True,0,False,False
+PXD048675,RP,,,,88.0,,,,FA,,ACN,False,15.0,Evosep,none detected,Orbitrap Fusion Lumos,1923,False,True,3,False,False
+PXD048682,RP,30.0,75.0,5.0,72.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,3839,False,True,7,True,True
+PXD048811,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos;Bruker Daltonics solarix series,538,False,True,0,False,False
+PXD048861,,,,,,,,,,,,,,,none detected,Orbitrap Astral;Orbitrap Eclipse;timsTOF Pro,675,False,True,0,False,False
+PXD048924,RP,,75.0,1.7,100.0,,10000.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,2186,False,True,6,True,True
+PXD049046,RP,42.0,75.0,2.4,40.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,4063,False,True,7,True,True
+PXD049062,,,,,,,,,,,,,,,none detected,Q Exactive HF,111,False,True,0,False,False
+PXD049374,RP,8.0,,,21.0,,,,,,,False,60.0,Evosep,none detected,timsTOF Pro,1457,False,False,3,False,False
+PXD049439,RP,25.0,75.0,1.7,90.0,2.0,,50.0,FA,25.0,ACN,False,,nanoElute,none detected,timsTOF Pro,1319,False,True,8,True,True
+PXD049476,RP,42.0,75.0,2.4,40.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 480,2177,False,True,7,True,False
+PXD050012,RP,25.0,,,120.0,1.0,,,FA,40.0,ACN,False,,,none detected,LTQ Orbitrap Velos,1656,False,True,5,False,False
+PXD050220,RP,,,,28.0,2.0,,,FA,35.0,ACN,False,,,none detected,timsTOF fleX,4832,False,False,4,False,False
+PXD050240,RP,,,,28.0,2.0,,,FA,35.0,ACN,False,,,none detected,timsTOF fleX,4832,False,False,4,False,False
+PXD050315,RP,42.0,75.0,2.4,40.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 480,2149,False,True,7,True,False
+PXD050380,,,,,,,,,,,,,,EASY-nLC,none detected,Orbitrap Fusion Lumos,1144,False,True,0,False,False
+PXD050899,RP,35.0,,,,,,,FA,,ACN,,,,none detected,Q Exactive HF,975,False,True,3,False,False
+PXD050961,RP,25.0,,1.9,96.0,2.0,250000.0,,FA,30.0,ACN,True,,EASY-nLC,phospho-enriched,timsTOF Pro 2,4634,False,True,7,True,False
+PXD050990,RP,15.0,,,88.0,,,,,,,False,15.0,Evosep,none detected,Q Exactive,1686,False,False,3,False,False
+PXD050994,RP,50.0,100.0,2.0,80.0,5.0,250.0,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF-X,1493,False,True,8,True,True
+PXD050996,RP,15.0,,,88.0,,,,,,,False,15.0,Evosep,none detected,Q Exactive,1686,False,False,3,False,False
+PXD051022,RP,25.0,,,125.0,,,50.0,FA,,ACN,False,,nanoElute,none detected,timsTOF HT,2486,False,True,5,False,False
+PXD051201,RP,50.0,75.0,2.0,105.0,,300.0,,FA,,ACN,False,,EASY-nLC,none detected,LTQ Orbitrap Elite,3452,False,True,7,True,True
+PXD051235,,,,,,,,,FA,,MeOH,,,,none detected,Orbitrap Fusion Lumos,3026,False,True,1,False,False
+PXD051319,,,,,,,,,FA,,MeOH,,,,none detected,Orbitrap Fusion Lumos,3026,False,True,1,False,False
+PXD051430,RP,15.0,75.0,1.6,30.0,2.0,400.0,,FA,34.0,ACN,False,,,none detected,timsTOF Pro,2811,False,True,8,True,True
+PXD051479,,15.0,,1.8,30.0,,,,FA,,ACN,False,,,none detected,ZenoTOF 7600,1451,False,True,4,False,False
+PXD051642,RP,42.0,75.0,2.4,97.0,,300.0,,FA,,ACN,True,,UltiMate 3000,HLA/MHC peptides,Q Exactive HF,3645,False,True,7,True,False
+PXD051735,RP,25.0,75.0,3.0,36.0,5.0,5000.0,,FA,17.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,2558,False,False,8,True,True
+PXD051963,RP,25.0,,1.6,90.0,2.0,400.0,50.0,FA,17.0,ACN,True,,Vanquish Neo,none detected,timsTOF Pro 2,1642,False,True,8,True,False
+PXD051986,,,,,,,,,,,,,,,none detected,Orbitrap Eclipse;timsTOF Pro,692,False,True,0,False,False
+PXD052078,RP,25.0,75.0,2.6,42.0,2.0,,,FA,30.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,3328,False,True,7,True,True
+PXD052082,RP,,,,,,,,,,,,,Evosep,none detected,Bruker Daltonics timsTOF series;Orbitrap Astral;Orbitrap Exploris 480,1916,False,True,1,False,False
+PXD052115,RP,,,,,,,,,,,,,Evosep,none detected,Orbitrap Astral,2416,False,True,1,False,False
+PXD052256,,,,,80.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,1050,False,False,2,False,False
+PXD052362,RP,25.0,75.0,1.6,,,600000.0,,,,,,,nanoElute,none detected,Bruker Daltonics timsTOF series,2276,False,True,5,False,False
+PXD052403,,,,,,,,,,,,,,,none detected,Q Exactive HF,222,False,True,0,False,False
+PXD052416,,,,,,,,,,,,,,,none detected,timsTOF Ultra,135,False,True,0,False,False
+PXD052447,RP,25.0,75.0,5.0,,,,,,,,,,UltiMate 3000,TMT;glyco,Orbitrap Fusion Lumos;Orbitrap Exploris 480,2820,False,True,4,False,False
+PXD052469,RP,25.0,100.0,,30.0,6.0,500.0,,FA,20.0,,False,,EASY-nLC,none detected,Orbitrap Exploris 480,2786,False,True,7,True,True
+PXD052472,RP,15.0,150.0,2.0,21.7,,1300.0,,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Astral,672,False,True,7,True,True
+PXD052634,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,2609,False,True,0,False,False
+PXD052818,RP,15.0,75.0,,28.0,,600.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,1649,False,True,6,True,True
+PXD052821,,,,,,,,,,,,,,,crosslinked,Orbitrap Fusion Lumos;ultraflex,430,False,False,0,False,False
+PXD052852,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,319,False,False,0,False,False
+PXD052867,,,,,,,,,,,,,,,crosslinked,ultraflex,362,False,False,0,False,False
+PXD052894,,,,,110.0,,,,,,,False,,EASY-nLC,none detected,Orbitrap Exploris 480,1613,False,True,1,False,False
+PXD053044,RP,,75.0,1.7,100.0,,250.0,45.0,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,3346,False,False,7,True,True
+PXD053048,,,,,,,,,,,,,,,none detected,Q Exactive,1107,False,True,0,False,False
+PXD053287,RP,,,,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF Pro,1201,False,True,2,False,False
+PXD053387,,,,,,,,,,,ACN,,,,none detected,Orbitrap Astral,2267,False,True,0,False,False
+PXD053397,,,,,,,,,,,,,,Eksigent,none detected,ZenoTOF 7600,455,False,True,0,False,False
+PXD053436,RP,,,,60.0,,300.0,40.0,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Eclipse,1356,False,True,5,False,False
+PXD053502,RP,15.0,75.0,2.0,21.0,,800.0,,FA,,ACN,False,,Vanquish Neo,diGly,Orbitrap Astral,4584,False,True,7,True,True
+PXD053568,,,,,121.0,,250.0,50.0,,,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2284,False,True,3,False,False
+PXD053603,RP,15.0,100.0,,7.6,4.0,300.0,,FA,22.5,ACN,False,,Vanquish Neo,none detected,Orbitrap Astral,2513,False,True,7,True,True
+PXD053722,,,,,,,,,,,,,,,none detected,timsTOF Pro 2,679,False,False,0,False,False
+PXD053800,,50.0,,,90.0,,,,FA,,ACN,False,,Vanquish,none detected,Orbitrap Exploris 480,1611,False,True,3,False,False
+PXD053812,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos;Q Exactive HF-X;Orbitrap Exploris 480;timsTOF Pro,1193,False,True,0,False,False
+PXD054019,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF HT,941,False,False,1,False,False
+PXD054079,RP,25.0,,1.7,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF-X,3873,False,True,6,True,False
+PXD054242,RP,50.0,75.0,2.0,105.0,,300.0,,FA,,,False,,EASY-nLC,none detected,Orbitrap Eclipse,2396,False,True,7,True,True
+PXD054336,RP,,,,44.0,9.0,300.0,,FA,44.0,ACN,False,30.0,Evosep,none detected,Orbitrap Exploris 480,4992,True,True,5,False,False
+PXD054343,,,,,,,,,,,,,,,none detected,timsTOF Pro 2;Orbitrap Exploris 480,278,False,True,0,False,False
+PXD054417,RP,15.0,,,85.0,2.0,300.0,,FA,30.0,,True,,Waters nano,HLA/MHC peptides;peptidome,ZenoTOF 7600,3894,False,True,6,True,False
+PXD054488,RP,8.0,150.0,1.5,21.0,,,,FA,,ACN,False,60.0,Evosep,none detected,timsTOF fleX,1408,False,True,6,True,True
+PXD054495,RP,40.0,,,125.0,,,,,,,False,,EASY-nLC,none detected,Orbitrap Exploris 480,1300,False,True,3,False,False
+PXD054562,RP,15.0,150.0,1.5,44.0,,200000.0,,high-pH buffer,,ACN,True,30.0,Evosep,none detected,timsTOF Pro 2,3844,False,True,7,True,False
+PXD054577,RP,25.0,75.0,1.5,30.0,3.0,200.0,,FA,34.0,ACN,False,,nanoElute,none detected,timsTOF Ultra,2432,False,False,8,True,True
+PXD054636,,,,,,,,,,,,,,,phospho-enriched,Orbitrap Fusion Lumos,609,False,False,0,False,False
+PXD054663,,,,,,,,,,,,,,,none detected,timsTOF Pro,878,False,True,0,False,False
+PXD054750,,,,,110.0,4.0,,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,2723,False,True,3,False,False
+PXD054881,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,1549,False,True,0,False,False
+PXD054895,RP,50.0,,,66.0,3.0,300.0,60.0,FA,40.0,ACN,False,,UltiMate 3000,phospho-enriched,Orbitrap Exploris 480,2274,False,True,7,True,True
+PXD054952,RP,10.0,,,,,,,FA,,,,,,none detected,LTQ Orbitrap Elite,2177,False,True,3,False,False
+PXD054993,RP,42.0,75.0,2.4,60.0,,300.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2442,False,True,7,True,True
+PXD055081,RP,25.0,75.0,,130.0,,250.0,,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,2426,False,True,6,True,True
+PXD055118,RP,25.0,75.0,,130.0,,250.0,,,,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,3059,False,True,5,True,True
+PXD055122,RP,15.0,150.0,1.5,44.0,,,,FA,,ACN,False,30.0,Evosep,none detected,Bruker Daltonics timsTOF series,1586,False,True,6,True,True
+PXD055124,RP,15.0,150.0,1.5,44.0,,,,FA,,ACN,False,30.0,Evosep,none detected,Bruker Daltonics timsTOF series,1453,False,False,6,True,True
+PXD055218,,,,,,,,,,,,,,EASY-nLC,none detected,Orbitrap Fusion,1296,False,True,0,False,False
+PXD055262,RP,50.0,75.0,2.0,110.0,,300.0,40.0,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,3630,False,True,8,True,True
+PXD055266,RP,,,,55.0,,,,,,,False,,Vanquish Neo,none detected,Q Exactive HF;Q Exactive,1470,False,True,2,False,False
+PXD055273,RP,15.0,75.0,1.5,50.0,4.0,300.0,50.0,FA,9.0,ACN,True,,,none detected,Q Exactive HF,1434,False,True,9,True,False
+PXD055275,RP,25.0,300.0,5.0,90.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,4828,False,False,7,True,False
+PXD055348,RP,,,,,,,,,,,,,Evosep,none detected,Orbitrap Exploris 480;timsTOF Pro,1152,False,True,1,False,False
+PXD055395,RP,8.0,150.0,1.5,11.5,,,40.0,FA,,,False,100.0,Evosep,none detected,Bruker Daltonics timsTOF series,3430,False,True,7,True,True
+PXD055467,,,,,,,,,,,,,,,none detected,timsTOF Pro,1370,False,True,0,False,False
+PXD055561,RP,,,,21.0,,,,FA,,ACN,False,60.0,,none detected,timsTOF Pro,1860,False,True,3,False,False
+PXD055590,RP,,150.0,,,10.0,5000.0,,FA,38.0,ACN,,,Evosep,none detected,Orbitrap Astral,734,False,True,5,False,False
+PXD055635,RP,25.0,75.0,1.6,70.0,2.0,250.0,50.0,FA,13.0,ACN,True,,nanoElute,none detected,timsTOF Pro,2465,False,True,9,True,False
+PXD055718,,50.0,75.0,1.9,70.0,5.0,,,FA,40.0,ACN,False,,,none detected,Orbitrap Fusion Lumos,1750,False,False,6,False,False
+PXD055749,RP,25.0,,,90.0,2.0,400.0,50.0,FA,35.0,ACN,False,,Vanquish Neo,none detected,timsTOF Pro 2,1655,False,True,7,True,True
+PXD055927,RP,25.0,75.0,1.9,120.0,0.0,250.0,,FA,38.0,ACN,False,,Vanquish Neo,TMT,Orbitrap Exploris 480,2818,False,True,8,True,True
+PXD055964,RP,15.0,75.0,1.6,22.0,,400.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,1932,False,True,7,True,True
+PXD056054,,,,,,,,,,,MeOH,,,EASY-nLC,none detected,Orbitrap Exploris 480,1485,False,True,0,False,False
+PXD056099,RP,,,,100.0,6.0,30000.0,,FA,10.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,1692,False,False,5,False,False
+PXD056159,RP,30.0,75.0,1.9,138.5,,250.0,50.0,FA,,ACN,False,,EASY-nLC,none detected,Q Exactive HF,3733,False,True,8,True,True
+PXD056248,RP,30.0,75.0,3.0,92.0,5.0,300.0,,FA,9.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2558,False,True,8,True,True
+PXD056343,RP,15.0,,1.9,44.0,,,,FA,,ACN,False,30.0,Evosep,none detected,timsTOF Pro 2,2556,False,True,5,True,True
+PXD056392,RP,,,,,,,,,,,,,Evosep,none detected,TripleTOF 5600,286,False,True,1,False,False
+PXD056411,,,,,9.0,6.0,500.0,,FA,24.0,ACN,False,,EASY-nLC,none detected,timsTOF Pro,2677,False,True,4,False,False
+PXD056459,RP,10.0,150.0,1.5,60.0,,,,FA,,ACN,False,,nanoElute,none detected,timsTOF Pro 2,4986,False,True,6,True,True
+PXD056469,,50.0,75.0,,62.5,,,,,,,False,,,none detected,Q Exactive HF,470,False,True,3,False,False
+PXD056479,RP,,75.0,1.7,40.0,,60000.0,,FA,,ACN,False,,Vanquish,none detected,Orbitrap Exploris 240,4141,False,True,6,True,True
+PXD056492,RP,,,,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF Pro 2,2097,False,True,2,False,False
+PXD056515,RP,25.0,300.0,5.0,60.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF HT,1892,False,True,6,True,True
+PXD056543,,,,,,,,,,,,,,,none detected,timsTOF Pro,687,False,True,0,False,False
+PXD056544,RP,,,,90.0,,,,,,ACN,False,,,none detected,Q Exactive Plus,1344,False,True,2,False,False
+PXD056566,,,,,,,,,,,,,,,none detected,timsTOF Pro,198,False,True,0,False,False
+PXD056692,RP,15.0,75.0,,30.0,,,,,,,False,,,none detected,timsTOF Pro,700,False,True,4,True,True
+PXD056717,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,274,False,True,0,False,False
+PXD057064,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,686,False,False,0,False,False
+PXD057088,,,,,,,,,,,,,,,TMT,autoflex,270,False,True,0,False,False
+PXD057120,RP,15.0,300.0,2.6,30.0,,3000.0,60.0,FA,,,False,,Eksigent,none detected,TripleTOF 5600,2156,False,True,8,True,True
+PXD057129,RP,25.0,300.0,5.0,60.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2139,False,True,6,True,True
+PXD057152,RP,25.0,75.0,1.6,15.0,2.0,400.0,,FA,17.0,ACN,False,,,none detected,timsTOF Pro 2,2034,False,True,8,True,True
+PXD057162,RP,25.0,300.0,5.0,60.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2139,False,True,6,True,True
+PXD057208,RP,50.0,,2.0,180.0,2.0,,,FA,40.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,1741,False,True,6,True,True
+PXD057259,RP,50.0,,,100.0,,500.0,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,1978,False,True,5,True,True
+PXD057298,RP,15.0,75.0,,28.0,,400.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2485,False,True,6,True,True
+PXD057335,,,,1.9,90.0,5.0,300.0,,high-pH buffer,40.0,ACN,False,,Vanquish,none detected,Orbitrap Exploris 480,4930,False,True,5,False,False
+PXD057395,,,,,,,,,,,,,,,none detected,Thermo Fisher Scientific instrument model;Orbitrap Eclipse,1410,False,True,0,False,False
+PXD057405,RP,25.0,100.0,,30.0,6.0,700.0,,FA,22.0,ACN,False,,EASY-nLC,none detected,Thermo Fisher Scientific instrument model,1883,False,True,7,True,True
+PXD057468,RP,,300.0,5.0,87.0,8.0,300.0,,,25.0,,True,,UltiMate 3000,none detected,Q Exactive HF,1630,False,True,6,True,False
+PXD057472,RP,26.0,100.0,1.8,120.0,5.0,,,FA,7.0,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion,4441,False,True,7,True,True
+PXD057536,RP,50.0,75.0,3.0,155.0,2.0,250.0,55.0,FA,35.0,ACN,True,,nanoElute,none detected,Orbitrap Fusion Lumos;timsTOF Pro 2,2069,False,True,9,True,False
+PXD057671,RP,25.0,100.0,,30.0,6.0,700.0,,FA,22.0,ACN,False,,EASY-nLC,none detected,Orbitrap Exploris 480,1524,False,True,7,True,True
+PXD057709,RP,25.0,75.0,,30.0,3.0,200.0,,FA,34.0,ACN,False,,nanoElute,none detected,timsTOF Ultra,2698,False,True,7,True,True
+PXD057761,RP,8.0,150.0,1.5,21.0,,,40.0,FA,,ACN,False,60.0,,none detected,timsTOF Ultra,1762,False,True,7,True,True
+PXD057836,RP,50.0,75.0,2.0,100.0,2.5,,40.0,FA,27.5,ACN,True,,UltiMate 3000,none detected,Q Exactive Plus,4410,False,True,8,True,False
+PXD057946,RP,,,,21.0,,,,,,,False,60.0,Evosep,none detected,timsTOF HT,1199,False,True,2,False,False
+PXD057956,,,,,,,,,,,,,,,none detected,TripleTOF 6600,177,False,True,0,False,False
+PXD057999,RP,25.0,300.0,5.0,240.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,1946,False,True,6,True,True
+PXD058085,RP,15.0,75.0,,22.0,,600.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,660,False,True,6,True,True
+PXD058164,RP,50.0,75.0,,80.0,5.0,250.0,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF,1058,False,True,7,True,True
+PXD058169,RP,50.0,,3.0,120.0,,250.0,55.0,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,1881,False,True,7,True,True
+PXD058199,RP,30.0,75.0,3.0,90.0,,300.0,,,,,False,,UltiMate 3000,none detected,Q Exactive,1997,False,True,6,True,True
+PXD058227,RP,42.0,75.0,,95.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 480,2085,False,True,6,True,False
+PXD058245,RP,15.0,150.0,1.5,25.0,2.0,800.0,60.0,FA,38.0,ACN,False,,nanoElute,none detected,timsTOF HT,1203,False,True,9,True,True
+PXD058285,RP,,,,31.0,,,,,,,False,40.0,Evosep,none detected,timsTOF Pro,1010,False,True,2,False,False
+PXD058294,RP,15.0,150.0,1.5,21.0,,,,FA,,ACN,False,60.0,Evosep,none detected,timsTOF HT,986,False,True,6,True,True
+PXD058342,RP,50.0,300.0,5.0,60.0,5.0,300.0,,FA,17.0,ACN,False,,nanoElute,none detected,timsTOF HT,3548,False,True,8,True,True
+PXD058408,,10.0,,3.0,95.0,,75000.0,50.0,TFA,,ACN,False,,UltiMate 3000,phospho-enriched;TMT,Orbitrap Fusion Lumos;Orbitrap Exploris 480;Q Exactive,4404,False,True,6,False,False
+PXD058422,RP,25.0,,1.9,90.0,4.0,400.0,55.0,FA,33.0,ACN,False,,UltiMate 3000,peptidome,Orbitrap Eclipse,4994,True,True,8,True,True
+PXD058542,RP,25.0,75.0,1.6,40.0,2.0,250.0,,FA,11.0,ACN,False,,nanoElute,none detected,timsTOF Pro 2,2045,False,True,8,True,True
+PXD058564,,,,,5.0,,,,,,,False,,,none detected,TripleTOF 6600,265,False,True,1,False,False
+PXD058571,,,,,60.0,6.0,,,,35.0,,False,,,none detected,Orbitrap Exploris 480,2194,False,True,2,False,False
+PXD058625,,,,,,,,,,,,,,,none detected,timsTOF HT,622,False,True,0,False,False
+PXD058627,,,,,110.0,4.0,,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion Lumos,2696,False,True,3,False,False
+PXD058655,,,,,,,,,,,,,,,none detected,Orbitrap Eclipse,82,False,True,0,False,False
+PXD058845,,,,,45.0,,,,,,,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,2238,False,True,1,False,False
+PXD058903,RP,15.0,,,58.0,0.0,100.0,50.0,FA,35.0,ACN,False,20.0,Evosep,none detected,timsTOF HT,2243,False,False,7,True,True
+PXD058905,RP,15.0,,,58.0,0.0,100.0,50.0,FA,35.0,ACN,False,20.0,Evosep,none detected,timsTOF HT,2264,False,False,7,True,True
+PXD058914,RP,50.0,75.0,2.4,135.0,6.0,250.0,,FA,30.0,ACN,True,,,none detected,Orbitrap Fusion;Orbitrap Exploris 480,2229,False,True,8,True,False
+PXD058939,RP,,,1.6,90.0,2.0,400.0,50.0,,17.0,ACN,True,,Vanquish Neo,none detected,timsTOF Pro 2,2928,False,True,6,True,False
+PXD058954,,,,,,,,,,,,,,,none detected,timsTOF Pro,687,False,True,0,False,False
+PXD058981,RP,,,,,,,,,,,,,,none detected,timsTOF Pro 2,398,False,True,1,False,False
+PXD059055,RP,25.0,75.0,1.6,90.0,3.0,,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,4262,False,True,8,True,True
+PXD059109,RP,,1000.0,2.5,60.0,,,,FA,,ACN,False,,UltiMate 3000,TMT,Orbitrap Fusion,2520,False,True,5,True,True
+PXD059137,RP,25.0,75.0,1.7,70.0,,,,,,,False,,nanoElute,diGly,timsTOF HT,1565,False,True,5,True,True
+PXD059374,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,EASY-nLC,none detected,timsTOF Pro,1000,False,False,7,True,True
+PXD059451,RP,25.0,300.0,5.0,90.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Fusion Lumos;timsTOF Pro 2;ZenoTOF 7600,4815,False,True,7,True,False
+PXD059509,RP,25.0,75.0,1.6,90.0,3.0,300.0,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,1980,False,True,9,True,True
+PXD059511,RP,,,,25.0,25.0,,,FA,37.0,ACN,False,,nanoElute,none detected,Bruker Daltonics timsTOF series,1858,False,True,4,False,False
+PXD059545,RP,42.0,75.0,2.4,95.0,,300.0,,FA,,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 480,3204,False,True,7,True,False
+PXD059551,RP,25.0,,,90.0,4.0,300.0,,TFA,27.0,ACN,True,,UltiMate 3000,none detected,Orbitrap Exploris 240,2002,False,True,6,True,False
+PXD059560,RP,25.0,,1.5,95.0,,,,,,,True,,UltiMate 3000,none detected,Orbitrap Exploris 480;timsTOF HT,1557,False,True,4,True,False
+PXD059675,RP,50.0,,,80.0,3.0,300000.0,,FA,42.0,ACN,False,,EASY-nLC,glyco,Orbitrap Ascend,4099,False,True,6,True,True
+PXD059755,RP,25.0,100.0,5.0,100.0,2.0,300.0,,FA,30.0,ACN,False,,UltiMate 3000,TMT;glyco,Q Exactive HF,3812,False,True,8,True,True
+PXD059875,,,,,15.0,,,,FA,,,False,,,none detected,Bruker Daltonics timsTOF series,267,False,True,2,False,False
+PXD059879,,,,,15.0,,,,,,,False,,,none detected,Bruker Daltonics timsTOF series,257,False,True,1,False,False
+PXD059892,,,,,,,,,,,,,,,phospho-enriched,Q Exactive HF-X,510,False,True,0,False,False
+PXD059963,RP,15.0,75.0,,28.0,,600.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2703,False,True,6,True,True
+PXD059967,RP,25.0,75.0,1.7,90.0,3.0,,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2100,False,True,8,True,True
+PXD059968,RP,25.0,,,,,,,FA,,ACN,,,,none detected,Bruker Daltonics timsTOF series,1067,False,True,3,False,False
+PXD060030,RP,15.0,,,88.0,,,55.0,,,,False,15.0,Evosep,TMT,Orbitrap Eclipse,3667,False,True,4,False,False
+PXD060124,RP,25.0,,,20.0,6.0,500.0,,FA,24.0,ACN,False,,EASY-nLC,none detected,timsTOF Pro,3005,False,True,6,True,True
+PXD060277,,25.0,75.0,2.0,99.0,2.0,,,,27.5,,False,,,none detected,Orbitrap Exploris 480,1420,False,False,5,False,False
+PXD060381,RP,15.0,75.0,,,,,,,,,,,Vanquish Neo,none detected,Orbitrap Astral,1338,False,True,3,False,False
+PXD060392,RP,50.0,,,80.0,5.0,250.0,,FA,7.0,,True,,UltiMate 3000,TMT,Q Exactive HF,3195,False,True,6,True,False
+PXD060415,RP,15.0,75.0,1.6,,,,,FA,,,,,,none detected,timsTOF Pro,1081,False,True,5,False,False
+PXD060446,RP,25.0,,1.7,104.6,,300.0,55.0,FA,,ACN,True,,Vanquish Neo,none detected,Orbitrap Exploris 480,2309,False,True,7,True,False
+PXD060484,RP,32.0,,,65.0,5.0,500.0,,FA,25.0,ACN,False,,,none detected,timsTOF Pro,2291,False,True,6,True,True
+PXD060523,RP,25.0,75.0,1.9,,5.0,400.0,50.0,FA,37.0,ACN,,,nanoElute,none detected,Bruker Daltonics instrument model,2919,False,True,8,False,False
+PXD060575,RP,25.0,75.0,1.9,40.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,Q Exactive HF-X,2327,False,True,6,True,True
+PXD060621,,,,,,,,,FA,,ACN,,,,TMT,Q Exactive Plus;Orbitrap Exploris 480,4424,False,True,1,False,False
+PXD060637,RP,30.0,,1.9,,,,,,,,,,Vanquish Neo,TMT,Q Exactive,1673,False,True,3,False,False
+PXD060648,RP,,,,15.0,,,,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Astral,4335,False,False,3,False,False
+PXD060652,,,,,,,,,,,,,,UltiMate 3000,iTRAQ,LCQ Classic,1128,False,True,0,False,False
+PXD060752,HILIC,30.0,,1.9,101.5,1.0,250.0,50.0,,6.0,,False,,Vanquish Neo,TMT,Q Exactive,3437,False,True,7,True,True
+PXD060866,RP,50.0,,,24.0,1.0,10000.0,,FA,4.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,1829,False,True,6,True,True
+PXD060914,RP,25.0,,3.0,45.0,4.0,400.0,55.0,FA,48.0,ACN,True,,nanoElute,none detected,Orbitrap Eclipse;timsTOF HT,4008,False,True,8,True,False
+PXD061011,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF Pro,1344,False,True,1,False,False
+PXD061021,RP,40.0,300.0,5.0,90.0,,,50.0,,,ACN,False,,UltiMate 3000,crosslinked,timsTOF Pro,2681,False,True,6,True,True
+PXD061073,,,,,,,,,,,,,,,TMT,Orbitrap Exploris 480,2054,False,True,0,False,False
+PXD061232,RP,50.0,100.0,5.0,125.0,0.0,250.0,,FA,8.0,ACN,False,,UltiMate 3000,diGly;crosslinked,Orbitrap Exploris 480,3440,False,False,8,True,True
+PXD061269,RP,25.0,150.0,5.0,,,800000.0,,FA,,ACN,,,Evosep,TMT,Orbitrap Exploris 480,4985,False,False,6,False,False
+PXD061479,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro,997,False,True,7,True,True
+PXD061492,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF HT,431,False,True,1,False,False
+PXD061499,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,1010,False,True,1,False,False
+PXD061539,RP,,75.0,1.7,100.0,,250.0,,FA,,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 240,3165,False,True,6,True,True
+PXD061569,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,779,False,True,1,False,False
+PXD061575,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,793,False,True,1,False,False
+PXD061590,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,765,False,True,1,False,False
+PXD061600,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,1120,False,True,1,False,False
+PXD061636,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,811,False,True,1,False,False
+PXD061640,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,929,False,True,1,False,False
+PXD061664,RP,20.0,,3.0,90.0,4.0,500.0,75.0,FA,40.0,ACN,False,,UltiMate 3000,TMT,Orbitrap Exploris 480,4338,False,True,8,True,True
+PXD061667,RP,50.0,,,95.0,1.6,300.0,,TFA,44.0,ACN,False,,Vanquish Neo,crosslinked,Orbitrap Eclipse,4324,False,True,6,True,True
+PXD061684,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,796,False,True,1,False,False
+PXD061709,RP,,,,,,,,,,,,,UltiMate 3000,none detected,LTQ Orbitrap,561,False,True,1,False,False
+PXD061795,RP,50.0,,,42.0,,300.0,50.0,FA,,ACN,False,,EASY-nLC,TMT,Q Exactive HF,4050,False,True,6,True,True
+PXD061806,RP,50.0,,,42.0,,300.0,50.0,FA,,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos,4050,False,True,6,True,True
+PXD061827,RP,50.0,,,42.0,,300.0,50.0,FA,,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos,4050,False,True,6,True,True
+PXD061848,RP,25.0,,,120.0,4.0,400.0,45.0,FA,31.0,ACN,True,,Vanquish Neo,TMT,Orbitrap Astral,3492,False,True,7,True,False
+PXD061855,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,1702,False,True,0,False,False
+PXD061865,RP,50.0,,,42.0,,300.0,50.0,FA,,ACN,False,,EASY-nLC,TMT,Orbitrap Fusion Lumos,4050,False,True,6,True,True
+PXD061932,RP,15.0,75.0,1.9,75.0,,300.0,50.0,FA,,ACN,False,,nanoElute,none detected,timsTOF Pro,2193,False,True,8,True,True
+PXD061940,RP,,300.0,3.0,65.0,5.0,,,FA,25.0,ACN,True,,Eksigent,none detected,TripleTOF 5600,1534,False,True,6,True,False
+PXD061942,RP,,300.0,3.0,65.0,5.0,,,FA,25.0,ACN,True,,Eksigent,none detected,TripleTOF 5600,1534,False,True,6,True,False
+PXD061976,RP,25.0,150.0,5.0,88.0,3.0,800000.0,,FA,8.0,ACN,True,15.0,Evosep,TMT,Orbitrap Exploris 480,4654,False,False,8,True,False
+PXD062029,RP,50.0,75.0,3.0,60.0,5.0,,,FA,100.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,3366,False,True,7,True,True
+PXD062076,,,,,,,,,,,,,,,none detected,Q Exactive HF,923,False,False,0,False,False
+PXD062088,RP,15.0,,,20.0,2.0,350.0,,FA,40.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Astral,995,False,True,6,True,True
+PXD062254,,,,,,,,,,,,,,,none detected,Orbitrap Ascend,918,False,True,0,False,False
+PXD062322,,,,,48.0,5.0,,,FA,30.0,ACN,False,,Vanquish Neo,TMT,Orbitrap Astral,3753,False,True,3,False,False
+PXD062327,RP,,,,,2.0,,,,35.0,ACN,,,nanoElute,none detected,timsTOF Pro 2,1609,False,True,2,False,False
+PXD062423,RP,15.0,75.0,2.0,100.0,2.0,300.0,40.0,FA,40.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,2935,False,True,9,True,True
+PXD062441,,,,,,,,,,,,,,Vanquish Neo,none detected,Orbitrap Ascend,1371,False,False,0,False,False
+PXD062489,RP,50.0,75.0,,120.0,5.0,300.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,3312,False,True,7,True,True
+PXD062503,RP,25.0,75.0,1.6,86.5,2.0,400.0,,FA,10.0,ACN,True,,UltiMate 3000,none detected,timsTOF HT,2236,False,False,8,True,False
+PXD062535,RP,50.0,75.0,2.0,120.0,3.0,,50.0,FA,38.0,ACN,False,,UltiMate 3000,phospho-enriched,Orbitrap Exploris 480,4301,False,True,8,True,True
+PXD062585,,,,,,,,,,,,,,,TMT,Orbitrap Fusion,458,False,True,0,False,False
+PXD062605,RP,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos,2309,False,True,1,False,False
+PXD062679,RP,25.0,,,,,,,FA,,ACN,,,UltiMate 3000,none detected,timsTOF Pro,2027,False,True,3,False,False
+PXD062696,RP,25.0,75.0,1.7,30.0,5.0,360.0,,FA,9.0,ACN,False,,nanoElute,none detected,timsTOF Pro 2,4405,False,True,8,True,True
+PXD062722,RP,15.0,20.0,1.5,44.0,,,,,,,False,30.0,Evosep,none detected,timsTOF Pro 2,3359,False,True,5,True,True
+PXD062748,,,,,,,,,,,,,,,none detected,Orbitrap Astral,300,False,True,0,False,False
+PXD062832,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro,2650,False,True,7,True,True
+PXD062853,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,216,False,True,0,False,False
+PXD062917,RP,,,,21.0,,,,FA,,,False,60.0,Evosep,none detected,timsTOF Pro 2,1676,False,True,3,False,False
+PXD062989,RP,25.0,75.0,,120.0,20.0,,,,40.0,ACN,False,,EASY-nLC,none detected,Q Exactive HF,2480,False,True,5,True,True
+PXD063058,RP,15.0,,,19.0,6.0,650000.0,,FA,8.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Astral,1303,False,True,6,True,True
+PXD063082,,,,,,,,,,,,,,,TMT,Orbitrap Fusion Lumos;timsTOF HT,1236,False,True,0,False,False
+PXD063150,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro,1367,False,True,7,True,True
+PXD063160,RP,25.0,75.0,1.6,101.0,,300.0,,FA,,ACN,False,,,none detected,Orbitrap Fusion Lumos,2038,False,True,7,True,True
+PXD063205,RP,50.0,75.0,,120.0,5.0,300.0,,FA,40.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,3045,False,True,7,True,True
+PXD063236,RP,15.0,150.0,1.9,58.0,,,,FA,,ACN,False,20.0,Evosep,none detected,timsTOF SCP,2387,False,True,6,True,True
+PXD063241,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro,2329,False,True,7,True,True
+PXD063245,RP,25.0,75.0,1.7,120.0,3.0,200.0,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro 2,2902,False,True,9,True,True
+PXD063291,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,58,False,True,0,False,False
+PXD063339,,,,,,,,,,,,,,,none detected,timsTOF HT,375,False,True,0,False,False
+PXD063351,,,,,,,,,,,,,,,none detected,timsTOF HT,375,False,True,0,False,False
+PXD063416,RP,15.0,300.0,2.0,90.0,5.0,300.0,,FA,30.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,1602,False,True,8,True,True
+PXD063465,,,,,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF-X,3291,False,True,3,False,False
+PXD063466,,,,,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF-X,3296,False,True,3,False,False
+PXD063516,,,,,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Q Exactive HF-X,3290,False,True,3,False,False
+PXD063535,,,,,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Orbitrap Exploris 480,3264,False,True,3,False,False
+PXD063560,RP,15.0,75.0,1.7,40.0,,250.0,,FA,,ACN,False,,UltiMate 3000,HLA/MHC peptides,timsTOF SCP,147,False,False,7,True,True
+PXD063563,,,,,120.0,4.0,300.0,,,25.0,ACN,True,,UltiMate 3000,TMT,Orbitrap Exploris 480,3292,False,True,3,False,False
+PXD063667,RP,25.0,180.0,5.0,140.0,4.0,300.0,,FA,39.0,ACN,False,,UltiMate 3000,HLA/MHC peptides;phospho-enriched,Q Exactive Plus,4369,False,True,8,True,True
+PXD063673,RP,15.0,,,31.0,,,,FA,,ACN,False,40.0,Evosep,none detected,timsTOF HT,4003,False,True,4,False,False
+PXD063820,,,,,,,,,,,,,,,TMT,Q Exactive Plus,2893,False,True,0,False,False
+PXD063821,,,,,,,,,,,,,,,TMT,Orbitrap Exploris 480,2793,False,True,0,False,False
+PXD063923,,,,,40.0,3.0,,,,8.0,,False,,,none detected,Orbitrap Exploris 480,376,False,True,2,False,False
+PXD063938,RP,15.0,75.0,1.6,30.0,2.0,600.0,,FA,34.0,ACN,False,,,none detected,timsTOF Pro,3243,False,True,8,True,True
+PXD063995,RP,15.0,75.0,1.7,300.0,,400.0,45.0,,,,False,,Waters nano,none detected,Orbitrap Fusion Lumos,4983,False,True,7,True,True
+PXD064026,RP,30.0,,1.5,45.0,2.0,500.0,50.0,FA,35.0,ACN,False,,nanoElute,none detected,time-of-flight,2966,False,True,8,True,True
+PXD064049,RP,,,,44.0,,,,,,,True,30.0,Evosep,none detected,timsTOF SCP,2217,False,False,2,False,False
+PXD064184,RP,30.0,,1.9,101.5,1.0,250.0,,FA,7.0,ACN,False,,Vanquish Neo,TMT,Q Exactive,3623,False,True,7,True,True
+PXD064265,HILIC,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,3571,False,False,1,False,False
+PXD064308,,,,,,,,,,,,,,,none detected,Bruker Daltonics timsTOF series,332,False,True,0,False,False
+PXD064343,,15.0,300.0,1.8,30.0,2.0,5000.0,,FA,40.0,ACN,False,,UltiMate 3000,none detected,ZenoTOF 7600;timsTOF Pro,4842,False,True,7,False,False
+PXD064458,,,,,110.0,4.0,,,,20.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Fusion Lumos,3473,False,True,2,False,False
+PXD064469,RP,,,,,,,,,,,,,Evosep,none detected,timsTOF Pro,606,False,True,1,False,False
+PXD064475,,,,,,,,,,,,,,,none detected,Orbitrap Astral,601,False,True,0,False,False
+PXD064476,,,,,110.0,4.0,,,,20.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Fusion Lumos,3590,False,True,2,False,False
+PXD064487,,,,,,,,,,,,,,,none detected,Orbitrap Astral,607,False,True,0,False,False
+PXD064511,RP,15.0,150.0,1.9,44.0,,800000.0,,FA,,ACN,False,30.0,Evosep,iTRAQ,Orbitrap Exploris 480,3124,False,True,7,True,True
+PXD064577,RP,15.0,300.0,1.8,,,5000.0,40.0,FA,,ACN,,,Waters nano,none detected,ZenoTOF 7600,3803,False,True,7,False,False
+PXD064793,,,,,,,,,,,,,,UltiMate 3000,none detected,Orbitrap Eclipse,911,False,True,0,False,False
+PXD064815,RP,,300.0,3.0,65.0,5.0,,,FA,25.0,ACN,True,,,none detected,TripleTOF 5600,2103,False,True,6,True,False
+PXD064841,RP,15.0,1000.0,2.0,60.0,3.0,50000.0,,FA,28.0,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,2029,False,True,8,True,True
+PXD064881,RP,25.0,75.0,,60.0,2.0,500.0,,FA,10.0,ACN,True,,Vanquish Neo,none detected,Orbitrap Astral,1373,False,True,7,True,False
+PXD064899,RP,,,,50.0,3.0,,,,33.0,ACN,False,,nanoElute,none detected,maXis,618,False,True,3,False,False
+PXD064921,RP,8.0,150.0,1.5,21.0,,,,FA,,ACN,False,60.0,Evosep,none detected,Bruker Daltonics timsTOF series,1196,False,True,6,True,True
+PXD064948,,,,,,,,,,,,,,,none detected,timsTOF HT,1037,False,True,0,False,False
+PXD065033,RP,,,,44.0,,,,,,,False,30.0,,diGly,Orbitrap Fusion Lumos,2448,False,True,2,False,False
+PXD065104,RP,25.0,100.0,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro,2755,False,False,7,True,True
+PXD065152,,,,,,,,,FA,,ACN,,,UltiMate 3000,none detected,Q Exactive HF,3813,False,True,1,False,False
+PXD065279,,,,,,,,,,,,,,,HLA/MHC peptides;peptidome,Orbitrap Astral;Orbitrap Exploris 480,2389,False,True,0,False,False
+PXD065282,,,,,105.0,,300.0,,FA,,ACN,False,,EASY-nLC,crosslinked,Orbitrap Fusion;timsTOF Pro,3839,False,True,3,False,False
+PXD065331,RP,50.0,100.0,2.0,80.0,5.0,250.0,,FA,20.0,ACN,False,,UltiMate 3000,none detected,Q Exactive HF-X,1492,False,True,8,True,True
+PXD065556,,,,,20.0,6.0,500.0,,FA,24.0,ACN,False,,,none detected,timsTOF Pro 2,2787,False,True,4,False,False
+PXD065579,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos;Orbitrap Astral,222,False,True,0,False,False
+PXD065651,,,,,,,,,,,,,,,none detected,Orbitrap Astral,215,False,True,0,False,False
+PXD065658,RP,15.0,75.0,1.6,28.0,,400.0,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,1831,False,True,7,True,True
+PXD065660,RP,,,,,,300.0,,,,,,,Vanquish Neo,TMT,Orbitrap Exploris 480,4302,False,True,2,False,False
+PXD065664,RP,,,,,,300.0,,,,,,,Vanquish Neo,TMT,Orbitrap Exploris 480,4249,False,True,2,False,False
+PXD065732,,50.0,75.0,,62.5,,,,,,,False,,,none detected,Q Exactive,1162,False,True,3,False,False
+PXD065902,RP,25.0,,,120.0,2.0,300.0,,FA,40.0,,False,,,TMT,Q Exactive HF,1722,False,True,6,True,True
+PXD066021,,,,,,,10000.0,,TFA,,,,,,crosslinked,Orbitrap Eclipse,1692,False,True,2,False,False
+PXD066061,,,,,,,10000.0,,TFA,,,,,,crosslinked,Orbitrap Eclipse,1691,False,True,2,False,False
+PXD066071,,,,,,,10000.0,,TFA,,,,,,crosslinked,Orbitrap Eclipse,1691,False,True,2,False,False
+PXD066073,,,,,,,10000.0,,TFA,,,,,,crosslinked,Orbitrap Eclipse,1691,False,True,2,False,False
+PXD066265,,,,,,,,,,,,,,UltiMate 3000,none detected,timsTOF Pro,2532,False,True,0,False,False
+PXD066304,,,,,,,,,,,,,,,none detected,Q Exactive HF-X;timsTOF HT,652,False,True,0,False,False
+PXD066469,RP,25.0,,,60.0,2.0,300.0,,FA,40.0,,False,,,none detected,Orbitrap Exploris 480,1779,False,False,6,True,True
+PXD066470,RP,25.0,,,120.0,2.0,300.0,,FA,40.0,,False,,,none detected,Q Exactive HF-X,1866,False,False,6,True,True
+PXD066623,RP,50.0,,,,,750.0,,FA,,,,,Vanquish Neo,phospho-enriched,Orbitrap Astral,3509,False,True,4,False,False
+PXD066658,RP,30.0,75.0,3.0,92.0,5.0,300.0,,FA,9.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2557,False,True,8,True,True
+PXD066685,RP,15.0,75.0,1.7,58.0,,,50.0,FA,,ACN,False,20.0,Evosep,HLA/MHC peptides,Orbitrap Exploris 480,3023,False,True,7,True,True
+PXD066688,RP,25.0,75.0,1.6,87.0,,250.0,40.0,,,,True,,EASY-nLC,none detected,Orbitrap Exploris 480,1872,False,True,7,True,False
+PXD066697,RP,15.0,,,,,,,,,,,,Evosep,none detected,Orbitrap Astral,2463,False,True,2,False,False
+PXD066700,,,,,,,,,,,,,,,none detected,Orbitrap Astral,726,False,True,0,False,False
+PXD066715,RP,15.0,,3.0,80.0,,70000.0,55.0,FA,,ACN,False,,Vanquish,none detected,Q Exactive Plus,4727,False,True,7,True,True
+PXD066746,,,,,120.0,4.0,300.0,,,20.0,ACN,True,,Vanquish Neo,TMT,Orbitrap Exploris 480,2632,False,True,3,False,False
+PXD066799,RP,,,,45.0,5.0,1000.0,,FA,50.0,ACN,False,,UltiMate 3000,none detected,Q Exactive,2708,False,True,5,False,False
+PXD066813,,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,629,False,True,0,False,False
+PXD066817,,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,851,False,True,0,False,False
+PXD066833,RP,,,,21.0,,,,FA,,ACN,False,60.0,Evosep,none detected,timsTOF Pro,586,False,True,3,False,False
+PXD066851,,,,,,,,,,,,,,,none detected,Orbitrap Exploris 480,279,False,True,0,False,False
+PXD066874,RP,15.0,,1.7,31.0,,,,FA,,ACN,False,40.0,Evosep,none detected,Orbitrap Astral,2350,False,True,5,True,True
+PXD066892,,,,,,,,,,,,,,Vanquish Neo,TMT,Orbitrap Fusion Lumos,736,False,True,0,False,False
+PXD067028,RP,25.0,150.0,5.0,88.0,5.0,220.0,,FA,8.0,ACN,True,,Evosep,TMT,Orbitrap Exploris 480,3139,False,True,8,True,False
+PXD067041,,,,,,,,,,,,,,,none detected,ZenoTOF 7600,1251,False,True,0,False,False
+PXD067087,RP,25.0,,2.0,,,,,,,,,,,none detected,Q Exactive Plus,2854,False,True,3,False,False
+PXD067092,RP,25.0,75.0,1.6,15.0,2.0,400.0,,FA,17.0,ACN,False,,nanoElute,none detected,timsTOF Pro 2,1692,False,True,8,True,True
+PXD067120,RP,15.0,100.0,,,4.0,600.0,,FA,99.0,ACN,,,Vanquish Neo,none detected,timsTOF Pro,766,False,False,6,False,False
+PXD067158,,,,,,,,,,,,,,Vanquish Neo,TMT,LTQ FT,2103,False,True,0,False,False
+PXD067204,,,,,,,,,,,,,,,none detected,timsTOF Pro 2,469,False,True,0,False,False
+PXD067233,RP,,,,58.0,0.0,200.0,,FA,35.0,ACN,False,20.0,Evosep,none detected,timsTOF HT,2409,False,True,5,False,False
+PXD067256,RP,15.0,300.0,1.8,,,5000.0,40.0,FA,,ACN,,,Waters nano,HLA/MHC peptides,ZenoTOF 7600,4837,False,True,7,False,False
+PXD067266,,,,,,,,,,,,,,,none detected,Orbitrap Fusion Lumos,2156,False,True,0,False,False
+PXD067366,,,,,,,,,,,,,,,none detected,Q Exactive,802,False,True,0,False,False
+PXD067385,,,,,,,,,,,,,,,none detected,Q Exactive,802,False,True,0,False,False
+PXD067401,RP,25.0,75.0,1.8,105.0,5.0,,50.0,,40.0,ACN,False,,Waters nano,none detected,Orbitrap Fusion Lumos,4279,False,True,7,True,True
+PXD067411,,,,,,,,,,,,,,,none detected,Q Exactive,802,False,True,0,False,False
+PXD067417,,,,,,,,,FA,,ACN,,,,none detected,timsTOF Pro 2,1683,False,True,1,False,False
+PXD067466,RP,25.0,,,90.0,3.0,,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2822,False,True,6,False,False
+PXD067474,RP,8.0,,,21.0,,,,,,,False,60.0,Evosep,none detected,Orbitrap Exploris 480,1079,False,True,3,False,False
+PXD067482,,,,,,,,,,,,,,,none detected,Orbitrap Fusion,695,False,True,0,False,False
+PXD067549,RP,,,,,,,,,,,,,UltiMate 3000,none detected,Q Exactive HF,395,False,True,1,False,False
+PXD067583,RP,8.0,,,21.0,,,,,,,False,60.0,Evosep,none detected,Orbitrap Exploris 480,1079,False,True,3,False,False
+PXD067637,,,,,,,,,,,,,,UltiMate 3000,phospho-enriched;TMT;acetyl-enriched,Orbitrap Fusion Lumos,949,False,True,0,False,False
+PXD067643,,,,,,,,,,,,,,UltiMate 3000,phospho-enriched;TMT;acetyl-enriched,Orbitrap Fusion Lumos,949,False,True,0,False,False
+PXD067647,,,,,,,,,,,,,,UltiMate 3000,phospho-enriched;TMT;acetyl-enriched,Orbitrap Fusion Lumos,949,False,True,0,False,False
+PXD067760,RP,15.0,,,15.0,,,,FA,,ACN,False,,Vanquish Neo,crosslinked,Orbitrap Astral,4226,False,True,4,False,False
+PXD067973,,,,,,,,,FA,,,,,,none detected,Orbitrap Astral,1375,False,True,1,False,False
+PXD068317,RP,,,,120.0,,,,,,,False,,,iTRAQ,LTQ Orbitrap Elite,586,False,True,2,False,False
+PXD068371,RP,50.0,75.0,2.0,185.0,,,50.0,FA,,ACN,False,,UltiMate 3000,TMT,Orbitrap Ascend,4409,False,True,7,True,True
+PXD068388,RP,30.0,100.0,1.9,90.0,6.0,450.0,50.0,FA,50.0,ACN,False,,,phospho-enriched,Orbitrap Eclipse,3589,False,True,9,True,True
+PXD068392,RP,30.0,100.0,1.9,120.0,7.0,450.0,50.0,FA,50.0,ACN,False,,,none detected,Orbitrap Eclipse,3455,False,True,9,True,True
+PXD068395,,,,,120.0,4.0,300.0,,,16.0,ACN,True,,Vanquish Neo,phospho-enriched;TMT,Orbitrap Exploris 480,3810,False,True,3,False,False
+PXD068397,,,,,120.0,4.0,300.0,,,16.0,ACN,True,,Vanquish Neo,phospho-enriched;TMT,Q Exactive HF-X,3810,False,True,3,False,False
+PXD068486,RP,25.0,,,60.0,2.0,300.0,,FA,40.0,ACN,False,,,none detected,LTQ Orbitrap Elite;LTQ Orbitrap XL,1496,False,True,6,True,True
+PXD068522,RP,25.0,75.0,1.7,85.0,,300.0,,FA,,ACN,False,,Vanquish Neo,phospho-enriched;TMT,Orbitrap Ascend,4651,False,True,7,True,True
+PXD068569,RP,50.0,75.0,,95.0,0.0,,45.0,,25.0,ACN,True,,,none detected,Orbitrap Exploris 480,1099,False,True,6,True,False
+PXD068596,RP,25.0,75.0,,120.0,20.0,300000.0,,,40.0,ACN,False,,Vanquish Neo,none detected,Q Exactive HF,2632,False,False,6,True,True
+PXD068623,RP,25.0,,,80.0,5.0,300.0,,FA,30.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,4980,False,True,6,True,True
+PXD068665,RP,,,,140.0,1.0,250.0,,,36.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,3724,False,True,4,False,False
+PXD068672,,,,,120.0,4.0,300.0,,,16.0,ACN,True,,Vanquish Neo,phospho-enriched;TMT,Q Exactive HF-X,3810,False,True,3,False,False
+PXD068675,RP,,,,140.0,1.0,250.0,,,36.0,ACN,False,,EASY-nLC,none detected,Orbitrap Fusion Lumos,3674,False,True,4,False,False
+PXD068732,RP,25.0,75.0,1.7,90.0,3.0,,50.0,FA,42.0,ACN,False,,UltiMate 3000,none detected,timsTOF HT,2146,False,True,8,True,True
+PXD068788,RP,25.0,75.0,1.6,240.0,,400.0,50.0,FA,,ACN,True,,UltiMate 3000,none detected,timsTOF Pro,1592,False,True,8,True,False
+PXD069027,RP,15.0,,,31.0,,,,FA,,ACN,False,40.0,Evosep,none detected,timsTOF HT,1614,False,True,4,False,False
+PXD069310,,,,,,,,,FA,,,,,,none detected,timsTOF Pro,1185,False,True,1,False,False
+PXD069370,,,,,,,,,,,,,,,none detected,LTQ Orbitrap,877,False,True,0,False,False
+PXD069398,,,,,,,,,FA,,ACN,,,,TMT;crosslinked,Orbitrap Exploris 480,3880,False,True,1,False,False
+PXD069521,,,,,,,,,,,,,,,none detected,ZenoTOF 7600+;Orbitrap Astral,2542,False,False,0,False,False
+PXD069842,RP,15.0,,,88.0,,220.0,,,,,False,15.0,,none detected,timsTOF HT,1358,False,True,4,True,True
+PXD069904,RP,43.0,75.0,1.9,171.0,,300.0,,FA,,ACN,False,,Vanquish Neo,none detected,Orbitrap Exploris 480,685,False,True,7,True,True
+PXD070160,RP,,,,100.0,2.0,250.0,,FA,24.0,ACN,True,,Vanquish Neo,none detected,Orbitrap Exploris 240,3540,False,False,5,False,False
+PXD070222,RP,,,,44.0,,500.0,,,,,False,,Evosep,none detected,timsTOF Pro,2732,False,True,3,False,False
+PXD070239,,,,,,,,,AcOH,,,,,,none detected,timsTOF fleX,671,False,True,1,False,False
+PXD070326,RP,50.0,150.0,,44.0,1.0,500.0,,FA,4.0,ACN,True,30.0,Evosep,none detected,Orbitrap Exploris 480,3040,False,True,7,True,False
+PXD070500,RP,25.0,300.0,5.0,240.0,,,,FA,,ACN,False,,UltiMate 3000,none detected,timsTOF Pro,2340,False,False,6,True,True
+PXD071012,,,,,,,,,,,,,,,phospho-enriched,Q Exactive HF-X,1474,False,True,0,False,False
+PXD071061,,,,,,,,,,,,,,,phospho-enriched;TMT,Q Exactive HF-X,1614,False,True,0,False,False
+PXD071074,,,,,,,,,,,,,,,phospho-enriched;TMT,Q Exactive HF-X,1740,False,True,0,False,False
+PXD071075,RP,,,,,,,,,,,,,Evosep,none detected,Orbitrap Eclipse,2186,False,False,1,False,False
+PXD071110,,,,,,,,,,,,,,,phospho-enriched,Q Exactive HF-X,1477,False,True,0,False,False
+PXD071363,RP,50.0,,,60.0,3.0,400.0,,FA,5.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Exploris 480,2356,False,True,6,True,True
+PXD071869,,,,,,,,,,,,,,,none detected,Waters instrument model;Orbitrap Exploris 480;ZenoTOF 7600,670,False,True,0,False,False
+PXD072230,RP,15.0,75.0,1.7,31.0,,,50.0,FA,,ACN,False,40.0,Evosep,none detected,timsTOF Ultra 2,2832,False,True,7,True,True
+PXD072245,,,,,,,,,,,,,,,none detected,Q Exactive HF,90,False,True,0,False,False
+PXD072528,RP,25.0,,5.0,90.0,,400.0,,FA,,ACN,True,,UltiMate 3000,TMT,Q Exactive HF,3075,False,True,6,True,False
+PXD072722,RP,25.0,,2.0,,,,,TFA,,,,,,none detected,Q Exactive Plus,2033,False,True,4,False,False
+PXD072749,RP,25.0,75.0,1.6,90.0,2.0,400.0,,FA,34.0,ACN,True,,EASY-nLC,none detected,Orbitrap Eclipse;timsTOF Pro,4736,False,True,8,True,False
+PXD072851,,,,,,,,,,,,,,,TMT;glyco,Q Exactive Plus;Orbitrap Exploris 480,223,False,True,0,False,False
+PXD073367,,,,,65.0,3.0,30000.0,,,60.0,,False,,,TMT,Orbitrap Ascend;Orbitrap Fusion Lumos;Q Exactive HF,6368,True,True,3,False,False
+PXD073759,RP,15.0,100.0,,12.0,4.0,600.0,,FA,7.5,ACN,False,,Vanquish Neo,none detected,timsTOF HT,1788,False,False,7,True,True
+PXD073840,RP,25.0,,,80.0,5.0,300.0,,FA,30.0,ACN,False,,UltiMate 3000,none detected,Orbitrap Fusion,4048,False,True,6,True,True
+PXD074094,RP,15.0,100.0,,12.0,4.0,600.0,,FA,7.5,ACN,False,,Vanquish Neo,none detected,timsTOF HT,1788,False,False,7,True,True
+PXD074536,RP,,2100.0,3.0,45.0,,5000.0,,FA,,ACN,False,,Waters nano,none detected,ZenoTOF 7600,3132,False,True,6,True,True
+PXD075565,,,,,,,,,,,,,,,none detected,timsTOF Pro,541,False,True,0,False,False
+PXD077594,RP,15.0,75.0,2.0,22.6,,800.0,,,,ACN,False,,Vanquish Neo,diGly,Orbitrap Astral,2836,False,False,6,True,True
+PXD077754,RP,25.0,75.0,3.0,180.0,4.0,300.0,,FA,50.0,ACN,False,,UltiMate 3000,TMT,Q Exactive,2714,False,True,8,True,True
+PXD077854,,,,,,,,,,,,,,,crosslinked,Orbitrap Astral,3119,False,True,0,False,False
+PXD079334,,,,,90.0,,,,,,,False,,Vanquish Neo,TMT,Orbitrap Ascend,522,False,False,1,False,False

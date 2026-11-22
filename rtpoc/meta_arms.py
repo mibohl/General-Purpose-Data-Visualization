@@ -35,6 +35,8 @@ Anchored arms at k in {100, 250, 500, 1000}, same splits and seeds:
 - <arm>+iso: isotonic regression from the zero-shot prediction to the
   context RTs (clipped outside the context range).
 Output: results/finetune/parts/MB_<name>.csv and results/finetune/meta_zero_shot.csv
+A held-out setup without any recorded gradient length (PXD085246) is skipped
+and reported as untestable rather than run without metadata.
 Usage: python rtpoc/meta_arms.py
 """
 from __future__ import annotations
@@ -103,6 +105,9 @@ def training_projects():
 def heldout_meta():
     c = pd.read_csv(os.path.join(MD, "curated_lc_metadata.csv"))
     c = c[c.pxd.isin(HELDOUT)].drop_duplicates("pxd").set_index("pxd")
+    # gradient: the active gradient, else the run length (as the PRIDE parser often reads it)
+    c["gradient_min"] = pd.to_numeric(c["gradient_min"], errors="coerce").fillna(
+        pd.to_numeric(c["total_run_min"], errors="coerce"))
     # tags with the same regexes as for the training projects
     c["enrichment"] = [enrichment(str(e) + " " + str(n), [], []) for e, n in
                        zip(c["enrichment"].fillna(""), c.get("notes", pd.Series("", index=c.index)).fillna(""))]
@@ -166,6 +171,10 @@ def main():
         tr = df["tr"].values.astype(float)
         rng = tr.max() - tr.min()
         mx = mheld.loc[name]
+        if np.isnan(mx["log_grad"]):
+            print(f"{name}: no recorded gradient length, Competitor B untestable here", flush=True)
+            zrows.append(dict(dataset=name, group=grp, method="B_untestable", rel_mae=np.nan))
+            continue
         # zero-shot predictions on ALL peptides of the setup (labels unused)
         t0 = time.time()
         used = np.unique(np.concatenate([np.concatenate(R.split(len(df), s_)[:1] + (R.split(len(df), s_)[1][:max(KS)],))
