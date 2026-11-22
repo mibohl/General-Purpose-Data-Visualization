@@ -1,0 +1,9 @@
+pxd,chemistry,column_length_cm,inner_diameter_um,particle_um,gradient_min,start_pct_b,flow_nl_min,temperature_c,additive,end_pct_b,solvent_b,multi_gradient,lc_system,enrichment,instrument,protocol_chars,protocol_truncated,has_publication,n_fields,usable
+PXD050641,,,,,60.0,7.0,450.0,,FA,24.0,ACN,False,,acetyl-enriched,timsTOF Pro,4635,False,False,4,False
+PXD061731,,,,,,,,,,,,,,HLA/MHC peptides,Orbitrap Exploris 480,763,False,True,0,False
+PXD062983,RP,25.0,75.0,1.5,60.0,4.0,300.0,,FA,27.0,ACN,False,nanoElute,none detected,timsTOF Pro 2,1440,False,True,8,True
+PXD074962,RP,,1000.0,3.0,59.0,,100000.0,,high-pH buffer,,ACN,False,,phospho-enriched;TMT,Orbitrap Fusion Lumos,3494,False,False,6,True
+PXD076643,RP,,,,80.0,,300.0,40.0,,,,False,UltiMate 3000,none detected,Q Exactive,2998,False,True,4,False
+PXD079751,,,,,120.0,,,,,,ACN,True,Vanquish Neo,none detected,Orbitrap Eclipse,1585,False,False,1,False
+PXD084949,RP,10.0,,1.0,75.0,6.0,,,FA,25.0,,False,UltiMate 3000,HLA/MHC peptides,Orbitrap Exploris 480,3007,False,False,6,True
+PXD085246,,,,,,,,,,,,,EASY-nLC,none detected,Q Exactive HF-X,669,False,False,0,False
