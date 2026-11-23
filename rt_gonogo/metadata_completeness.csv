@@ -1,0 +1,60 @@
+report_id,name,mode,roles,t0_present,n_metadata_fields_populated,well_documented,f_column.name,f_column.length,f_column.id,f_column.particle.size,f_column.temperature,f_column.flowrate,f_column.t0,f_eluent.composition,f_eluent.pH,f_gradient
+0002,FEM_long,RP,heldout:PUB;2step-checkpoint-training,True,10,True,True,True,True,True,True,True,True,True,True,True
+0003,IPB_Halle,RP,heldout:PUB;2step-checkpoint-training,False,7,False,True,True,True,True,False,False,False,True,True,True
+0007,MTBLS87,HILIC,heldout:HILIC,True,8,False,True,True,True,True,False,True,True,True,False,True
+0010,FEM_lipids,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0015,MTBLS36,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0018,UniToyama_Atlantis,RP,heldout:PUB;2step-checkpoint-training,False,6,False,True,True,True,True,False,False,False,True,True,False
+0019,Eawag_XBridgeC18,RP,heldout:PUB;2step-checkpoint-training,True,10,True,True,True,True,True,True,True,True,True,True,True
+0020,Cao_HILIC,HILIC,heldout:HILIC,False,6,False,True,True,True,True,True,False,False,False,False,True
+0027,KI_GIAR_zic_HILIC_ph2_7,HILIC,heldout:HILIC,True,10,True,True,True,True,True,True,True,True,True,True,True
+0039,CS21,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0042,CS24,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0044,HILIC_BDD_2,HILIC,heldout:HILIC,False,6,False,True,False,False,False,True,True,False,True,True,True
+0047,Acquity HSST3-RP-60mn,RP,heldout:RP-2step;heldout:RP-proxy,False,4,False,True,False,False,False,False,True,False,True,False,True
+0054,LIFE_old,RP,heldout:PUB;2step-checkpoint-training,False,7,False,True,True,True,True,False,False,False,True,True,True
+0055,LIFE_new,RP,heldout:PUB;2step-checkpoint-training,False,7,False,True,True,True,True,False,False,False,True,True,True
+0056,CS4,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0057,CS5,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0111,HILIC9 pos,HILIC,heldout:HILIC,True,9,True,True,True,True,True,False,True,True,True,True,True
+0178,HILIC19 neg,HILIC,heldout:HILIC,True,9,True,True,True,True,True,False,True,True,True,True,True
+0183,aHILIC Geneva DB maXisQTOF pos,HILIC,heldout:HILIC,True,10,True,True,True,True,True,True,True,True,True,True,True
+0185,zHILIC Geneva DB VION QTOF neg,HILIC,heldout:HILIC,True,10,True,True,True,True,True,True,True,True,True,True,True
+0225,AjsTestF,HILIC,heldout:HILIC,False,6,False,True,True,True,True,False,False,False,True,False,True
+0228,AnnieTestFiehn,HILIC,heldout:HILIC,False,6,False,True,True,True,True,False,False,False,True,False,True
+0231,HPOS_ROI_V_3_1_1,HILIC,heldout:HILIC,True,10,True,True,True,True,True,True,True,True,True,True,True
+0246,MSMS_pos_40_ACN_XB-C18,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0248,MSMS_pos_50_ACN_XB-C18,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0261,Synergi_Neg,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0262,SPECIMEN_Pos,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0263,SPECIMEN_Neg,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0318,MSMS_pos_30_MeOH_Raptor Biphenyl,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0320,MSMS_pos_40_MeOH_Raptor Biphenyl,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0336,MSMS_pos_40_MeOH_CORTECS C18,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0338,MSMS_pos_50_MeOH_CORTECS C18,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0382,AA_LC1,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0383,AA_LC2,RP,heldout:RP-proxy,True,10,True,True,True,True,True,True,True,True,True,True,True
+0392,UIUC_Carver,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0394,ACQUITY_UPLC_HSSC18_QTOF_20min,RP,heldout:RP-2step;heldout:RP-proxy,False,4,False,True,False,False,False,False,True,False,True,False,True
+0400,ROASMI_79,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0401,ROASMI_80,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0404,ROASMI_49,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0405,ROASMI_51,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0409,ROASMI_46,RP,heldout:RP-2step;heldout:RP-proxy,True,8,False,True,True,True,True,False,True,True,True,False,True
+0410,ROASMI_30,RP,heldout:RP-2step,True,8,False,True,True,True,True,False,True,True,True,False,True
+0411,ROASMI_18,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0412,ROASMI_61,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0414,ROASMI_67,RP,heldout:RP-2step;heldout:RP-proxy,True,8,False,True,True,True,True,False,True,True,True,False,True
+0415,ROASMI_83,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0418,ROASMI_41,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0419,ROASMI_59,RP,heldout:RP-2step;heldout:RP-proxy,True,8,False,True,True,True,True,False,True,True,True,False,True
+0420,ROASMI_60,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0421,ROASMI_54,RP,heldout:RP-2step,True,9,True,True,True,True,True,True,True,True,True,False,True
+0427,ROASMI_50,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0428,ROASMI_62,RP,heldout:RP-2step;heldout:RP-proxy,False,8,False,True,True,True,True,True,True,False,True,False,True
+0432,ROASMI_65,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0433,ROASMI_66,RP,heldout:RP-2step;heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0434,ROASMI_71,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0435,ROASMI_77,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
+0437,ROASMI_86,RP,heldout:RP-proxy,False,6,False,True,True,True,True,False,False,False,True,False,True
+0438,Ion Pairing C18 HSS T3,RP,heldout:RP-proxy,True,9,True,True,True,True,True,True,True,True,True,False,True
