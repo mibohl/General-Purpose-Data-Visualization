@@ -110,3 +110,28 @@ retention time prediction or error was computed.
   on query-query pairs: fraction of flipped pairs each arm orders correctly,
   and fraction of non-flipped pairs it breaks.
 - Spearman(ROI, RT) reported once, one line.
+
+## Amendment 1 (before any error was computed)
+
+Discovered while generating ROIs: the released checkpoint needs 13 system
+features (6 HSM, 6 Tanaka, pH). If any is missing it returns NaN; the code's
+column fallback (dataset 0045) does not cover HSM/Tanaka. None of the 73
+eligible unseen RP datasets has recorded pH and HSM/Tanaka together. The
+dominant gap is pH, which a practitioner always knows for their own system but
+RepoRT often leaves blank.
+
+- pH imputation, used only as the 2-step input: median recorded pH among RepoRT
+  RP datasets with the same additive pattern (presence of formic, acetic,
+  NH4Ac, NH4formate, TFA, NH4HCO3, NH4OH in eluent A or B). Patterns with no
+  recorded example are not imputed. Imputed pH is flagged per dataset.
+- Held-out groups now:
+  - **RP-2step (headline)**: unseen by the checkpoint, RP, gradient known,
+    HSM+Tanaka available, pH recorded or imputable, >= 80 cleaned compounds,
+    cap 2 per column name raised until >= 25. If still < 25 with no cap, the
+    size floor drops to >= 50 compounds and k = 50 is run only where
+    n >= 80.
+  - **RP-proxy (robustness)**: the original 33-dataset selection above, with the
+    proxy ROI (most lack HSM/Tanaka, so the checkpoint cannot run there).
+  - PUB and HILIC as before.
+- All RP held-out datasets (RP-2step, RP-proxy, PUB) are excluded from the
+  proxy and Z1 training pools.
