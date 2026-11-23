@@ -1,0 +1,15 @@
+step,rows_before,rows_removed,rows_after
+drop PXD019086 (no 1/K0 column; single-study reference),14055301.0,1358269.0,12697032
+drop 36 raw files of PXD043511 also deposited in PXD035987,12697032.0,415806.0,12281226
+MS/MS-identified only (drop match-between-runs),12281226.0,3318687.0,8962539
+drop reverse hits,8962539.0,10084.0,8952455
+drop contaminants,8952455.0,494333.0,8458122
+PEP <= 0.01,8458122.0,1707839.0,6750283
+1/K0 present and > 0,6750283.0,0.0,6750283
+charge 1..6,6750283.0,0.0,6750283
+only unmodified / Oxidation(M) / Acetyl(Protein N-term),6750283.0,141039.0,6609244
+modified sequence consistent with Sequence,6609244.0,0.0,6609244
+ox only after M,6609244.0,0.0,6609244
+ac only at N-terminus,6609244.0,0.0,6609244
+drop cysteine-containing peptides (fixed alkylation not verifiable),6609244.0,1242082.0,5367162
+collapse to one row per precursor x run (most intense),,,5015922

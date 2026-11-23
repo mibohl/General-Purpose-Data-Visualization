@@ -8,6 +8,10 @@ import matplotlib.pyplot as plt
 O, D = sys.argv[1], sys.argv[2]
 s3 = pd.read_csv(f'{O}/step3_per_study.csv'); p3 = pd.read_csv(f'{O}/step3_pooled.csv')
 s4 = pd.read_csv(f'{O}/step4_runs.csv')
+gc = pd.read_csv(f'{O}/step4_global_control.csv')
+gc = gc[gc.arm != 'C2_check']
+_q = s4[s4.arm == 'C2'][['study', 'k', 'seed', 'n_query', 'n_study']]
+s4 = pd.concat([s4, gc.merge(_q, on=['study', 'k', 'seed'])], ignore_index=True)
 Fv = pd.read_csv(f'{O}/F_variants.csv'); Fs = pd.read_csv(f'{O}/F_per_study.csv')
 F = Fv.loc[0, 'F_k0']; Fccs = Fv.loc[0, 'F_ccs']
 Fst = Fs[Fs.space == '1/K0'].set_index('study')['F']
@@ -49,7 +53,7 @@ piv.insert(1, 'F_study', Fst.reindex(piv.index))
 piv.to_csv(f'{D}/step3_per_study_table.csv')
 
 # ---------- Step 4 tables ----------
-arms = ['Z1', 'C1', 'C2', 'C3', 'R1_ridge', 'R1_lgbm', 'T1', 'O1', 'O1_affine_all']
+arms = ['Z1', 'C1', 'C2', 'C3', 'R1_ridge', 'R1_lgbm', 'T1', 'O1', 'O1_affine_all', 'G1_global_resid', 'G1b_global_then_affine']
 st = s4.groupby(['study', 'k', 'arm']).mae_median.median().unstack()[arms]
 st['F_study'] = Fst.reindex(st.index.get_level_values(0)).values
 st.to_csv(f'{D}/step4_per_study_k.csv')
@@ -65,7 +69,7 @@ print('fixed study set for plot/pooled table:', len(full), list(full))
 # head-to-head vs C2 on identical (study,k,seed) draws
 w = s4.pivot_table(index=['study', 'k', 'seed'], columns='arm', values='mae_median')
 h2h = []
-for arm in ['C1', 'C3', 'R1_ridge', 'R1_lgbm', 'T1', 'O1']:
+for arm in ['C1', 'C3', 'R1_ridge', 'R1_lgbm', 'T1', 'O1', 'G1_global_resid', 'G1b_global_then_affine']:
     rel = (w['C2'] - w[arm]) / w['C2']
     for k, r in rel.groupby(level='k'):
         h2h.append(dict(arm=arm, k=k, n=len(r), median_rel_improvement_over_C2=r.median(),
@@ -77,7 +81,7 @@ pal = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d
 mk = ['o', 's', 'D', '^', 'v', 'P', 'X', '*']
 plot_arms = ['Z1', 'C1', 'C2', 'C3', 'R1_ridge', 'R1_lgbm', 'T1', 'O1']
 labels = {'Z1': 'Z1 IM2Deep as shipped', 'C1': 'C1 shift', 'C2': 'C2 affine', 'C3': 'C3 isotonic',
-          'R1_ridge': 'R1 ridge residual', 'R1_lgbm': 'R1 LightGBM residual', 'T1': 'T1 TabPFN v2 residual', 'O1': 'O1 oracle (ceiling)'}
+          'R1_ridge': 'R1 ridge residual', 'R1_lgbm': 'R1 LightGBM residual', 'T1': 'T1 TabPFN v2 residual', 'O1': 'O1 within-study oracle (cross-fitted)'}
 plt.rcParams.update({'font.size': 10, 'axes.edgecolor': '#52514e', 'axes.labelcolor': '#0b0b0b', 'xtick.color': '#52514e', 'ytick.color': '#52514e'})
 fig, axes = plt.subplots(1, 2, figsize=(12, 4.8), dpi=150, facecolor='#fcfcfb', gridspec_kw={'width_ratios': [1, 1.25]})
 for ax in axes:
@@ -87,7 +91,10 @@ ks = sorted(by_study.index)
 for i, arm in enumerate(plot_arms):
     for ax in axes:
         ax.plot(ks, by_study[arm].values, color=pal[i], lw=2, marker=mk[i], ms=7, mec='#fcfcfb', mew=1.2, label=labels[arm])
-for ax, (lo, hi) in zip(axes, [(0, 0.028), (0.0095, 0.0135)]):
+for ax in axes:
+    ax.plot(ks, by_study['G1b_global_then_affine'].values, color='#8a8984', lw=1.5, ls=(0, (4, 2)), marker='o', ms=4,
+            label='control: global retrain + affine (not in-context)')
+for ax, (lo, hi) in zip(axes, [(0, 0.028), (0.0095, 0.014)]):
     ax.axhspan(0.007, 0.010, color='#d6d5d0', alpha=0.5, lw=0)
     ax.axhline(F, color='#52514e', lw=1, ls='--'); ax.axhline(2 * F, color='#52514e', lw=1, ls=':')
     ax.set_xscale('log'); ax.minorticks_off(); ax.set_xticks(ks); ax.set_xticklabels([str(k) for k in ks]); ax.set_ylim(lo, hi)

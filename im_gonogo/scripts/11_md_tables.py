@@ -19,6 +19,9 @@ def md(df, fmt=None):
 out = {}
 P = pd.read_csv(f'{O}/provenance.csv')
 P['lab'] = P['lab'].str.replace('Professor ', '')
+P['affiliation'] = P['affiliation'].fillna('').str.lstrip('0123456789')
+_runs = pd.read_csv(f'{O}/F_per_study.csv').drop_duplicates('study').set_index('study').n_runs
+P['n_runs'] = P.study.map(_runs).astype(int)   # runs actually used after filtering and de-duplication
 P['lab (PI, affiliation)'] = P['lab'] + (', ' + P['affiliation'].fillna('')).where(P['affiliation'].fillna('') != '', '')
 P['TIMS 1/K0 range'] = P.k0_lo.round(2).astype(str) + '-' + P.k0_hi.round(2).astype(str)
 out['provenance'] = md(P[['study', 'instrument', 'mode', 'search_engine', 'lab (PI, affiliation)', 'organism', 'n_runs', 'n_precursors', 'n_shared', 'TIMS 1/K0 range']])
@@ -48,5 +51,5 @@ out['F'] = md(Fs.rename(columns={'n_dev': 'n run-level deviations', 'F_iqr_lo': 
 Fv = pd.read_csv(f'{O}/F_variants.csv'); Fv['n'] = Fv.n.astype(int)
 out['Fv'] = md(Fv, {'F_ccs': '{:.3f}', 'n': '{:.0f}'})
 for k, v in out.items():
-    open(f'{D}/_tbl_{k}.md', 'w').write(v + '\n')
+    open(f'{D}/report_src/_tbl_{k}.md', 'w').write(v + '\n')
 print('ok', list(out))

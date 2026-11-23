@@ -3,9 +3,10 @@ import sys
 import numpy as np, pandas as pd
 O, D = sys.argv[1], sys.argv[2]
 sys.path.insert(0, __file__.rsplit('/', 1)[0])
-head = open(f'{D}/report_head.md').read(); body = open(f'{D}/report_body.md').read()
-step4 = open(f'{D}/report_step4.md').read()
-t = lambda k: open(f'{D}/_tbl_{k}.md').read()
+head = open(f'{D}/report_src/report_head.md').read(); body = open(f'{D}/report_src/report_body.md').read()
+step4 = open(f'{D}/report_src/report_step4.md').read()
+step4 = step4.replace('{{T4_POOLED}}', open(f'{D}/report_src/_tbl_step4_pooled.md').read()).replace('{{T4_H2H}}', open(f'{D}/report_src/_tbl_step4_h2h.md').read())
+t = lambda k: open(f'{D}/report_src/_tbl_{k}.md').read()
 dec = pd.read_csv(f'{D}/decision_numbers.csv')
 rows = []
 for setting, g in dec.groupby('setting', sort=False):
@@ -29,10 +30,12 @@ for (sp, sub), g in p3.groupby(['space', 'subset']):
 rep = {'{{DECISION_TABLE}}': dec_md, '{{PROVENANCE}}': t('provenance'), '{{F_TABLE}}': t('F'), '{{FV_TABLE}}': t('Fv'),
        '{{STEP3_POOLED}}': '\n'.join(lines), '{{STEP3_TABLE}}': t('step3'), '{{STEP5_TABLE}}': t('step5'), '{{META_TABLE}}': t('meta'),
        '{{STEP4}}': step4}
-out = head + body
+out = head + body + ('\n\n## Appendix: Step 4 per held-out study and k\n\nMedian over 5 seeds of the per-draw median absolute error, '
+       'in 1/K0 (Vs/cm²). C2/F and T1/F use the pooled F = 0.0034. T1 vs C2 = relative improvement. '
+       'k = 1000 is run only for studies with ≥ 1,200 precursors.\n\n' + open(f'{D}/report_src/_tbl_step4_per.md').read() + '\n')
 for k, v in rep.items():
     assert k in out, k; out = out.replace(k, v)
-hl = open(f'{D}/report_step4_headline.md').read().strip()
+hl = open(f'{D}/report_src/report_step4_headline.md').read().strip()
 out = out.replace('{{STEP4_HEADLINE}}', hl)
 assert '{{' not in out
 open(f'{D}/report.md', 'w').write(out)
